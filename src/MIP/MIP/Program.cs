@@ -268,6 +268,8 @@ namespace MIP
                     int number = Convert.ToInt32(cartfunction[1]);
                     int product = Convert.ToInt32(cartfunction[2]);
                     myCart.RemoveFromCart(number,product);
+                    Console.ReadLine();
+                    MainMenu();
                 }
                 catch 
                 {
@@ -277,14 +279,19 @@ namespace MIP
             else if (cartfunction[0] == "CheckOut")
             {
                     myCart.CheckOut();
+                    Console.ReadLine();
+                    MainMenu();
             }
             else if (cartfunction[0] == "Clear")
             {
                     myCart.Clear();
+                    MainMenu();
             }
             else if (cartfunction[0] == "Print")
-            {
+            {   //The Print do not work with 0 cartfunction[1] arguments
                 myCart.PrintCart();
+                Console.ReadLine();
+                MainMenu();
             }
         }
 
