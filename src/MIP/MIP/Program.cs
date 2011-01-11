@@ -40,6 +40,7 @@ namespace MIP
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
             list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
+            list.Add(new KeyValuePair<Action, string>(AddProduct, "Add product"));
             NoBackNext = MainMenu;
 
             Menu.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
@@ -323,6 +324,241 @@ namespace MIP
         static void Kill()
         {
             Environment.Exit(0);
+        }
+
+        #region Add Product
+
+        static void AddProduct()
+        {
+            Console.Clear();
+            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+            list.Add(new KeyValuePair<Action, string>(AddInternalHarddrive, "Add internal harddrive"));
+            list.Add(new KeyValuePair<Action, string>(AddExternalHarddrive, "Add internal harddrive"));
+            list.Add(new KeyValuePair<Action, string>(AddFlashStorage, "Add flash storage device"));
+
+            Menu.GetMenu.MakeMenu(list, MainMenu, new KeyValuePair<Action, string>(AddProduct, "Add Product"));
+            MainMenu();
+        }
+
+        static void AddInternalHarddrive()
+        {
+            string name = GetString("Enter name:", x => x.Length >= 5);
+            double price = GetDouble("Enter price:");
+            int productCode = GetInt("Enter product code:",x =>
+                Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
+            string manu = GetString("Enter product manufacturer:", x =>
+                Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
+            int store = GetInt("Enter storage capacity:", x => x > 0);
+            int rpm = GetInt("Enter rpm:", x => Enum.IsDefined(typeof(ERPM), x));
+            double form = GetDouble("Enter form factor:", x => Enum.IsDefined(typeof(EFormFactor), x));
+
+            InternalHarddrive temp = new InternalHarddrive(
+                name,
+                price,
+                productCode,
+                Parser.ManufacturerList.FirstOrDefault(x => x.Name == manu),
+                store,
+                rpm,
+                form);
+
+            Parser.ProductList.Add(temp);
+        }
+
+        static void AddExternalHarddrive()
+        {
+            string name = GetString("Enter name:", x => x.Length >= 5);
+            double price = GetDouble("Enter price:");
+            int productCode = GetInt("Enter product code:", x =>
+                Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
+            string manu = GetString("Enter product manufacturer:", x =>
+                Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
+            int store = GetInt("Enter storage capacity:", x => x > 0);
+            int rpm = GetInt("Enter rpm:", x => Enum.IsDefined(typeof(ERPM), x));
+            double height = GetDouble("Enter height:");
+            double width = GetDouble("Enter width:");
+            double depth = GetDouble("Enter depth:");
+
+            ExternalHarddrive temp = new ExternalHarddrive(
+                name,
+                price,
+                productCode,
+                Parser.ManufacturerList.FirstOrDefault(x => x.Name == manu),
+                store,
+                rpm,
+                height,
+                width,
+                depth);
+
+            Parser.ProductList.Add(temp);
+        }
+
+        static void AddFlashStorage()
+        {
+            string name = GetString("Enter name:", x => x.Length >= 5);
+            double price = GetDouble("Enter price:");
+            int productCode = GetInt("Enter product code:", x =>
+                Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
+            string manu = GetString("Enter product manufacturer:", x =>
+                Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
+            int store = GetInt("Enter storage capacity:", x => x > 0);
+            int rpm = GetInt("Enter rpm:", x => Enum.IsDefined(typeof(ERPM), x));
+            bool secure = GetBool("Enter secure usb:");
+
+            FlashStorage temp = new FlashStorage(
+                name,
+                price,
+                productCode,
+                Parser.ManufacturerList.FirstOrDefault(x => x.Name == manu),
+                store,
+                secure);
+
+            Parser.ProductList.Add(temp);
+        }
+
+        #endregion
+
+        static string GetString(string text)
+        {
+            return GetString(text, new Predicate<string>(x => true));
+        }
+
+
+        static string GetString(string text, Predicate<string> predicate)
+        {
+            string input;
+            Console.WriteLine(text);
+            int enterRow = Console.CursorTop;
+            Console.ForegroundColor = ConsoleColor.Green;
+            input = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            while (!predicate(input))
+            {
+                Console.SetCursorPosition(0, enterRow);
+                for (int i = 0; i < input.Length; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(0, enterRow - 1);
+                for (int i = 0; i < 80; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(0, enterRow - 1);
+                Console.WriteLine("Incorrect input \"{0}\". {1}", input.Truncate(10),text);
+                Console.ForegroundColor = ConsoleColor.Green;
+                input = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            return input;
+        }
+
+        static int GetInt(string text)
+        {
+            return GetInt(text, new Predicate<int>(x => true));
+        }
+
+        static int GetInt(string text, Predicate<int> predicate)
+        {
+            string input;
+            int result;
+            Console.WriteLine(text);
+            int enterRow = Console.CursorTop;
+            Console.ForegroundColor = ConsoleColor.Green;
+            input = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            while (!int.TryParse(input, out result) && !predicate(result))
+            {
+                Console.SetCursorPosition(0, enterRow);
+                for (int i = 0; i < input.Length; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(0, enterRow - 1);
+                for (int i = 0; i < 80; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(0, enterRow - 1);
+                Console.WriteLine("Incorrect input \"{0}\". {1}", input.Truncate(10), text);
+                Console.ForegroundColor = ConsoleColor.Green;
+                input = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            return result;
+        }
+
+        static double GetDouble(string text)
+        {
+            return GetDouble(text, new Predicate<double>( x => true));
+        }
+
+        static double GetDouble(string text, Predicate<double> predicate)
+        {
+            string input;
+            double result;
+            Console.WriteLine(text);
+            int enterRow = Console.CursorTop;
+            Console.ForegroundColor = ConsoleColor.Green;
+            input = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            while (!double.TryParse(input, out result) && !predicate(result))
+            {
+                Console.SetCursorPosition(0, enterRow);
+                for (int i = 0; i < input.Length; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(0, enterRow - 1);
+                for (int i = 0; i < 80; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(0, enterRow - 1);
+                Console.WriteLine("Incorrect input \"{0}\". {1}", input.Truncate(10), text);
+                Console.ForegroundColor = ConsoleColor.Green;
+                input = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            return result;
+        }
+
+        static bool GetBool(string text)
+        {
+            return GetBool(text, new Predicate<bool>(x => true));
+        }
+
+        static bool GetBool(string text, Predicate<bool> predicate)
+        {
+            string input;
+            bool result;
+            Console.WriteLine(text);
+            int enterRow = Console.CursorTop;
+            Console.ForegroundColor = ConsoleColor.Green;
+            input = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            while (!bool.TryParse(input, out result) && !predicate(result))
+            {
+                Console.SetCursorPosition(0, enterRow);
+                for (int i = 0; i < input.Length; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(0, enterRow - 1);
+                for (int i = 0; i < 80; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(0, enterRow - 1);
+                Console.WriteLine("Incorrect input \"{0}\". {1}", input.Truncate(10), text);
+                Console.ForegroundColor = ConsoleColor.Green;
+                input = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            return result;
         }
     }
 }
