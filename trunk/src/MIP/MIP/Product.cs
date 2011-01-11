@@ -13,7 +13,12 @@ namespace MIP
         //List which contains all used productcodes, is used to check to if the code is unique
         private static List<int> codeList = new List<int>(); 
         
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="price"></param>
+        /// <param name="productcode"></param>
         public Product(string name, double price, int productcode)
         {
             Name = name;
@@ -22,6 +27,9 @@ namespace MIP
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name
         {
             get
@@ -41,7 +49,9 @@ namespace MIP
             }
         }
         
-
+        /// <summary>
+        /// 
+        /// </summary>
         public double Price
         {
             get
@@ -61,6 +71,9 @@ namespace MIP
         }
 
         // the ProcutCode is an int 
+        /// <summary>
+        /// 
+        /// </summary>
         internal int ProductCode
         {
             get
