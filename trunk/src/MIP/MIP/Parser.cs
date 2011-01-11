@@ -13,32 +13,40 @@ namespace MIP
         /// <summary>
         /// 
         /// </summary>
-        static List<Product> ProductList = new List<Product>();
+        static List<Product> _productList = new List<Product>();
 
         /// <summary>
         /// Returns the list
         /// </summary>
-        public static List<Product> GetList
+        public static List<Product> ProductList
         {
             get
             {
-                return ProductList;
-            } 
+                return _productList;
+            }
+            private set
+            {
+                _productList = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        static List<Manufacturer> ManufacturerList = new List<Manufacturer>();
+        static List<Manufacturer> _manufacturerList = new List<Manufacturer>();
 
         /// <summary>
         /// Returns the list
         /// </summary>
-        static List<Manufacturer> GetManufacturer
+        public static List<Manufacturer> ManufacturerList
         {
             get
             {
-                return ManufacturerList;
+                return _manufacturerList;
+            }
+            private set
+            {
+                _manufacturerList = value;
             }
         }
 
@@ -62,7 +70,7 @@ namespace MIP
                         temp[i] = _line.Substring(_line.IndexOf('\x0009', startIndex) + 1,
                             ((_line.IndexOf('\x0009', startIndex + 1) - (_line.IndexOf('\x0009', startIndex)) - 1)));
                         startIndex = _line.IndexOf('\x0009', startIndex + 1); // set startIndex to the next tab
-                        i++;
+                        
                         
                     }
                     catch (ArgumentException)
@@ -72,6 +80,7 @@ namespace MIP
                     //from the current tab to the end of the line and saves in temp.
                     temp[i] = _line.Substring(_line.IndexOf('\x0009', startIndex) + 1);
                     }
+                    i++;
             }
 
             try
@@ -110,7 +119,7 @@ namespace MIP
                     temp[i] = _line.Substring(_line.IndexOf('\x0009', startIndex) + 1,
                         ((_line.IndexOf('\x0009', startIndex + 1) - (_line.IndexOf('\x0009', startIndex)) - 1)));
                     startIndex = _line.IndexOf('\x0009', startIndex + 1); // set startIndex to the next tab
-                    i++;
+                    
 
                 }
                 catch (ArgumentException)
@@ -120,6 +129,7 @@ namespace MIP
                     //from the current tab to the end of the line and saves in temp.
                     temp[i] = _line.Substring(_line.IndexOf('\x0009', startIndex) + 1);
                 }
+                i++;
             }
 
             try
@@ -159,7 +169,7 @@ namespace MIP
                     temp[i] = _line.Substring(_line.IndexOf('\x0009', startIndex) + 1,
                         ((_line.IndexOf('\x0009', startIndex + 1) - (_line.IndexOf('\x0009', startIndex)) - 1)));
                     startIndex = _line.IndexOf('\x0009', startIndex + 1); // set startIndex to the next tab
-                    i++;
+                    
 
                 }
                 catch (ArgumentException)
@@ -169,6 +179,7 @@ namespace MIP
                     //from the current tab to the end of the line and saves in temp.
                     temp[i] = _line.Substring(_line.IndexOf('\x0009', startIndex) + 1);
                 }
+                i++;
             }
 
             try
@@ -201,7 +212,7 @@ namespace MIP
             string[] temp = new string[2];
             int startIndex = _line.IndexOf('\x0009', 0); //startIndex is set to the first occurrence of tab
 
-            while (i < 1) // internal harddisk takes 7 input, the counter startes from 0 thus 6
+            while (i < 2) // internal harddisk takes 7 input, the counter startes from 0 thus 6
             {
                 try
                 {
@@ -210,7 +221,7 @@ namespace MIP
                     temp[i] = _line.Substring(_line.IndexOf('\x0009', startIndex) + 1,
                         ((_line.IndexOf('\x0009', startIndex + 1) - (_line.IndexOf('\x0009', startIndex)) - 1)));
                     startIndex = _line.IndexOf('\x0009', startIndex + 1); // set startIndex to the next tab
-                    i++;
+                    
 
                 }
                 catch (ArgumentException)
@@ -220,6 +231,7 @@ namespace MIP
                     //from the current tab to the end of the line and saves in temp.
                     temp[i] = _line.Substring(_line.IndexOf('\x0009', startIndex) + 1);
                 }
+                i++;
             }
 
             try
@@ -242,7 +254,7 @@ namespace MIP
             try
             {
 
-                using (StreamReader reader = new StreamReader("TestFile.txt"))
+                using (StreamReader reader = new StreamReader("Init.txt"))
                 {
                     string _line;
                     while ((_line = reader.ReadLine()) != null)

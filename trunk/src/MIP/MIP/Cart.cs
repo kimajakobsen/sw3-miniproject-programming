@@ -116,13 +116,13 @@ namespace MIP
             decimal totalprice = 0;
             for (int i = 0; i < cartList.Count; i++)
             {
-                for (int j = 0; j < Parser.GetList.Count; j++)
+                for (int j = 0; j < Parser.ProductList.Count; j++)
                 {
-                    if (cartList[i].Productcode == Parser.GetList[j].ProductCode)
+                    if (cartList[i].Productcode == Parser.ProductList[j].ProductCode)
                     {
                         try
                         {
-                            StorageUnit productUnit = Parser.GetList[j] as StorageUnit;
+                            StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
 
                             if (productUnit.Storage < 1024)
                             {
@@ -138,10 +138,10 @@ namespace MIP
                         catch { }
 
                         String numberofproduct = cartList[i].Number.ToString()+". ";
-                        Double tempprice = Parser.GetList[j].Price * cartList[i].Number;
+                        Double tempprice = Parser.ProductList[j].Price * cartList[i].Number;
                         decimal price = Convert.ToDecimal(tempprice);
-                        String manufactor = Parser.GetList[j].Manufacturer.Name + " ";
-                        String name = Parser.GetList[j].Name + " ";
+                        String manufactor = Parser.ProductList[j].Manufacturer.Name + " ";
+                        String name = Parser.ProductList[j].Name + " ";
                         String print = numberofproduct + manufactor + name + _capacity;
                         totalprice += price;
 

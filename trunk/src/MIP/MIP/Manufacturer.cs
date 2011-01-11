@@ -57,7 +57,7 @@ namespace MIP
             {
                 //The url must start with http://
                 if (value != null && value.Length >= 7 &&
-                    value.Substring(0,6).Equals("http://"))
+                    value.StartsWith("http://"))
                 {
                     //The url is valid and is inserted into
                     //the private variable

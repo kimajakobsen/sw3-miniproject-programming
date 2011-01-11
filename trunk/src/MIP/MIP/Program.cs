@@ -17,6 +17,7 @@ namespace MIP
             Menu.GetMenu.Main = MainMenu;
 
             Parser.Parse();
+            Console.ReadLine();
             /*
             Manufacturer manu = new Manufacturer("Manufacturerer", "http://google.com");
             Parser.GetList.Add(new InternalHarddrive("Wizzle", 123, 235245, manu, 1024, 15000, 2.5));
@@ -24,7 +25,7 @@ namespace MIP
             Parser.GetList.Add(new InternalHarddrive("Turtle", 2000, 2, manu, 256, 15000, 5.25));*/
 
             MainMenu();
-            Console.ReadLine();
+            
 
         }
 
