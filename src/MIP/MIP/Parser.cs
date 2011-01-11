@@ -29,27 +29,35 @@ namespace MIP
 
                     while ((_line = reader.ReadLine()) != null)
                     {
-                        if ( _line.Contains("[internalHardrives]"))
+                        if ( _line.Contains("[InternalHarddrives]"))
                         {
                             int i = 0;
-                            string[] temp = new string[6];
-                            while (i <= 6)
+                            string[] temp = new string[7];
+                            int startIndex = _line.IndexOf('\x0009', 0);
+                            
+                            while (i < 7)
                             {
-                                  
-                                temp[i]=_line.Substring(_line.IndexOf('\x0009',i+1),
-                                    ((_line.IndexOf('\x0009',i+2)-(_line.IndexOf('\x0009',i+1)))));
+
+                                temp[i]=_line.Substring(_line.IndexOf('\x0009',startIndex),
+                                    ((_line.IndexOf('\x0009',startIndex+1)-(_line.IndexOf('\x0009',startIndex)))));
+                                startIndex = _line.IndexOf('\x0009', startIndex+1);
+                                
+                                Console.WriteLine(temp[i]);
+                                i++;
                             }
 
                             try
                             {
-                                InternalHarddrive product = new InternalHarddrive { 
-                                    Name = temp[0],
-                                    Price = temp[1].Cast<double>().FirstOrDefault(), 
-                                    ProductCode = temp[2].Cast<int>().FirstOrDefault(),
-                                    Storage = temp[3].Cast<int>().FirstOrDefault(),
-                                    Rpm = temp[4].Cast<int>().FirstOrDefault(),
-                                    FormFactor = temp[5].Cast<int>().FirstOrDefault()};
-                            }
+                                InternalHarddrive product = new InternalHarddrive ( 
+                                    temp[0],                                    //name
+                                    temp[1].Cast<double>().FirstOrDefault(),    //price
+                                    temp[2].Cast<int>().FirstOrDefault(),       //productcode
+                                    temp[3],                                    //manufacture
+                                    temp[4].Cast<int>().FirstOrDefault(),       //capacity
+                                    temp[5].Cast<int>().FirstOrDefault(),       //RPM
+                                    temp[6].Cast<double>().FirstOrDefault());   //formfactor
+                                ProductList.Add(product);
+                        }
                             catch (Exception e)
                             {
                                 Console.WriteLine("Error in the init file");
@@ -59,16 +67,7 @@ namespace MIP
                             
                         }
 
-
                         
-                            reader.ReadLine()
-                            
-    
-
-
-                        
-                        
-                        Console.WriteLine(line);
                     }
                 }
             }
