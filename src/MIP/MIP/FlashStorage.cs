@@ -12,9 +12,9 @@ namespace MIP
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name">The name of the given Flash</param>
-        /// <param name="price">Price</param>
-        /// <param name="productCode"></param>
+        /// <param name="name">The name of the given flash</param>
+        /// <param name="price">Price of the flash</param>
+        /// <param name="productCode">The product code of the flash</param>
         /// <param name="capacity"></param>
         /// <param name="secure"></param>
         public FlashStorage(string name, double price, int productCode, int capacity, bool secure)
