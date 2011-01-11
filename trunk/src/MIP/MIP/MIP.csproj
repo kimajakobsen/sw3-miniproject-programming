@@ -52,6 +52,7 @@
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RPM.cs" />
     <Compile Include="Search.cs" />
     <Compile Include="StorageUnit.cs" />
   </ItemGroup>
