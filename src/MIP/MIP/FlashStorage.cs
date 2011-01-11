@@ -9,6 +9,14 @@ namespace MIP
     {
         private bool _secureUSB;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">The name of the given Flash</param>
+        /// <param name="price">Price</param>
+        /// <param name="productCode"></param>
+        /// <param name="capacity"></param>
+        /// <param name="secure"></param>
         public FlashStorage(string name, double price, int productCode, int capacity, bool secure)
             : base(name, price, productCode, capacity)
         {
