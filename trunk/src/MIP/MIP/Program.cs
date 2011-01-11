@@ -21,11 +21,20 @@ namespace MIP
             set;
         }
 
+        static public Action NoBackNext
+        {
+            get;
+            set;
+        }
+
         static void MainMenu()
         {
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
             list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
+            NoBackNext = MainMenu;
+
+            Menu.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
         }
 
         static void InitializeSearch()
@@ -36,6 +45,14 @@ namespace MIP
         static void Cart()
         { 
         
+        }
+
+        static public void NoBack()
+        {
+            Console.Clear();
+            Console.WriteLine("Cannot go back! Press any key to continue.");
+            Console.ReadKey(true);
+            NoBackNext();
         }
 
         static void Quit()
