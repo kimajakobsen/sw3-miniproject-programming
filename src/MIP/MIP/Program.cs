@@ -77,7 +77,7 @@ namespace MIP
                 list.Add(new KeyValuePair<Action, string>(SearchStorage, "Search by storage capacity"));
                 identifier.Add(c + "");
                 c++;
-                list.Add(new KeyValuePair<Action, string>(SearchText, "Search for text"));
+                list.Add(new KeyValuePair<Action, string>(SearchText, "Search for product/manufacture name"));
                 identifier.Add(c + "");
                 c++;
             }
