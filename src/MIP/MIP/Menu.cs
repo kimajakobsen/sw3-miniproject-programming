@@ -37,9 +37,9 @@ namespace MIP
             _backText = "Back";
             _mainText = "Go to Main";
 
-            _quitCommand = "Q";
-            _backCommand = "B";
-            _mainCommand = "M";
+            _quitCommand = "q";
+            _backCommand = "b";
+            _mainCommand = "m";
             _identifier = new List<string>();
             for (char c = 'A'; c <= 'Z'; c++)
             {
@@ -117,22 +117,49 @@ namespace MIP
         /// </summary>
         /// <param name="funcText"></param>
         /// <param name="back"></param>
-        public void MakeMenu(List<KeyValuePair<Action,string>> funcText, Action back)
+        public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller)
+        {
+            MakeMenu(funcText, back, caller, _identifier);
+
+            return;
+        }
+
+        public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back,
+            KeyValuePair<Action, string> caller, List<string> identifier)
+        {
+            _back = back;
+            if (funcText.Count > identifier.Count)
+            {
+                throw new ArgumentException("Too many inputs");
+            }
+
+            identifier.Add(_backCommand);
+            funcText.Add(new KeyValuePair<Action, string>(_back, _backText));
+            identifier.Add(_mainCommand);
+            funcText.Add(new KeyValuePair<Action, string>(_main, _mainText));
+            identifier.Add(_quitCommand);
+            funcText.Add(new KeyValuePair<Action, string>(_quit, _quitText));
+
+            MakeCleanMenu(funcText, caller, identifier);
+        }
+
+        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller)
+        {
+            MakeCleanMenu(funcText, caller, _identifier);
+
+            return;
+        }
+
+        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText,
+            KeyValuePair<Action, string> caller, List<string> identifier)
         {
             string input;
-            _back = back;
-            if (funcText.Count > _identifier.Count)
+            if (funcText.Count > identifier.Count)
             {
                 throw new ArgumentException("Too many inputs");
             }
 
             int maxLenght = 0;
-            _identifier[funcText.Count] = _backCommand;
-            funcText.Add(new KeyValuePair<Action,string>(_back,_backText));
-            _identifier[funcText.Count] = _mainCommand;
-            funcText.Add(new KeyValuePair<Action, string>(_main, _mainText));
-            _identifier[funcText.Count] = _quitCommand;
-            funcText.Add(new KeyValuePair<Action, string>(_quit, _quitText));
 
             foreach (var item in funcText)
             {
@@ -148,8 +175,10 @@ namespace MIP
 
             for (int i = 0; i < funcText.Count; i++)
             {
-                Console.Write(_identifier[i]);
-                for (int j = _identifier[i].Length; j < _commandLength; j++)
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(identifier[i]);
+                Console.ForegroundColor = ConsoleColor.White;
+                for (int j = identifier[i].Length; j < _commandLength; j++)
                 {
                     Console.Write(" ");
                 }
@@ -161,11 +190,16 @@ namespace MIP
             Console.WriteLine("Enter your choice:");
             int enterRow = Console.CursorTop;
             input = Console.ReadLine();
-            while(true)
+            while (true)
             {
+                if (input == _quitCommand)
+                {
+                    Program.QuitBack = caller;
+                }
+
                 for (int i = 0; i < funcText.Count; i++)
                 {
-                    if (input == _identifier[i])
+                    if (input == identifier[i])
                     {
                         funcText[i].Key();
                         return;
@@ -183,7 +217,7 @@ namespace MIP
                     Console.Write(" ");
                 }
                 Console.SetCursorPosition(0, enterRow - 1);
-                Console.WriteLine("Incorrect identifier \"{0}\". Please try again:",input.Truncate(10));
+                Console.WriteLine("Incorrect identifier \"{0}\". Please try again:", input.Truncate(10));
                 input = Console.ReadLine();
             }
         }

@@ -18,8 +18,8 @@ namespace MIP
         /// <param name="price"></param>
         /// <param name="productcode"></param>
         /// <param name="storage"></param>
-        public StorageUnit(string name, double price, int productcode, int storage)
-            :base(name, price, productcode)
+        public StorageUnit(string name, double price, int productcode, Manufacturer manufacturer, int storage)
+            :base(name, price, productcode, manufacturer)
         {
             this._storage = storage;
         }

@@ -17,8 +17,8 @@ namespace MIP
         /// <param name="productCode">The product code of the flash</param>
         /// <param name="capacity">The storage space of the flash</param>
         /// <param name="secure">Bool indicating if the flash is encrypted</param>
-        public FlashStorage(string name, double price, int productCode, int capacity, bool secure)
-            : base(name, price, productCode, capacity)
+        public FlashStorage(string name, double price, int productCode, Manufacturer manufacturer, int capacity, bool secure)
+            : base(name, price, productCode, manufacturer, capacity)
         {
             SecureUSB = secure;
         }
