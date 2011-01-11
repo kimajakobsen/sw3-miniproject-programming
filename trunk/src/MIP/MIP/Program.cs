@@ -39,7 +39,7 @@ namespace MIP
             Console.Clear();
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
-            list.Add(new KeyValuePair<Action, string>(Cart2, "Cart2"));
+            list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
             list.Add(new KeyValuePair<Action, string>(AddProduct, "Add product"));
             NoBackNext = MainMenu;
 
