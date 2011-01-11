@@ -119,7 +119,7 @@ namespace MIP
         /// <param name="back"></param>
         public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller)
         {
-            MakeMenu(funcText, back, caller, _identifier);
+            MakeMenu(funcText, back, caller, _identifier.GetRange(0,funcText.Count));
 
             return;
         }
@@ -127,6 +127,10 @@ namespace MIP
         public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier)
         {
+            if (funcText.Count > identifier.Count)
+            {
+                throw new ArgumentException("Too many inputs");
+            }
             if (back == null)
             {
                 _back = Program.NoBack;
@@ -134,10 +138,6 @@ namespace MIP
             else
             {
                 _back = back;
-            }
-            if (funcText.Count > identifier.Count)
-            {
-                throw new ArgumentException("Too many inputs");
             }
 
             identifier.Add(_backCommand);
@@ -179,10 +179,27 @@ namespace MIP
             maxLenght += _commandLength + _seperator.Length;
 
             Console.WriteLine();
+            if (caller.Value != null && caller.Value != "")
+            {
+                int length = caller.Value.Length;
+                WriteSeveral("=", (30 - length) / 2 - 1);
+                Console.Write(" " + caller.Value + " ");
+                WriteSeveral("=", (30 - length) / 2 - 1);
+                if (length % 2 == 1)
+                {
+                    Console.Write("=");
+                }
+            }
+            else
+            {
+                WriteSeveral("=", 30);
+            }
+            Console.WriteLine();
+            Console.WriteLine();
 
             for (int i = 0; i < funcText.Count; i++)
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(identifier[i]);
                 Console.ForegroundColor = ConsoleColor.White;
                 for (int j = identifier[i].Length; j < _commandLength; j++)
@@ -196,7 +213,9 @@ namespace MIP
 
             Console.WriteLine("Enter your choice:");
             int enterRow = Console.CursorTop;
+            Console.ForegroundColor = ConsoleColor.Green;
             input = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
             while (true)
             {
                 if (input == _quitCommand)
@@ -225,8 +244,21 @@ namespace MIP
                 }
                 Console.SetCursorPosition(0, enterRow - 1);
                 Console.WriteLine("Incorrect identifier \"{0}\". Please try again:", input.Truncate(10));
+                Console.ForegroundColor = ConsoleColor.Green;
                 input = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.White;
             }
+        }
+
+        private void WriteSeveral(string input, int count)
+        {
+            while (count > 0)
+            {
+                count--;
+                Console.Write(input);
+            }
+
+            return;
         }
     }
 }
