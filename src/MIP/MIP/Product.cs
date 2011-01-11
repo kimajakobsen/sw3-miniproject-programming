@@ -14,9 +14,9 @@ namespace MIP
 
         public Product(string name, double price, int productcode)
         {
-            name = name;
-            price = price;
-            productcode = productcode;
+            Name = name;
+            Price = price;
+            ProductCode = productcode;
 
         }
 
@@ -55,7 +55,7 @@ namespace MIP
         }
 
 
-        internal double ProductCode
+        internal int ProductCode
         {
             get
             {
@@ -64,11 +64,9 @@ namespace MIP
 
             set
             {
-                if !(codeList.Contains(value))
+                if (!codeList.Contains(value))
                 {
                     _productcode = value;
-
-                    
                 }
             }
         }
