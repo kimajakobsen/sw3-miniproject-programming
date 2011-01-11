@@ -116,6 +116,7 @@ namespace MIP
         /// called.
         /// </summary>
         /// <param name="funcText"></param>
+        /// <param name="back"></param>
         public void MakeMenu(List<KeyValuePair<Action,string>> funcText, Action back)
         {
             string input;
@@ -131,7 +132,7 @@ namespace MIP
             _identifier[funcText.Count] = _mainCommand;
             funcText.Add(new KeyValuePair<Action, string>(_main, _mainText));
             _identifier[funcText.Count] = _quitCommand;
-            funcText.Add(new KeyValuePair<Action, string>(_quit, _backText));
+            funcText.Add(new KeyValuePair<Action, string>(_quit, _quitText));
 
             foreach (var item in funcText)
             {
@@ -167,7 +168,6 @@ namespace MIP
                     if (input == _identifier[i])
                     {
                         funcText[i].Key();
-                        _back();
                         return;
                     }
                 }
