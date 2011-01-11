@@ -99,7 +99,8 @@ namespace MIP
 
         public static List<Product> SearchText(List<Product> searchList, string searchString)
         {
-            currentResult = searchList.Where(x => x.Name.Contains(searchString) || x.Manufacturer.Name.Contains(searchString)).ToList();
+            currentResult = searchList.Where(x => x.Name.ToUpper().Contains(searchString.ToUpper()) ||
+                x.Manufacturer.Name.ToUpper().Contains(searchString.ToUpper())).ToList();
             return currentResult;
         }
 

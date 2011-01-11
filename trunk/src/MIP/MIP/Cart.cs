@@ -8,54 +8,28 @@ namespace MIP
 {
     class Cart
     {
-    
-        private static List<Cart> cartList = new List<Cart>();
-        private string _show;
-        private string _capacity;
-        private int _number;
-        private int _productcode;
 
-        public Cart() { }
+        private List<OrderLine> _orderList;
+        static private Cart _cart;
 
-        private Cart(int number, int productcode)
+        private Cart()
         {
-            Number = number;
-            Productcode = productcode;
+            _orderList = new List<OrderLine>();
         }
 
-        public int Number
+        static public Cart GetCart
         {
             get
             {
-                return _number;
-            }
-            
-            set
-            {
-                if (value != null || value > 0)
+                if (_cart == null)
                 {
-                    _number = value;
+                    _cart = new Cart();
                 }
-                return;
+                return _cart;
             }
         }
 
-        public int Productcode
-        {
-            get
-            {
-                return _productcode;
-            }
-            
-            set
-            {
-                if (value != null)
-                {
-                    _productcode = value;
-                }
-                return;
-            }
-        }
+        
 
         //Fuction for adding to cart
         public void AddToCart(int number, int productcode)
@@ -65,12 +39,12 @@ namespace MIP
             //check if product code already exists
 
             //Search for product
-            for (int i = 0; i < cartList.Count; i++)
+            for (int i = 0; i < _orderList.Count; i++)
             {
                 //If product already exists then just add a extra order
-                if (cartList[i].Productcode == productcode)
+                if (_orderList[i].Productcode == productcode)
                 {
-                    cartList[i].Number += number;
+                    _orderList[i].Number += number;
                     //Set addNew to false so we dont add a new product
                     addNew = false;
                 }
@@ -80,30 +54,30 @@ namespace MIP
             if (addNew == true)
             {
                 //Insert the number and productcode
-                Cart order = new Cart(number, productcode);
-                cartList.Add(order);
+                OrderLine order = new OrderLine(number, productcode);
+                _orderList.Add(order);
             }
 
         }
 
         public void RemoveFromCart(int number, int productcode)
         {
-            for (int i = 0; i < cartList.Count; i++)
+            for (int i = 0; i < _orderList.Count; i++)
             {
                 //If product exists then remove number of items
-                if (cartList[i].Productcode == productcode)
+                if (_orderList[i].Productcode == productcode)
                 {
                     //check if Number is bigger then 0 and the current number of product is smaller then Number
-                    if (Number > 0 && cartList[i].Number < Number)
+                    if (number > 0 && _orderList[i].Number > number)
                     {
                         //Remove Number from number of product
-                        cartList[i].Number -= Number;
+                        _orderList[i].Number -= number;
                     }
                         //else if Number equals null or equals the current number of product
-                    else if (Number == null || cartList[i].Number == Number)
+                    else if (_orderList[i].Number <= number)
                     {
                         //Remove all number of product
-                        cartList.RemoveAt(i);
+                        _orderList.RemoveAt(i);
                     }
                 }
             }
@@ -112,13 +86,15 @@ namespace MIP
 
         public void PrintCart()
         {
+            string _show;
+            string _capacity = "";
             _show = "";
             decimal totalprice = 0;
-            for (int i = 0; i < cartList.Count; i++)
+            for (int i = 0; i < _orderList.Count; i++)
             {
                 for (int j = 0; j < Parser.ProductList.Count; j++)
                 {
-                    if (cartList[i].Productcode == Parser.ProductList[j].ProductCode)
+                    if (_orderList[i].Productcode == Parser.ProductList[j].ProductCode)
                     {
                         try
                         {
@@ -137,8 +113,8 @@ namespace MIP
                         }
                         catch { }
 
-                        String numberofproduct = cartList[i].Number.ToString()+". ";
-                        Double tempprice = Parser.ProductList[j].Price * cartList[i].Number;
+                        String numberofproduct = _orderList[i].Number.ToString() + ". ";
+                        Double tempprice = Parser.ProductList[j].Price * _orderList[i].Number;
                         decimal price = Convert.ToDecimal(tempprice);
                         String manufactor = Parser.ProductList[j].Manufacturer.Name + " ";
                         String name = Parser.ProductList[j].Name + " ";
@@ -158,7 +134,7 @@ namespace MIP
                     }
                 }
             }
-            if(cartList.Count == 0)
+            if (_orderList.Count == 0)
             {
                 Console.Write("There is no items in your cart");
             } 
@@ -206,14 +182,14 @@ namespace MIP
 
         public void Clear()
         {
-            cartList.Clear();
+            _orderList.Clear();
         }
 
         //CheckOut will show whats in the cart and remove all items from the cardList
         public void CheckOut()
         {
             PrintCart();
-            cartList.Clear();
+            Clear();
         }
 
 

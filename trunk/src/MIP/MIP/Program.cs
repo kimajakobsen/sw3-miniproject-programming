@@ -8,11 +8,11 @@ namespace MIP
 {
     class Program
     {
-        public static Stack<List<Product>> previousStack;
+        static Stack<List<Product>> _previousStack;
 
         static void Main(string[] args)
         {
-            previousStack = new Stack<List<Product>>();
+            _previousStack = new Stack<List<Product>>();
             Menu.GetMenu.Quit = Quit;
             Menu.GetMenu.Main = MainMenu;
 
@@ -54,7 +54,7 @@ namespace MIP
 
         static void SearchMain(List<Product> searchResult)
         {
-            previousStack.Push(searchResult);
+            _previousStack.Push(searchResult);
             Console.Clear();
             int i = 1;
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
@@ -104,7 +104,7 @@ namespace MIP
                 input = Console.ReadLine();
             }
 
-            SearchMain(Search.SearchProductCode(previousStack.Peek(),i));
+            SearchMain(Search.SearchProductCode(_previousStack.Peek(),i));
             return;
         }
 
@@ -139,7 +139,7 @@ namespace MIP
             }
             while (!double.TryParse(min, out minI) || !double.TryParse(max, out maxI));
 
-            SearchMain(Search.SearchPriceRange(previousStack.Peek(), minI,maxI));
+            SearchMain(Search.SearchPriceRange(_previousStack.Peek(), minI,maxI));
             return;
         }
 
@@ -174,7 +174,7 @@ namespace MIP
             }
             while (!int.TryParse(min, out minI) || !int.TryParse(max, out maxI));
 
-            SearchMain(Search.SearchStorageRange(previousStack.Peek(), minI, maxI));
+            SearchMain(Search.SearchStorageRange(_previousStack.Peek(), minI, maxI));
             return;
         }
 
@@ -186,21 +186,24 @@ namespace MIP
             string input = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
 
-            SearchMain(Search.SearchText(previousStack.Peek(), input));
+            SearchMain(Search.SearchText(_previousStack.Peek(), input));
             return;
         }
 
         static void AddToCart()
-        { 
-        
+        {
+            int index = int.Parse(Menu.GetMenu.LastSelected);
+            MIP.Cart.GetCart.AddToCart(1, _previousStack.Peek()[index].ProductCode);
+            SearchMain(_previousStack.Pop());
+            return;
         }
 
         static void SearchBack()
         {
             try
             {
-                previousStack.Pop();
-                SearchMain(previousStack.Pop());
+                _previousStack.Pop();
+                SearchMain(_previousStack.Pop());
             }
             catch (InvalidOperationException)
             {
@@ -212,9 +215,35 @@ namespace MIP
 
 #endregion
 
+        static void Cart2()
+        {
+            Console.Clear();
+            Cart myCart = MIP.Cart.GetCart;
+            myCart.PrintCart();
+            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+            list.Add(new KeyValuePair<Action, string>(myCart.CheckOut, "CheckOut"));
+            list.Add(new KeyValuePair<Action, string>(myCart.Clear, "Clear cart"));
+            list.Add(new KeyValuePair<Action, string>(RemoveFromCart, "Remove"));
+            NoBackNext = MainMenu;
+
+            Menu.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart2, "Cart Menu"));
+        }
+
+        static void RemoveFromCart()
+        {
+            Console.Clear();
+            Console.WriteLine("Enter a text to search for:");
+            Console.ForegroundColor = ConsoleColor.Green;
+            string input = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+
+            SearchMain(Search.SearchText(_previousStack.Peek(), input));
+            return;
+        }
+
         static void Cart()
         {
-            Cart myCart = new Cart();
+            Cart myCart = MIP.Cart.GetCart;
             Console.Clear();
             String cart = Console.ReadLine();
             String[] cartfunction = cart.Split(' ');
