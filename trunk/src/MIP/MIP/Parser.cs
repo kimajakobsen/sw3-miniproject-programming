@@ -7,9 +7,15 @@ using System.IO;
 
 namespace MIP
 {
-    class Parser
+    static class Parser
     {
-
+        public List<Product> getList
+        {
+            get
+            {
+                return ProductList;
+            } 
+        }
         static List<Product> ProductList = new List<Product>();
 
 
