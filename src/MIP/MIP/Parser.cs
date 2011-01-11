@@ -18,7 +18,7 @@ namespace MIP
         /// <summary>
         /// Returns the list
         /// </summary>
-        static List<Product> GetList
+        public static List<Product> GetList
         {
             get
             {
@@ -237,7 +237,7 @@ namespace MIP
             }
         }
 
-        static public void Parser()
+        static public void Parse()
         {
             try
             {

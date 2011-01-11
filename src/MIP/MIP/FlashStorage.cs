@@ -36,5 +36,29 @@ namespace MIP
                 _secureUSB = value;
             }
         }
+
+        override public string ToSearchResultString()
+        {
+            string encryption;
+            if (SecureUSB)
+            {
+                encryption = "is secured";
+            }
+            else
+            { 
+                encryption = "is not secured";
+            }
+            string store;
+            if (Storage >= 1024)
+            {
+                store = Storage / 1024 + " TB";
+            }
+            else
+            {
+                store = Storage + " GB";
+            }
+            return Manufacturer.Name + " " + Name + " " + encryption + " " + store + " " +
+                " " + Price + " kr.";
+        }
     }
 }

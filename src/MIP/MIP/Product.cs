@@ -114,8 +114,6 @@ namespace MIP
             }
         }
 
-
-
-
+        abstract public string ToSearchResultString();
     }
 }
