@@ -1,0 +1,16 @@
+[Manufacturer]	HP	http://hp.dk
+[Manufacturer]	Sony	http://sony.dk
+[Manufacturer]	Westerndigital	http://wd.dk
+
+			navn:		price:	code:	Manu:	capaci:	rpm:	formfactor:
+[InternalHarddrives]	Hp hardisk 9200	2314	156324	Hp	1500	7200	5.25
+[InternalHarddrives]	Hp hardisk 8200	2100	156325	Hp	1500	5400	5.25
+
+
+			navn:		price:	code:	Manu:	capaci:	rpm:	height:	width:	depth:	
+[ExternalHarddrives]	external hopla	0125	156323	Hp	20000	7200	5.12	12.3	8.00
+[ExternalHarddrives]	sony 5600	25600	000001	Hp	150000	7200	120	500	600
+
+	navn:		price:	code:	Manu:	capaci:	secureUSB:	
+[Flash]	west XL	23	0125	156323	Hp	100	Falsh
+[Flash]	sony 24400	0125	1563	Hp	3000	True
