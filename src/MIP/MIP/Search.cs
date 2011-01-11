@@ -57,7 +57,7 @@ namespace MIP
 
         public static List<Product> Initiate()
         {
-            currentResult = Parser.GetList;
+            currentResult = Parser.ProductList;
 
             currentResult.Sort(new ProductSorter());
 
