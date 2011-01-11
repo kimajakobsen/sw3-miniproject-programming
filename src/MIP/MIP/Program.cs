@@ -13,8 +13,8 @@ namespace MIP
         static void Main(string[] args)
         {
             _previousStack = new Stack<List<Product>>();
-            Menu.GetMenu.Quit = Quit;
-            Menu.GetMenu.Main = MainMenu;
+            MenuBuilder.GetMenu.Quit = Quit;
+            MenuBuilder.GetMenu.Main = MainMenu;
 
             Parser.Parse();
             MainMenu();
@@ -39,11 +39,11 @@ namespace MIP
             Console.Clear();
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
-            list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
+            list.Add(new KeyValuePair<Action, string>(Cart2, "Cart2"));
             list.Add(new KeyValuePair<Action, string>(AddProduct, "Add product"));
             NoBackNext = MainMenu;
 
-            Menu.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
+            MenuBuilder.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
         }
 
         #region Search
@@ -66,6 +66,13 @@ namespace MIP
                 identifier.Add(i + "");
                 i++;
             }
+            try
+            {
+                list[list.Count - 1] = (new KeyValuePair<Action, string>(AddToCart, list[list.Count - 1].Value + "\n"));
+            }
+            catch (ArgumentOutOfRangeException)
+            { }
+
             if (list.Count > 0)
             {
                 char c = 'A';
@@ -80,14 +87,15 @@ namespace MIP
                 c++;
                 list.Add(new KeyValuePair<Action, string>(SearchText, "Search for product/manufacture name"));
                 identifier.Add(c + "");
-                c++;
+                MenuBuilder.GetMenu.MakeMenu(list, SearchBack, new KeyValuePair<Action, string>(InitializeSearch, "Search"), identifier);
             }
             else
-            { 
-                
+            {
+                MenuBuilder.GetMenu.MakeMenu(list, SearchBack, new KeyValuePair<Action, string>(InitializeSearch, "Search"), identifier,
+                    "\nNo products were found!\n");
             }
 
-            Menu.GetMenu.MakeMenu(list, SearchBack, new KeyValuePair<Action, string>(InitializeSearch, "Search"),identifier);
+            
         }
 
         static void SearchProductCode()
@@ -182,7 +190,7 @@ namespace MIP
         static void SearchText()
         {
             Console.Clear();
-            Console.WriteLine("Enter a text to search for:");
+            Console.WriteLine("Enter a text to search for in name and manufacturer:");
             Console.ForegroundColor = ConsoleColor.Green;
             string input = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
@@ -193,8 +201,9 @@ namespace MIP
 
         static void AddToCart()
         {
-            int index = int.Parse(Menu.GetMenu.LastSelected);
-            MIP.Cart.GetCart.AddToCart(1, _previousStack.Peek()[index].ProductCode);
+            int index = int.Parse(MenuBuilder.GetMenu.LastSelected);
+            int amount = GetInt("How many do you want to add to your cart?:", x => x >= 0);
+            MIP.Cart.GetCart.AddToCart(amount, _previousStack.Peek()[index-1].ProductCode);
             SearchMain(_previousStack.Pop());
             return;
         }
@@ -227,7 +236,7 @@ namespace MIP
             list.Add(new KeyValuePair<Action, string>(RemoveFromCart, "Remove"));
             NoBackNext = MainMenu;
 
-            Menu.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart2, "Cart Menu"));
+            MenuBuilder.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart2, "Cart Menu"));
         }
 
         static void RemoveFromCart()
@@ -317,7 +326,7 @@ namespace MIP
             identifiers.Add("Y");
             identifiers.Add("N");
 
-            Menu.GetMenu.MakeCleanMenu(list, MainMenu, new KeyValuePair<Action,string>(null,"Quit"), identifiers);
+            MenuBuilder.GetMenu.MakeCleanMenu(list, MainMenu, new KeyValuePair<Action,string>(null,"Quit"), identifiers);
             return;
         }
 
@@ -336,7 +345,7 @@ namespace MIP
             list.Add(new KeyValuePair<Action, string>(AddExternalHarddrive, "Add internal harddrive"));
             list.Add(new KeyValuePair<Action, string>(AddFlashStorage, "Add flash storage device"));
 
-            Menu.GetMenu.MakeMenu(list, MainMenu, new KeyValuePair<Action, string>(AddProduct, "Add Product"));
+            MenuBuilder.GetMenu.MakeMenu(list, MainMenu, new KeyValuePair<Action, string>(AddProduct, "Add Product"));
             MainMenu();
         }
 

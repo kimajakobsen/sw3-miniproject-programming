@@ -53,7 +53,7 @@
     <Compile Include="Manufacturer.cs" />
     <Compile Include="OrderLine.cs" />
     <Compile Include="Parser.cs" />
-    <Compile Include="Menu.cs" />
+    <Compile Include="MenuBuilder.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
