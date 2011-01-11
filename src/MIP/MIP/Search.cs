@@ -20,6 +20,10 @@ namespace MIP
                     }
                     return -1;
                 }
+                if (b is InternalHarddrive)
+                {
+                    return 1;
+                }
                 
                 if (a is ExternalHarddrive)
                 {
@@ -28,6 +32,10 @@ namespace MIP
                         return 0;
                     }
                     return -1;
+                }
+                if (b is ExternalHarddrive)
+                {
+                    return 1;
                 }
 
                 if (a is FlashStorage)
@@ -38,8 +46,12 @@ namespace MIP
                     }
                     return -1;
                 }
+                if (b is FlashStorage)
+                {
+                    return 1;
+                }
 
-                return 1;
+                return 0;
             }
         }
 
