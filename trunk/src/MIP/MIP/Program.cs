@@ -17,13 +17,6 @@ namespace MIP
             Menu.GetMenu.Main = MainMenu;
 
             Parser.Parse();
-            Console.ReadLine();
-            /*
-            Manufacturer manu = new Manufacturer("Manufacturerer", "http://google.com");
-            Parser.GetList.Add(new InternalHarddrive("Wizzle", 123, 235245, manu, 1024, 15000, 2.5));
-            Parser.GetList.Add(new ExternalHarddrive("Beer Drive", 1000, 1, manu, 2048, 15000, 5, 5, 5));
-            Parser.GetList.Add(new InternalHarddrive("Turtle", 2000, 2, manu, 256, 15000, 5.25));*/
-
             MainMenu();
             
 
@@ -52,6 +45,8 @@ namespace MIP
             Menu.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
         }
 
+        #region Search
+
         static void InitializeSearch()
         {
             SearchMain(Search.Initiate());
@@ -77,6 +72,12 @@ namespace MIP
                 identifier.Add(c + "");
                 c++;
                 list.Add(new KeyValuePair<Action, string>(SearchPrice, "Search by price"));
+                identifier.Add(c + "");
+                c++;
+                list.Add(new KeyValuePair<Action, string>(SearchStorage, "Search by storage capacity"));
+                identifier.Add(c + "");
+                c++;
+                list.Add(new KeyValuePair<Action, string>(SearchText, "Search for text"));
                 identifier.Add(c + "");
                 c++;
             }
@@ -142,6 +143,53 @@ namespace MIP
             return;
         }
 
+        static void SearchStorage()
+        {
+            Console.Clear();
+            Console.WriteLine("Enter a storage range(in GB) to search in(e.g. 512-2048):");
+            int maxI, minI;
+            string min;
+            string max;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                string input = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.White;
+                input.Trim();
+                int indexSplit = input.IndexOf('-');
+                min = input.Substring(0, indexSplit).Trim();
+                max = input.Substring(indexSplit + 1).Trim();
+
+                if (min == "*" || min == "")
+                {
+                    min = "0";
+                    continue;
+                }
+                if (max == "*" || max == "")
+                {
+                    max = int.MaxValue + "";
+                }
+                Console.Clear();
+                Console.WriteLine("Invalid input \"{0}\". Please enter a new price range to search in:", input.Truncate(10));
+            }
+            while (!int.TryParse(min, out minI) || !int.TryParse(max, out maxI));
+
+            SearchMain(Search.SearchStorageRange(previousStack.Peek(), minI, maxI));
+            return;
+        }
+
+        static void SearchText()
+        {
+            Console.Clear();
+            Console.WriteLine("Enter a text to search for:");
+            Console.ForegroundColor = ConsoleColor.Green;
+            string input = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.White;
+
+            SearchMain(Search.SearchText(previousStack.Peek(), input));
+            return;
+        }
+
         static void AddToCart()
         { 
         
@@ -161,6 +209,8 @@ namespace MIP
 
             return;
         }
+
+#endregion
 
         static void Cart()
         {
