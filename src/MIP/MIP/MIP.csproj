@@ -44,10 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cart.cs" />
-    <Compile Include="ExternalHarddisk.cs" />
+    <Compile Include="ExternalHarddrive.cs" />
     <Compile Include="FlashStorage.cs" />
-    <Compile Include="Harddisk.cs" />
-    <Compile Include="InternalHarddisk.cs" />
+    <Compile Include="Harddrive.cs" />
+    <Compile Include="InternalHarddrive.cs" />
     <Compile Include="Manufacturer.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />

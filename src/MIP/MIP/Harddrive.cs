@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MIP
 {
-    class InternalHarddisk :Harddisk
+    abstract class Harddrive : StorageUnit
     {
     }
 }
