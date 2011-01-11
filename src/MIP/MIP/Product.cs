@@ -10,7 +10,7 @@ namespace MIP
         private string _name;
         private double _price;
         private int _productcode;
-        private List<int> codeList = new List<int>();
+        private List<int> codeList = new List<int>(); //List which contains all used productcodes, is used to check to if the code is unique
 
         public Product(string name, double price, int productcode)
         {
@@ -29,7 +29,7 @@ namespace MIP
 
             set
             {
-                if (value != null && value != "")
+                if (value != null && value != "") // the name must not be null or a blank string
                 {
                     _name = value;
 
@@ -47,14 +47,14 @@ namespace MIP
 
             set
             {
-                if (value != null && value >= 0)
+                if (value != null && value >= 0) // the price must not be null or a negative number
                 {
                 _price = value;
                 }
             }  
         }
 
-
+        // the ProcutCode is an int 
         internal int ProductCode
         {
             get
@@ -64,9 +64,11 @@ namespace MIP
 
             set
             {
-                if (!codeList.Contains(value))
+                if (!codeList.Contains(value)) // the product code must be unique
                 {
+                    codeList.Add(value);
                     _productcode = value;
+
                 }
             }
         }
