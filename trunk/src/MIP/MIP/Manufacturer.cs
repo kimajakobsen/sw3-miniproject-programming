@@ -43,7 +43,7 @@ namespace MIP
 
             set
             {
-                if (value != null && value.Substring(0,6).Equals("http://"))
+                if (value != null && value.Length >= 7 && value.Substring(0,6).Equals("http://"))
                 {
                     _url = value;
                 }
