@@ -14,11 +14,11 @@ namespace MIP
         private static List<int> codeList = new List<int>(); 
         
         /// <summary>
-        /// 
+        /// The abstact class Product 
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="price"></param>
-        /// <param name="productcode"></param>
+        /// <param name="name">The name of the product</param>
+        /// <param name="price">The price of the product</param>
+        /// <param name="productcode">The productcode of the product</param>
         public Product(string name, double price, int productcode)
         {
             Name = name;
@@ -28,7 +28,7 @@ namespace MIP
         }
 
         /// <summary>
-        /// 
+        /// The name of the product
         /// </summary>
         public string Name
         {
@@ -50,7 +50,7 @@ namespace MIP
         }
         
         /// <summary>
-        /// 
+        /// The price of the product
         /// </summary>
         public double Price
         {
@@ -70,9 +70,9 @@ namespace MIP
             }  
         }
 
-        // the ProcutCode is an int 
+        
         /// <summary>
-        /// 
+        /// The productcode of the product
         /// </summary>
         internal int ProductCode
         {

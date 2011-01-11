@@ -5,6 +5,9 @@ using System.Text;
 
 namespace MIP
 {
+    /// <summary>
+    /// RPM can be 4200,5400,7200,10000 and 15000.
+    /// </summary>
     enum RPM
     {
         a = 4200,
