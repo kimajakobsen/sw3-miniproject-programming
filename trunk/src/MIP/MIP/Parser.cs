@@ -9,6 +9,9 @@ namespace MIP
 {
     static class Parser
     {
+        /// <summary>
+        /// Returns the list
+        /// </summary>
         public List<Product> getList
         {
             get
