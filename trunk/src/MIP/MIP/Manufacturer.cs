@@ -27,6 +27,8 @@ namespace MIP
             {
                 if (value != null && value != "")
                 {
+                    //The name is valid and is inserted into
+                    //the private variable
                     _name = value;
                 }
 
@@ -43,8 +45,11 @@ namespace MIP
 
             set
             {
-                if (value != null && value.Length >= 7 && value.Substring(0,6).Equals("http://"))
+                if (value != null && value.Length >= 7 &&
+                    value.Substring(0,6).Equals("http://"))
                 {
+                    //The url is valid and is inserted into
+                    //the private variable
                     _url = value;
                 }
 

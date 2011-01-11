@@ -15,6 +15,7 @@ namespace MIP
             SecureUSB = secure;
         }
 
+        //Boolean indicating whether the flash unit is encrypted or not
         public bool SecureUSB
         {
             get
