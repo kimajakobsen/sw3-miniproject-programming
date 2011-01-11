@@ -7,8 +7,8 @@ namespace MIP
 {
     enum EFormFactor
     {
-        two = 2.5,
-        three = 3.5,
-        five = 5.25
+        two = 250,
+        three = 350,
+        five = 525
     }
 }
