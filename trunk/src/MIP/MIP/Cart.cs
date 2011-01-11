@@ -10,6 +10,7 @@ namespace MIP
     
         private static List<Cart> cartList = new List<Cart>();
         private string _show;
+        private string _capacity;
         private int _number;
         private int _productcode;
 
@@ -114,7 +115,20 @@ namespace MIP
                 {
                     if (cartList[i].Productcode == Parser.GetList[j].ProductCode)
                     {
-                        
+                        if (Parser.GetList. < 1024)
+                        {
+                            _capacity = Parser.GetList[j]..ToString() + "GB";
+                            
+                        }
+                        else
+                        {
+                            double cap = Parser.GetList.Capacity / 1000;
+                            cap = Math.Round(cap);
+                            _capacity = cap.ToString() + "TB";
+                        }
+
+                        String numberofproduct = cartList[i].Number.ToString()+". ";
+                        _show = numberofproduct + Parser.GetList[j]
                     }
                 }
             }
