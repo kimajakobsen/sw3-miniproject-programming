@@ -10,6 +10,7 @@ namespace MIP
         private string _name;
         private double _price;
         private int _productcode;
+        private Manufacturer _manufacturer;
         //List which contains all used productcodes, is used to check to if the code is unique
         private static List<int> codeList = new List<int>(); 
         
@@ -19,12 +20,12 @@ namespace MIP
         /// <param name="name">The name of the product</param>
         /// <param name="price">The price of the product</param>
         /// <param name="productcode">The productcode of the product</param>
-        public Product(string name, double price, int productcode)
+        public Product(string name, double price, int productcode, Manufacturer manufacturer)
         {
             Name = name;
             Price = price;
             ProductCode = productcode;
-
+            Manufacturer = manufacturer;
         }
 
         /// <summary>
@@ -68,6 +69,26 @@ namespace MIP
                 _price = value;
                 }
             }  
+        }
+
+        /// <summary>
+        /// Manufacturer of the product
+        /// </summary>
+        public Manufacturer Manufacturer
+        {
+            get
+            {
+                return _manufacturer;
+            }
+
+            set
+            {
+                // the price must not be null or a negative number
+                if (value != null)
+                {
+                    _manufacturer = value;
+                }
+            }
         }
 
         

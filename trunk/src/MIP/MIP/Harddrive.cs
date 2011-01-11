@@ -19,8 +19,8 @@ namespace MIP
         /// <param name="RPM">Rounds per minut</param>
         /// <param name="productcode">The productcode of the product</param>
 
-        public Harddrive(string name, double price, int productcode, int storage, int RPM)
-            : base(name, price, productcode, storage)
+        public Harddrive(string name, double price, int productcode, Manufacturer manufacturer, int storage, int RPM)
+            : base(name, price, productcode, manufacturer, storage)
         {
         }
             /// <summary>

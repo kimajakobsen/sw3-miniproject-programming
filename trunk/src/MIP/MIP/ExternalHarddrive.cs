@@ -13,8 +13,9 @@ namespace MIP
         //Constructor for ExternalHarddrive
         //Sets height, width and depth
         //Sends name, price, productcode, storage, RPM to Harddrive
-        public ExternalHarddrive(string name, double price, int productcode, int storage, int RPM, double height, double width, double depth)
-            : base(name, price, productcode, storage, RPM)
+        public ExternalHarddrive(string name, double price, int productcode, Manufacturer manufacturer,
+            int storage, int RPM, double height, double width, double depth)
+            : base(name, price, productcode, manufacturer, storage, RPM)
         {
             Height = height;
             Width = width;

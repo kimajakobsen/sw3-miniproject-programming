@@ -18,8 +18,9 @@ namespace MIP
         /// <param name="capacity">The storage space of the harddrive</param>
         /// <param name="rpm">The spin speed of the harddrive</param>
         /// <param name="formFactor">The size of the harddrive</param>
-        public InternalHarddrive(string name, double price, int productCode, int storage, int rpm, double formFactor)
-            : base(name, price, productCode, storage, rpm)
+        public InternalHarddrive(string name, double price, int productCode, Manufacturer manufacturer,
+            int storage, int rpm, double formFactor)
+            : base(name, price, productCode, manufacturer, storage, rpm)
         {
             FormFactor = formFactor;
         }
