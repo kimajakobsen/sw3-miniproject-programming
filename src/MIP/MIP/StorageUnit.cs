@@ -20,6 +20,7 @@ namespace MIP
         {
             get
             {
+                //Returns the storage
                 return _storage;
             }
 
@@ -27,11 +28,10 @@ namespace MIP
             {
                 /*
                  *Check if the value is bigger then 0 since the storage cannot be 0 or below
-                 *Check if the value is diffrend from null
                  */
-                if (value > 0 || value != null)
+                if (value > 0)
                 {   
-                    //
+                    //Sets the value if the if statement is valid
                     _storage = value;
                 }
                 return;
