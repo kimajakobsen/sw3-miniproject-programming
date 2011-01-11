@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MIP
 {
-    class ExternalHarddisk : Harddisk
+    class ExternalHarddrive : Harddrive
     {
     }
 }
