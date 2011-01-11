@@ -14,9 +14,21 @@ namespace MIP
             _storage = storage;
         }
 
-        public int getStorage()
+        public int Storage
         {
-            return _storage;
+            get
+            {
+                return _storage;
+            }
+
+            set
+            {
+                if(value > 0 || value != null)
+                {
+                    _storage = value;
+                }
+                return;
+            }
         }
     }
 }
