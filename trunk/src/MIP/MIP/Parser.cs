@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
+
 namespace MIP
 {
     class Parser
@@ -23,13 +24,49 @@ namespace MIP
             {
                 using (StreamReader reader = new StreamReader("Init.txt"))
                 {
-                    string line;
+                    string _line;
+                    
 
-                    while ((line = reader.ReadLine()) != null)
+                    while ((_line = reader.ReadLine()) != null)
                     {
-                        while (line.Contains("[hardrives]")){
+                        if ( _line.Contains("[internalHardrives]"))
+                        {
+                            int i = 0;
+                            string[] temp = new string[6];
+                            while (i <= 6)
+                            {
+                                  
+                                temp[i]=_line.Substring(_line.IndexOf('\x0009',i+1),
+                                    ((_line.IndexOf('\x0009',i+2)-(_line.IndexOf('\x0009',i+1)))));
+                            }
+
+                            try
+                            {
+                                InternalHarddrive product = new InternalHarddrive { 
+                                    Name = temp[0],
+                                    Price = temp[1].Cast<double>().FirstOrDefault(), 
+                                    ProductCode = temp[2].Cast<int>().FirstOrDefault(),
+                                    Storage = temp[3].Cast<int>().FirstOrDefault(),
+                                    Rpm = temp[4].Cast<int>().FirstOrDefault(),
+                                    FormFactor = temp[5].Cast<int>().FirstOrDefault()};
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("Error in the init file");
+                                Console.WriteLine(e.Message);
+                            }
+
                             
                         }
+
+
+                        
+                            reader.ReadLine()
+                            
+    
+
+
+                        
                         
                         Console.WriteLine(line);
                     }

@@ -8,7 +8,7 @@ namespace MIP
     /// <summary>
     /// RPM can be 4200,5400,7200,10000 and 15000.
     /// </summary>
-    enum RPM
+    enum ERPM
     {
         a = 4200,
         b = 5400,

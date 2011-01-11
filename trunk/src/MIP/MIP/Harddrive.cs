@@ -8,15 +8,15 @@ namespace MIP
     abstract class Harddrive : StorageUnit
     {
 
-        private RPM _rpm;
+        private ERPM _rpm;
 
         /// <summary>
         /// The round per minut constructor
         /// </summary>
         /// <param name="name">The name of the product</param>
         /// <param name="price">The price of the product</param>
-        /// <param name="name">The name of the product</param>
-        /// <param name="price">The price of the product</param>
+        /// <param name="storage">The amound of storage in GB</param>
+        /// <param name="RPM">Rounds per minut</param>
         /// <param name="productcode">The productcode of the product</param>
 
         public Harddrive(string name, double price, int productcode, int storage, int RPM)
@@ -35,8 +35,8 @@ namespace MIP
                 set
                 {
                     //if the entered value is of the RPM standard, then the value is saved.
-                    if (Enum.IsDefined(typeof(RPM), value))
-                        _rpm = (RPM)value;
+                    if (Enum.IsDefined(typeof(ERPM), value))
+                        _rpm = (ERPM)value;
                 }
             }
     }  
