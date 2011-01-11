@@ -8,10 +8,11 @@ namespace MIP
     abstract class StorageUnit : Product
     {
         private int _storage;
-        
-        public StorageUnit(int storage)
+
+        public StorageUnit(string name, double price, int productcode, int storage)
+            :base(name, price, productcode)
         {
-            _storage = storage;
+            this._storage = storage;
         }
 
         public int Storage
