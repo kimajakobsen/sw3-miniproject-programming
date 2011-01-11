@@ -61,7 +61,7 @@ namespace MIP
             string[] temp = new string[7]; 
             int startIndex = _line.IndexOf('\x0009', 0); //startIndex is set to the first occurrence of tab
 
-            while (i < 6) // internal harddisk takes 7 input, the counter startes from 0 thus 6
+            while (i < 7) // internal harddisk takes 7 input, the counter startes from 0 thus 6
             { 
                     try
                     {
@@ -85,6 +85,17 @@ namespace MIP
 
             try
             {
+                   // Console.WriteLine(temp[0]);                  //name
+                   // Console.WriteLine(double.Parse(temp[1]));    //price
+                   // Console.WriteLine(int.Parse(temp[2]));       //productcode
+                   // Console.WriteLine(ManufacturerList.FirstOrDefault(x=> x.Name == temp[3])); //manufacture
+                   // Console.WriteLine(int.Parse(temp[4]));       //capacity
+                   // Console.WriteLine(int.Parse(temp[5]));       //RPM
+                   // Console.WriteLine(double.Parse(temp[6]));   //formfactor
+
+
+
+
 
                 InternalHarddrive product = new InternalHarddrive(
                     temp[0],                  //name
@@ -98,7 +109,7 @@ namespace MIP
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in the init file");
+                Console.WriteLine("Error in InternalHarddrive data");
                 Console.WriteLine(e.Message);
             }
         }
@@ -110,7 +121,7 @@ namespace MIP
             string[] temp = new string[9];
             int startIndex = _line.IndexOf('\x0009', 0); //startIndex is set to the first occurrence of tab
 
-            while (i < 8) // External harddisk takes 9 input, the counter startes from 0 thus 8
+            while (i < 9) // External harddisk takes 9 input, the counter startes from 0 thus 8
             {
                 try
                 {
@@ -148,7 +159,7 @@ namespace MIP
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in the init file");
+                Console.WriteLine("Error in ExternalHarddrive data");
                 Console.WriteLine(e.Message);
             }
         }
@@ -160,7 +171,7 @@ namespace MIP
             string[] temp = new string[6];
             int startIndex = _line.IndexOf('\x0009', 0); //startIndex is set to the first occurrence of tab
 
-            while (i < 5) // internal harddisk takes 6 input, the counter startes from 0 thus 5
+            while (i < 6) // internal harddisk takes 6 input, the counter startes from 0 thus 5
             {
                 try
                 {
@@ -196,7 +207,7 @@ namespace MIP
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in the init file");
+                Console.WriteLine("Error in Flash data");
                 Console.WriteLine(e.Message);
             }
         }
@@ -244,7 +255,7 @@ namespace MIP
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in the init file");
+                Console.WriteLine("Error loading manufactureres ");
                 Console.WriteLine(e.Message);
             }
         }
