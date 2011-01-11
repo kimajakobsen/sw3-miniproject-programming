@@ -11,20 +11,20 @@ namespace MIP
         private RPM _rpm;
 
         /// <summary>
-        /// 
+        /// The round per minut constructor
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="price"></param>
-        /// <param name="productcode"></param>
-        /// <param name="storage"></param>
-        /// <param name="RPM"></param>
+        /// <param name="name">The name of the product</param>
+        /// <param name="price">The price of the product</param>
+        /// <param name="name">The name of the product</param>
+        /// <param name="price">The price of the product</param>
+        /// <param name="productcode">The productcode of the product</param>
 
         public Harddrive(string name, double price, int productcode, int storage, int RPM)
             : base(name, price, productcode, storage)
         {
         }
             /// <summary>
-            /// This contains the round per minut
+            /// This contains the round per minut (RPM)
             /// </summary>
             public int Rpm
             {
