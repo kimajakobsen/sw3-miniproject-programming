@@ -9,7 +9,8 @@ namespace MIP
     {
 
         private int _storage;
-
+        //Constructor that take 4 arguments, use storage argument
+        //and sent name, price, and productcode to Product constuctor
         public StorageUnit(string name, double price, int productcode, int storage)
             :base(name, price, productcode)
         {
