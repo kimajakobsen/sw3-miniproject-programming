@@ -15,8 +15,8 @@ namespace MIP
         /// <param name="name">The name of the given flash</param>
         /// <param name="price">Price of the flash</param>
         /// <param name="productCode">The product code of the flash</param>
-        /// <param name="capacity"></param>
-        /// <param name="secure"></param>
+        /// <param name="capacity">The storage space of the flash</param>
+        /// <param name="secure">Bool indicating if the flash is encrypted</param>
         public FlashStorage(string name, double price, int productCode, int capacity, bool secure)
             : base(name, price, productCode, capacity)
         {

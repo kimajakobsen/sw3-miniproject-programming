@@ -10,6 +10,11 @@ namespace MIP
         private string _name;
         private string _url;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="url"></param>
         public Manufacturer(string name, string url)
         {
             Name = name;
