@@ -10,7 +10,11 @@ namespace MIP
 
         static void Main(string[] args)
         {
-            Parser.parser();
+            Menu.GetMenu.Quit = Quit;
+            Menu.GetMenu.Main = MainMenu;
+
+            //Parser.parser();
+            MainMenu();
             Console.ReadLine();
 
         }
@@ -29,6 +33,7 @@ namespace MIP
 
         static void MainMenu()
         {
+            Console.Clear();
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
             list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
@@ -52,11 +57,13 @@ namespace MIP
             Console.Clear();
             Console.WriteLine("Cannot go back! Press any key to continue.");
             Console.ReadKey(true);
+            Console.Clear();
             NoBackNext();
         }
 
         static void Quit()
         {
+            Console.Clear();
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(Kill, "Yes, exit"));
             QuitBack = new KeyValuePair<Action,string>(QuitBack.Key,"No, go back to \"" + QuitBack.Value + "\"");
@@ -66,7 +73,7 @@ namespace MIP
             identifiers.Add("Y");
             identifiers.Add("N");
 
-            Menu.GetMenu.MakeCleanMenu(list, QuitBack, identifiers);
+            Menu.GetMenu.MakeCleanMenu(list, new KeyValuePair<Action,string>(null,"Quit"), identifiers);
             return;
         }
 
