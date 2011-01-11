@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MIP.Helpers;
 
 namespace MIP
 {
@@ -109,29 +110,90 @@ namespace MIP
 
         public void PrintCart()
         {
+            _show = "";
+            decimal totalprice = 0;
             for (int i = 0; i < cartList.Count; i++)
             {
                 for (int j = 0; j < Parser.GetList.Count; j++)
                 {
                     if (cartList[i].Productcode == Parser.GetList[j].ProductCode)
                     {
-                        if (Parser.GetList.Capacity < 1024)
+                        StorageUnit productUnit = Parser.GetList[j] as StorageUnit;
+                        if (productUnit.Storage < 1024)
                         {
-                            _capacity = Parser.GetList[j].Capacity.ToString() + "GB";
+                            _capacity = productUnit.Storage.ToString() + " GB";
                         }
                         else
                         {
-                            double cap = Parser.GetList.Capacity / 1000;
+                            double cap = productUnit.Storage / 1000;
                             cap = Math.Round(cap,1);
-                            _capacity = cap.ToString() + "TB";
+                            _capacity = cap.ToString() + " TB";
                         }
 
                         String numberofproduct = cartList[i].Number.ToString()+". ";
-                        Double tempprice = Parser.GetList[j].Price;
-                        Decimal price = Convert.ToDecimal(tempprice);
-                        _show = numberofproduct + Parser.GetList[j];
+                        Double tempprice = productUnit.Price;
+                        decimal price = Convert.ToDecimal(tempprice);
+                        String manufactor = productUnit.Manufacturer.Name + " ";
+                        String name = productUnit.Name + " ";
+                        String print = numberofproduct + manufactor + name + _capacity;
+                        totalprice += price;
+
+                        print = print.Truncate(35);
+                        String strprice = price.ToString() + " kr.";
+                        int charnum = print.Length + strprice.Length;
+                        charnum = 50 - charnum;
+                        string underscore = "";
+                        for (int k = 0; k <= charnum; k++)
+                        {
+                            underscore += "_";   
+                        }
+                        _show += print+underscore+strprice+"\n";
                     }
                 }
+            }
+            if(_show.Length == null)
+            {
+                Console.Write("There is no items in your cart");
+            } 
+            else
+            {
+                decimal delivery;
+                if (totalprice < 250)
+                {
+                    delivery = 50;
+                    totalprice += 50;
+                }
+                else if (totalprice >= 250 && totalprice <= 500)
+                {
+                    delivery = 25;
+                    totalprice += 25;
+                }
+                else 
+                {
+                    delivery = 0;
+                    totalprice += 0;
+                }
+                String strdelivery = delivery.ToString() + " kr.";
+                //string.Length + length of delivery (8)
+                int strnumdelivery = 50 - (strdelivery.Length + 8);
+                string underscore = "";
+                for (int k = 0; k <= strnumdelivery; k++)
+                {
+                    underscore += "_";
+                }
+                _show += "Delivery" + underscore + strdelivery+"\n";
+
+                //string.length + length of "total" (5)
+                String strtotal = totalprice.ToString() + " kr.";
+                int strnum = 50 - (strtotal.Length + 5);
+                string underscore = "";
+                for (int k = 0; k <= strnum; k++)
+                {
+                    underscore += "_";
+                }
+                _show += "Total" + underscore + strtotal;
+
+                Console.Write(_show);
             }
         }
 
