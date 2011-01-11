@@ -7,6 +7,7 @@ namespace MIP
 {
     abstract class StorageUnit : Product
     {
+
         private int _storage;
 
         public StorageUnit(string name, double price, int productcode, int storage)
@@ -24,8 +25,13 @@ namespace MIP
 
             set
             {
-                if(value > 0 || value != null)
-                {
+                /*
+                 *Check if the value is bigger then 0 since the storage cannot be 0 or below
+                 *Check if the value is diffrend from null
+                 */
+                if (value > 0 || value != null)
+                {   
+                    //
                     _storage = value;
                 }
                 return;
