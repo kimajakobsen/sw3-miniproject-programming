@@ -11,11 +11,19 @@ namespace MIP
         private int _storage;
         //Constructor that take 4 arguments, use storage argument
         //and sent name, price, and productcode to Product constuctor
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="price"></param>
+        /// <param name="productcode"></param>
+        /// <param name="storage"></param>
         public StorageUnit(string name, double price, int productcode, int storage)
             :base(name, price, productcode)
         {
             this._storage = storage;
         }
+
 
         public int Storage
         {
