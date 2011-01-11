@@ -118,23 +118,28 @@ namespace MIP
                 {
                     if (cartList[i].Productcode == Parser.GetList[j].ProductCode)
                     {
-                        StorageUnit productUnit = Parser.GetList[j] as StorageUnit;
-                        if (productUnit.Storage < 1024)
+                        try
                         {
-                            _capacity = productUnit.Storage.ToString() + " GB";
+                            StorageUnit productUnit = Parser.GetList[j] as StorageUnit;
+
+                            if (productUnit.Storage < 1024)
+                            {
+                                _capacity = productUnit.Storage.ToString() + " GB";
+                            }
+                            else
+                            {
+                                double cap = productUnit.Storage / 1000;
+                                cap = Math.Round(cap, 1);
+                                _capacity = cap.ToString() + " TB";
+                            }
                         }
-                        else
-                        {
-                            double cap = productUnit.Storage / 1000;
-                            cap = Math.Round(cap,1);
-                            _capacity = cap.ToString() + " TB";
-                        }
+                        catch { }
 
                         String numberofproduct = cartList[i].Number.ToString()+". ";
-                        Double tempprice = productUnit.Price * cartList[i].Number;
+                        Double tempprice = Parser.GetList[j].Price * cartList[i].Number;
                         decimal price = Convert.ToDecimal(tempprice);
-                        String manufactor = productUnit.Manufacturer.Name + " ";
-                        String name = productUnit.Name + " ";
+                        String manufactor = Parser.GetList[j].Manufacturer.Name + " ";
+                        String name = Parser.GetList[j].Name + " ";
                         String print = numberofproduct + manufactor + name + _capacity;
                         totalprice += price;
 
@@ -186,7 +191,7 @@ namespace MIP
                 //string.length + length of "total" (5)
                 String strtotal = totalprice.ToString() + " kr.";
                 int strnum = 50 - (strtotal.Length + 5);
-                string underscore = "";
+                underscore = "";
                 for (int k = 0; k <= strnum; k++)
                 {
                     underscore += "_";
