@@ -13,4 +13,4 @@
 
 	navn:		price:	code:	Manu:		capaci:	secureUSB:	
 [Flash]	West XL 23	0125	156323	Westerndigital	100	False
-[Flash]	Sony 24400	5125	1563	Sony    	3000	True
+[Flash]	Sony 24400	5125	1563	Sony	3000	True
