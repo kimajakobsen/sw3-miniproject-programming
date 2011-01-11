@@ -48,9 +48,11 @@
     <Compile Include="FlashStorage.cs" />
     <Compile Include="EFormFactor.cs" />
     <Compile Include="Harddrive.cs" />
+    <Compile Include="Helpers\Strings.cs" />
     <Compile Include="InternalHarddrive.cs" />
     <Compile Include="Manufacturer.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
