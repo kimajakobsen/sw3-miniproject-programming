@@ -22,6 +22,7 @@ namespace MIP
         public Harddrive(string name, double price, int productcode, Manufacturer manufacturer, int storage, int RPM)
             : base(name, price, productcode, manufacturer, storage)
         {
+            Rpm = RPM;
         }
             /// <summary>
             /// This contains the round per minut (RPM)

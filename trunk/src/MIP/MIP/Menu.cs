@@ -53,6 +53,12 @@ namespace MIP
             _commandLength = 1;
         }
 
+        public string LastSelected
+        {
+            get;
+            private set;
+        }
+
         static public Menu GetMenu
         {
             get
@@ -131,6 +137,28 @@ namespace MIP
             {
                 throw new ArgumentException("Too many inputs");
             }
+            
+
+            identifier.Add(_backCommand);
+            funcText.Add(new KeyValuePair<Action, string>(back, _backText));
+            identifier.Add(_mainCommand);
+            funcText.Add(new KeyValuePair<Action, string>(_main, _mainText));
+            identifier.Add(_quitCommand);
+            funcText.Add(new KeyValuePair<Action, string>(_quit, _quitText));
+
+            MakeCleanMenu(funcText, back, caller, identifier);
+        }
+
+        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller)
+        {
+            MakeCleanMenu(funcText, back, caller, _identifier);
+
+            return;
+        }
+
+        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back,
+            KeyValuePair<Action, string> caller, List<string> identifier)
+        {
             if (back == null)
             {
                 _back = Program.NoBack;
@@ -139,27 +167,6 @@ namespace MIP
             {
                 _back = back;
             }
-
-            identifier.Add(_backCommand);
-            funcText.Add(new KeyValuePair<Action, string>(_back, _backText));
-            identifier.Add(_mainCommand);
-            funcText.Add(new KeyValuePair<Action, string>(_main, _mainText));
-            identifier.Add(_quitCommand);
-            funcText.Add(new KeyValuePair<Action, string>(_quit, _quitText));
-
-            MakeCleanMenu(funcText, caller, identifier);
-        }
-
-        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller)
-        {
-            MakeCleanMenu(funcText, caller, _identifier);
-
-            return;
-        }
-
-        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText,
-            KeyValuePair<Action, string> caller, List<string> identifier)
-        {
             string input;
             if (funcText.Count > identifier.Count)
             {
@@ -218,6 +225,7 @@ namespace MIP
             Console.ForegroundColor = ConsoleColor.White;
             while (true)
             {
+                LastSelected = input;
                 if (input == _quitCommand)
                 {
                     Program.QuitBack = caller;
