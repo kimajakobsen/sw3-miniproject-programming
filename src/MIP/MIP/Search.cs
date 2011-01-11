@@ -86,26 +86,26 @@ namespace MIP
             return SearchPriceRange(currentResult,min,max);
         }
 
-        public static List<Product> SearchStarageRange(List<Product> searchList, int min, int max)
+        public static List<Product> SearchStorageRange(List<Product> searchList, int min, int max)
         {
             currentResult = searchList.Where(x => x is StorageUnit && (x as StorageUnit).Storage >= min && (x as StorageUnit).Storage <= max).ToList();
             return currentResult;
         }
 
-        public static List<Product> SearchStarageRange(int min, int max)
+        public static List<Product> SearchStorageRange(int min, int max)
         {
-            return SearchStarageRange(currentResult,min,max);
+            return SearchStorageRange(currentResult, min, max);
         }
 
-        public static List<Product> SearchStorageRange(List<Product> searchList, string searchString)
+        public static List<Product> SearchText(List<Product> searchList, string searchString)
         {
             currentResult = searchList.Where(x => x.Name.Contains(searchString) || x.Manufacturer.Name.Contains(searchString)).ToList();
             return currentResult;
         }
 
-        public static List<Product> SearchStorageRange(string searchString)
+        public static List<Product> SearchText(string searchString)
         {
-            return SearchStorageRange(currentResult,searchString);
+            return SearchText(currentResult, searchString);
         }
     }
 }
