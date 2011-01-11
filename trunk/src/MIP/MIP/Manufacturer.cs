@@ -25,6 +25,7 @@ namespace MIP
 
             set
             {
+                //The new value may not be an empty string
                 if (value != null && value != "")
                 {
                     //The name is valid and is inserted into
@@ -45,6 +46,7 @@ namespace MIP
 
             set
             {
+                //The url must start with http://
                 if (value != null && value.Length >= 7 &&
                     value.Substring(0,6).Equals("http://"))
                 {
