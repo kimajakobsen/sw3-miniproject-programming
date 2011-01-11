@@ -127,7 +127,14 @@ namespace MIP
         public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier)
         {
-            _back = back;
+            if (back == null)
+            {
+                _back = Program.NoBack;
+            }
+            else
+            {
+                _back = back;
+            }
             if (funcText.Count > identifier.Count)
             {
                 throw new ArgumentException("Too many inputs");

@@ -12,7 +12,7 @@ namespace MIP
         /// <summary>
         /// Returns the list
         /// </summary>
-        public List<Product> getList
+        static public List<Product> getList
         {
             get
             {
