@@ -6,13 +6,13 @@ using MIP.Helpers;
 
 namespace MIP
 {
-    class Menu
+    class MenuBuilder
     {
         private List<string> _identifier;
         private Action _quit;
         private Action _back;
         private Action _main;
-        static private Menu _menu;
+        static private MenuBuilder _menu;
         private string _quitCommand;
         private string _backCommand;
         private string _mainCommand;
@@ -22,14 +22,14 @@ namespace MIP
         private int _commandLength;
         private string _seperator;
 
-        private Menu(Action quit, Action back, Action main) : this()
+        private MenuBuilder(Action quit, Action back, Action main) : this()
         {
             _quit = quit;
             _back = back;
             _main = main;
         }
 
-        private Menu()
+        private MenuBuilder()
         {
             _seperator = " - ";
 
@@ -59,13 +59,13 @@ namespace MIP
             private set;
         }
 
-        static public Menu GetMenu
+        static public MenuBuilder GetMenu
         {
             get
             {
                 if (_menu == null)
                 {
-                    _menu = new Menu();
+                    _menu = new MenuBuilder();
                 }
 
                 return _menu;
@@ -133,11 +133,25 @@ namespace MIP
         public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier)
         {
+            MakeMenu(funcText, back, caller, identifier.GetRange(0, funcText.Count), "");
+
+            return;
+        }
+
+        public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back,
+            KeyValuePair<Action, string> caller, List<string> identifier, string prologue)
+        {
             if (funcText.Count > identifier.Count)
             {
                 throw new ArgumentException("Too many inputs");
             }
-            
+            try
+            {
+                funcText[funcText.Count - 1] = (new KeyValuePair<Action, string>
+                    (funcText[funcText.Count - 1].Key, funcText[funcText.Count - 1].Value + "\n"));
+            }
+            catch (ArgumentOutOfRangeException)
+            { }
 
             identifier.Add(_backCommand);
             funcText.Add(new KeyValuePair<Action, string>(back, _backText));
@@ -146,12 +160,19 @@ namespace MIP
             identifier.Add(_quitCommand);
             funcText.Add(new KeyValuePair<Action, string>(_quit, _quitText));
 
-            MakeCleanMenu(funcText, back, caller, identifier);
+            MakeCleanMenu(funcText, back, caller, identifier,prologue);
         }
 
         public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller)
         {
-            MakeCleanMenu(funcText, back, caller, _identifier);
+            MakeCleanMenu(funcText, back, caller, _identifier, "");
+
+            return;
+        }
+
+        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller,string prologue)
+        {
+            MakeCleanMenu(funcText, back, caller, _identifier,prologue);
 
             return;
         }
@@ -159,6 +180,23 @@ namespace MIP
         public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier)
         {
+            MakeCleanMenu(funcText, back, caller, identifier, ConsoleColor.Green, "");
+        }
+
+        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back,
+            KeyValuePair<Action, string> caller, List<string> identifier,string prologue)
+        {
+            MakeCleanMenu(funcText, back, caller, identifier, ConsoleColor.Green, prologue);
+        }
+
+        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back,
+            KeyValuePair<Action, string> caller, List<string> identifier,
+            ConsoleColor commandColor, string prologue)
+        {
+            if (funcText == null || identifier == null)
+            {
+                throw new ArgumentNullException("No argument to MakeCleanMenu are allowed to be null");
+            }
             if (back == null)
             {
                 _back = Program.NoBack;
@@ -184,29 +222,33 @@ namespace MIP
             }
 
             maxLenght += _commandLength + _seperator.Length;
-
+            int headerSize = maxLenght;
+            if (caller.Value != null && headerSize < caller.Value.Length + 4)
+            {
+                headerSize = caller.Value.Length + 4;
+            }
             Console.WriteLine();
             if (caller.Value != null && caller.Value != "")
             {
                 int length = caller.Value.Length;
-                WriteSeveral("=", (30 - length) / 2 - 1);
+                WriteSeveral("=", (headerSize - length) / 2 - 1);
                 Console.Write(" " + caller.Value + " ");
-                WriteSeveral("=", (30 - length) / 2 - 1);
-                if (length % 2 == 1)
+                WriteSeveral("=", (headerSize - length) / 2 - 1);
+                if ((headerSize - length) % 2 == 1)
                 {
                     Console.Write("=");
                 }
             }
             else
             {
-                WriteSeveral("=", 30);
+                WriteSeveral("=", headerSize);
             }
             Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine(prologue);
 
             for (int i = 0; i < funcText.Count; i++)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = commandColor;
                 Console.Write(identifier[i]);
                 Console.ForegroundColor = ConsoleColor.White;
                 for (int j = identifier[i].Length; j < _commandLength; j++)
@@ -220,7 +262,7 @@ namespace MIP
 
             Console.WriteLine("Enter your choice:");
             int enterRow = Console.CursorTop;
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = commandColor;
             input = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
             while (true)
@@ -252,7 +294,7 @@ namespace MIP
                 }
                 Console.SetCursorPosition(0, enterRow - 1);
                 Console.WriteLine("Incorrect identifier \"{0}\". Please try again:", input.Truncate(10));
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = commandColor;
                 input = Console.ReadLine();
                 Console.ForegroundColor = ConsoleColor.White;
             }

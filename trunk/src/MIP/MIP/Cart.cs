@@ -68,25 +68,14 @@ namespace MIP
                 if (_orderList[i].Productcode == productcode)
                 {
                     //check if Number is bigger then 0 and the current number of product is smaller then Number
-<<<<<<< .mine
-                    if (number > 0 && cartList[i].Number > number)
-=======
                     if (number > 0 && _orderList[i].Number > number)
->>>>>>> .r68
                     {
                         //Remove Number from number of product
-<<<<<<< .mine
-                        cartList[i].Number -= number;
-=======
                         _orderList[i].Number -= number;
->>>>>>> .r68
                     }
                         //else if Number equals null or equals the current number of product
-<<<<<<< .mine
-                    else if (number == null || cartList[i].Number == number)
-=======
+
                     else if (_orderList[i].Number <= number)
->>>>>>> .r68
                     {
                         //Remove all number of product
                         _orderList.RemoveAt(i);
