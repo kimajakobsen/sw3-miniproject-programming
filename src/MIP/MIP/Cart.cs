@@ -115,20 +115,21 @@ namespace MIP
                 {
                     if (cartList[i].Productcode == Parser.GetList[j].ProductCode)
                     {
-                        if (Parser.GetList. < 1024)
+                        if (Parser.GetList.Capacity < 1024)
                         {
-                            _capacity = Parser.GetList[j]..ToString() + "GB";
-                            
+                            _capacity = Parser.GetList[j].Capacity.ToString() + "GB";
                         }
                         else
                         {
                             double cap = Parser.GetList.Capacity / 1000;
-                            cap = Math.Round(cap);
+                            cap = Math.Round(cap,1);
                             _capacity = cap.ToString() + "TB";
                         }
 
                         String numberofproduct = cartList[i].Number.ToString()+". ";
-                        _show = numberofproduct + Parser.GetList[j]
+                        Double tempprice = Parser.GetList[j].Price;
+                        Decimal price = Convert.ToDecimal(tempprice);
+                        _show = numberofproduct + Parser.GetList[j];
                     }
                 }
             }
