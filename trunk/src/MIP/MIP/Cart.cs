@@ -131,7 +131,7 @@ namespace MIP
                         }
 
                         String numberofproduct = cartList[i].Number.ToString()+". ";
-                        Double tempprice = productUnit.Price;
+                        Double tempprice = productUnit.Price * cartList[i].Number;
                         decimal price = Convert.ToDecimal(tempprice);
                         String manufactor = productUnit.Manufacturer.Name + " ";
                         String name = productUnit.Name + " ";
