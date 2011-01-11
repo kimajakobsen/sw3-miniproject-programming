@@ -16,9 +16,9 @@ namespace MIP
         public ExternalHarddrive(string name, double price, int productcode, int storage, int RPM, double height, double width, double depth)
             : base(name, price, productcode, storage, RPM)
         {
-            _height = height;
-            _width = width;
-            _depth = depth;
+            Height = height;
+            Width = width;
+            Depth = depth;
         }
 
         //Getter and Setter for Height
