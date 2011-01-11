@@ -46,6 +46,7 @@
     <Compile Include="Cart.cs" />
     <Compile Include="ExternalHarddrive.cs" />
     <Compile Include="FlashStorage.cs" />
+    <Compile Include="EFormFactor.cs" />
     <Compile Include="Harddrive.cs" />
     <Compile Include="InternalHarddrive.cs" />
     <Compile Include="Manufacturer.cs" />
