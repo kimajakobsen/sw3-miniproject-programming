@@ -7,6 +7,7 @@ namespace MIP
 {
     class Cart
     {
+    
         private static List<Cart> cartList = new List<Cart>();
         private string _show;
         private int _number;
@@ -109,7 +110,13 @@ namespace MIP
         {
             for (int i = 0; i < cartList.Count; i++)
             {
-                _show += "temp";
+                for (int j = 0; j < Parser.GetList.Count; j++)
+                {
+                    if (cartList[i].Productcode == Parser.GetList[j].ProductCode)
+                    {
+                        
+                    }
+                }
             }
         }
 
