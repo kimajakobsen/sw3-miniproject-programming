@@ -19,9 +19,7 @@ namespace MIP
         /// <param name="name">The name of the product</param>
         /// <param name="price">The price of the product</param>
         /// <param name="productcode">The productcode of the product</param>
-        /// 
-        //temp manname, change this ! :D
-        public Product(string name, double price, int productcode, string manname)
+        public Product(string name, double price, int productcode)
         {
             Name = name;
             Price = price;
