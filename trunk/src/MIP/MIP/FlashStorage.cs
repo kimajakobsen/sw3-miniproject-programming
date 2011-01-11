@@ -10,7 +10,7 @@ namespace MIP
         private bool _secureUSB;
 
         /// <summary>
-        /// 
+        /// Constructor of Flash
         /// </summary>
         /// <param name="name">The name of the given flash</param>
         /// <param name="price">Price of the flash</param>
