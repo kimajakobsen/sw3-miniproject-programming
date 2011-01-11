@@ -16,11 +16,12 @@ namespace MIP
             Menu.GetMenu.Quit = Quit;
             Menu.GetMenu.Main = MainMenu;
 
-            //Parser.parser();
+            Parser.Parse();
+            /*
             Manufacturer manu = new Manufacturer("Manufacturerer", "http://google.com");
             Parser.GetList.Add(new InternalHarddrive("Wizzle", 123, 235245, manu, 1024, 15000, 2.5));
             Parser.GetList.Add(new ExternalHarddrive("Beer Drive", 1000, 1, manu, 2048, 15000, 5, 5, 5));
-            Parser.GetList.Add(new InternalHarddrive("Turtle", 2000, 2, manu, 256, 15000, 5.25));
+            Parser.GetList.Add(new InternalHarddrive("Turtle", 2000, 2, manu, 256, 15000, 5.25));*/
 
             MainMenu();
             Console.ReadLine();
