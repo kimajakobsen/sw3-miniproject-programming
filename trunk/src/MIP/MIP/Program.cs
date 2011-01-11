@@ -48,8 +48,49 @@ namespace MIP
         }
 
         static void Cart()
-        { 
-        
+        {
+            Cart myCart = new Cart();
+            Console.Clear();
+            String cart = Console.ReadLine();
+            String[] cartfunction = cart.Split(' ');
+            if (cartfunction[0] == "Add")
+            {
+                try
+                {
+                    int number = Convert.ToInt32(cartfunction[1]);
+                    int product = Convert.ToInt32(cartfunction[2]);
+                    myCart.AddToCart(number, product);
+                }
+                catch
+                {
+                    Console.Write("Your input was not in the correct format!");
+                }
+            }
+            else if (cartfunction[0] == "Remove")
+            {
+                try
+                {
+                    int number = Convert.ToInt32(cartfunction[1]);
+                    int product = Convert.ToInt32(cartfunction[2]);
+                    myCart.RemoveFromCart(number,product);
+                }
+                catch 
+                {
+                    Console.Write("Your input was not in the correct format!");
+                }
+            }
+            else if (cartfunction[0] == "CheckOut")
+            {
+                    myCart.CheckOut();
+            }
+            else if (cartfunction[0] == "Clear")
+            {
+                    myCart.Clear();
+            }
+            else if (cartfunction[0] == "Print")
+            {
+                myCart.PrintCart();
+            }
         }
 
         static public void NoBack()

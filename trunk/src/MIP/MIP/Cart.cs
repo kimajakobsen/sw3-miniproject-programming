@@ -15,7 +15,9 @@ namespace MIP
         private int _number;
         private int _productcode;
 
-        public Cart(int number, int productcode)
+        public Cart() { }
+
+        private Cart(int number, int productcode)
         {
             Number = number;
             Productcode = productcode;
@@ -156,7 +158,7 @@ namespace MIP
                     }
                 }
             }
-            if(_show.Length == null)
+            if(cartList.Count == 0)
             {
                 Console.Write("There is no items in your cart");
             } 
@@ -200,6 +202,11 @@ namespace MIP
 
                 Console.Write(_show);
             }
+        }
+
+        public void Clear()
+        {
+            cartList.Clear();
         }
 
         //CheckOut will show whats in the cart and remove all items from the cardList
