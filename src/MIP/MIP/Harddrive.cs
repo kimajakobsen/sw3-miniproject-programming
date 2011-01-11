@@ -7,5 +7,17 @@ namespace MIP
 {
     abstract class Harddrive : StorageUnit
     {
+
+        private RPM _rpm;
+
+
+        public Harddrive(string name, double price, int productcode, int storage, int RPM)
+            : base(name, price, productcode, storage)
+        {
+
+
+
+
+        }
     }
 }
