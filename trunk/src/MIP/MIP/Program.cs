@@ -9,6 +9,9 @@ namespace MIP
     {
         static void Main(string[] args)
         {
+
+            Parser.parser();
+            Console.ReadLine();
         }
     }
 }
