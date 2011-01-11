@@ -57,11 +57,14 @@ namespace MIP
 
                             try
                             {
+                                Manufacturer menu = new Manufacturer("PH", "http://asdasdfdsf.aco");
+
+
                                 InternalHarddrive product = new InternalHarddrive ( 
                                     temp[0],                                    //name
                                     temp[1].Cast<double>().FirstOrDefault(),    //price
                                     temp[2].Cast<int>().FirstOrDefault(),       //productcode
-                                    temp[3],                                    //manufacture
+                                    menu,                                       //manufacture
                                     temp[4].Cast<int>().FirstOrDefault(),       //capacity
                                     temp[5].Cast<int>().FirstOrDefault(),       //RPM
                                     temp[6].Cast<double>().FirstOrDefault());   //formfactor
@@ -76,7 +79,7 @@ namespace MIP
                             
                         }
 
-
+                        /*
                         if (_line.Contains("[Manufacturer]"))
                         {
                             int i = 0;
@@ -114,7 +117,7 @@ namespace MIP
 
 
                         }
-
+                        */
                         
                     }
                 }
