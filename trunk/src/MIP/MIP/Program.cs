@@ -225,6 +225,7 @@ namespace MIP
                     int number = Convert.ToInt32(cartfunction[1]);
                     int product = Convert.ToInt32(cartfunction[2]);
                     myCart.AddToCart(number, product);
+                    MainMenu();
                 }
                 catch
                 {
