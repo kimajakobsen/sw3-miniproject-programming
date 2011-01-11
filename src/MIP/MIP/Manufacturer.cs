@@ -5,16 +5,20 @@ using System.Text;
 
 namespace MIP
 {
+    /// <summary>
+    /// The manufacturer class holds a manufacturer of products
+    /// It contains a Name and a Url
+    /// </summary>
     class Manufacturer
     {
         private string _name;
         private string _url;
 
         /// <summary>
-        /// 
+        /// Constructor of manufacturer
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="url"></param>
+        /// <param name="name">Name of the manufacturer</param>
+        /// <param name="url">URL of the manufacturers homepage</param>
         public Manufacturer(string name, string url)
         {
             Name = name;
