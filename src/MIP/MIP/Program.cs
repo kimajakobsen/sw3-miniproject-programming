@@ -10,6 +10,9 @@ namespace MIP
     {
         static Stack<List<Product>> _previousStack;
 
+        /// <summary>
+        /// The main method
+        /// </summary>
         static void Main(string[] args)
         {
             Initialize();
@@ -24,12 +27,13 @@ namespace MIP
         {
             MenuBuilder.GetMenu.Quit = Quit;
             MenuBuilder.GetMenu.Main = MainMenu;
-            Parser.Parse();
+            Parser.Parse(); //load the data from the init file.
 
             while (true)
             {
                 try
                 {
+                    //Stack used to save the prev showed list
                     _previousStack = new Stack<List<Product>>();
                     MainMenu();
                 }
@@ -100,7 +104,7 @@ namespace MIP
         /// <param name="searchResult"></param>
         static void SearchMain(List<Product> searchResult)
         {
-            _previousStack.Push(searchResult);
+            _previousStack.Push(searchResult); //save the displayed list so it loaded if user press back
             Console.Clear();
             int i = 1;
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
