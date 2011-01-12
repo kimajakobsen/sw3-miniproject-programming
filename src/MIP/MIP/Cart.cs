@@ -84,6 +84,101 @@ namespace MIP
             }
         }
 
+        public string CartToPrint()
+        {
+            string _show;
+            string _capacity = "";
+            _show = "";
+            decimal totalprice = 0;
+            for (int i = 0; i < _orderList.Count; i++)
+            {
+                for (int j = 0; j < Parser.ProductList.Count; j++)
+                {
+                    if (_orderList[i].Productcode == Parser.ProductList[j].ProductCode)
+                    {
+                        try
+                        {
+                            StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
+
+                            if (productUnit.Storage < 1024)
+                            {
+                                _capacity = productUnit.Storage.ToString() + " GB";
+                            }
+                            else
+                            {
+                                double cap = Convert.ToDouble(productUnit.Storage) / 1024;
+                                cap = Math.Round(cap, 1);
+                                _capacity = cap.ToString() + " TB";
+                            }
+                        }
+                        catch { }
+
+                        String numberofproduct = _orderList[i].Number.ToString() + ". ";
+                        Double tempprice = Parser.ProductList[j].Price * _orderList[i].Number;
+                        decimal price = Convert.ToDecimal(tempprice);
+                        String manufactor = Parser.ProductList[j].Manufacturer.Name + " ";
+                        String name = Parser.ProductList[j].Name + " ";
+                        String print = numberofproduct + manufactor + name + _capacity;
+                        totalprice += price;
+
+                        print = print.Truncate(35);
+                        String strprice = price.ToString() + " kr.";
+                        int charnum = print.Length + strprice.Length;
+                        charnum = 50 - charnum;
+                        string underscore = "";
+                        for (int k = 0; k <= charnum; k++)
+                        {
+                            underscore += "_";
+                        }
+                        _show += print + underscore + strprice + "\n";
+                    }
+                }
+            }
+            if (_orderList.Count == 0)
+            {
+                return "There are no items in your cart\n";
+            }
+            else
+            {
+                decimal delivery;
+                if (totalprice < 250)
+                {
+                    delivery = 50;
+                    totalprice += 50;
+                }
+                else if (totalprice >= 250 && totalprice <= 500)
+                {
+                    delivery = 25;
+                    totalprice += 25;
+                }
+                else
+                {
+                    delivery = 0;
+                    totalprice += 0;
+                }
+                String strdelivery = delivery.ToString() + " kr.";
+                //string.Length + length of delivery (8)
+                int strnumdelivery = 50 - (strdelivery.Length + 8);
+                string underscore = "";
+                for (int k = 0; k <= strnumdelivery; k++)
+                {
+                    underscore += "_";
+                }
+                _show += "Delivery" + underscore + strdelivery + "\n";
+
+                //string.length + length of "total" (5)
+                String strtotal = totalprice.ToString() + " kr.";
+                int strnum = 50 - (strtotal.Length + 5);
+                underscore = "";
+                for (int k = 0; k <= strnum; k++)
+                {
+                    underscore += "_";
+                }
+                _show += "Total" + underscore + strtotal;
+
+                return _show + "\n";
+            }
+        }
 
         public void PrintCart()
         {
