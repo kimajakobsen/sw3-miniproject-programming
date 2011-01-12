@@ -9,12 +9,14 @@ namespace MIP
     {
         private int _number;
         private int _productcode;
-
+        //Constructor for OrderLine
+        //Orderline is used for Cart class to store the cart info
         public OrderLine(int number, int productcode)
         {
             Number = number;
             Productcode = productcode;
         }
+        //Proberty for Number
         public int Number
         {
             get
@@ -31,7 +33,7 @@ namespace MIP
                 return;
             }
         }
-
+        //Proberty for ProdcutCode
         public int Productcode
         {
             get
