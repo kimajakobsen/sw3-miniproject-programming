@@ -324,9 +324,9 @@ namespace MIP
                 MainMenu();
                 return;
             }
-            MIP.Cart.GetCart.Clear();
+           
             Console.WriteLine("The products will be sent to your address, please pay " + MIP.Cart.GetCart.TotalPrice + " kr.");
-            
+            MIP.Cart.GetCart.Clear();
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
             MainMenu();
