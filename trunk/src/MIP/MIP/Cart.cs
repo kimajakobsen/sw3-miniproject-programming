@@ -107,7 +107,7 @@ namespace MIP
                             }
                             else
                             {
-                                double cap = productUnit.Storage / 1000;
+                                double cap = Convert.ToDouble(productUnit.Storage) / 1024;
                                 cap = Math.Round(cap, 1);
                                 _capacity = cap.ToString() + " TB";
                             }
