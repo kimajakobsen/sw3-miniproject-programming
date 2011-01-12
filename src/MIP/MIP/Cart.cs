@@ -35,11 +35,11 @@ namespace MIP
             String strprice = "";
             for (int i = 0; i < _orderList.Count; i++)
             {
-                for(int j = 0; i < Parser.ProductList.Count; j++)
+                for(int j = 0; j < Parser.ProductList.Count; j++)
                 {
                     if (_orderList[i].Productcode == Parser.ProductList[j].ProductCode)
                     {
-                        price += Parser.ProductList[j].Price;
+                        price += Parser.ProductList[j].Price*_orderList[i].Number;
                     }
                 }
             }
