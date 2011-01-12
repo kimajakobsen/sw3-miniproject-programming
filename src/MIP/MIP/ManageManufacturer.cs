@@ -88,12 +88,14 @@ namespace MIP
             if (list.Count > 0)
             {
                 //if there are one or more manufacturer in the ManufacturerList, then they are showed on a list
-                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier);
+                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(RemoveManufacturer,
+                    "Remove Manufacturer"), identifier);
             }
             else
             {
                 //If there are no manufactures the message "No products were found!" is displayed
-                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier,
+                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(RemoveManufacturer,
+                    "Remove Manufacturer"), identifier,
                     "\nNo products were found!\n");
             }
         }
@@ -132,8 +134,8 @@ namespace MIP
             if (Parser.ProductList.FirstOrDefault(x => x.Manufacturer.Name == temp.Name) != null)
             {
                 //If there exist producs which are made by the current manufacturer
-                Console.WriteLine("\"" + temp.Name + "\" still have producs in the system, delete all producs before deleating the manufacturer." + 
-                    " Press any key to continue.");
+                Console.WriteLine("\"" + temp.Name + "\" still have products in the system,"+
+                    " delete all products before deleating the manufacturer. Press any key to continue.");
                 Console.ReadKey();
                 ManageManufacturers();  
             }
