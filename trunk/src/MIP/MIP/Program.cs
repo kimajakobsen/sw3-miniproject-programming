@@ -41,6 +41,7 @@ namespace MIP
             list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
             list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
             list.Add(new KeyValuePair<Action, string>(AddProduct, "Add product"));
+            list.Add(new KeyValuePair<Action, string>(AddManufacturer, "Add manufacturer"));
             NoBackNext = MainMenu;
 
             MenuBuilder.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
@@ -282,6 +283,25 @@ namespace MIP
         }
 
         #region Add Product
+
+        static void AddManufacturer()
+        {
+            Console.Clear();
+            Console.WriteLine("Adding Manufacturer.\n");
+            string name = GetString("Enter name:");
+            string url = GetString("Enter url:", x => x.StartsWith("http://"));
+           
+            Manufacturer temp = new Manufacturer(
+                name,
+                url);
+
+            Parser.ManufacturerList.Add(temp);
+            Console.WriteLine("Manufacturer with above specifications added. Press any key to continue.");
+            Console.ReadKey();
+            MainMenu();
+        }
+
+
 
         static void AddProduct()
         {
