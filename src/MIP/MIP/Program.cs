@@ -244,22 +244,57 @@ namespace MIP
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(myCart.CheckOut, "CheckOut"));
             list.Add(new KeyValuePair<Action, string>(myCart.Clear, "Clear cart"));
-            list.Add(new KeyValuePair<Action, string>(RemoveFromCart, "Remove"));
+            list.Add(new KeyValuePair<Action, string>(RemoveMenu, "Remove"));
             NoBackNext = MainMenu;
 
             MenuBuilder.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart, "Cart Menu"),myCart.CartToPrint() + "\n");
         }
 
-        static void RemoveFromCart()
+        static void RemoveMenu()
         {
             Console.Clear();
-            Console.WriteLine("Enter a text to search for:");
+            int i = 1;
+            Cart myCart = MIP.Cart.GetCart;
+            List<string> identifier = new List<string>();
+            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+            foreach (var item in myCart.GetOrderList())
+            {
+                String itemName = "";
+                for (int j = 0; j < Parser.ProductList.Count; j++)
+                {
+                    if (item.Productcode == Parser.ProductList[j].ProductCode)
+                    {
+                        itemName = Parser.ProductList[j].Manufacturer.Name+" ";
+                        itemName += Parser.ProductList[j].Name;
+                    }
+                }
+                list.Add(new KeyValuePair<Action, string>(RemoveFromCart,itemName));
+                identifier.Add(i + "");
+                i++;
+            }
+            NoBackNext = MainMenu;
+
+            MenuBuilder.GetMenu.MakeMenu(list, MainMenu, new KeyValuePair<Action, string>(RemoveMenu, "Cart Menu"), myCart.CartToPrint());
+        }
+
+        static void RemoveFromCart()
+        {
+
+            int index = int.Parse(MenuBuilder.GetMenu.LastSelected);
+            int amount = Toolbox.GetInt("How many do you want to remove from your cart?:", x => x >= 0);
+            MIP.Cart.GetCart.RemoveFromCart(amount, _previousStack.Peek()[index - 1].ProductCode);
+            return;
+
+            /*
+            Cart myCart = MIP.Cart.GetCart;
+            Console.Clear();
+            Console.WriteLine(myCart.RemoveShow());
             Console.ForegroundColor = ConsoleColor.Green;
             string input = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
 
             SearchMain(Search.SearchText(_previousStack.Peek(), input));
-            return;
+            return;*/
         }
 
         static public void NoBack()
