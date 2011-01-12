@@ -48,16 +48,8 @@ namespace MIP
             { 
                 encryption = "is not secured";
             }
-            string store;
-            if (Storage >= 1024)
-            {
-                store = Storage / 1024 + " TB";
-            }
-            else
-            {
-                store = Storage + " GB";
-            }
-            return Manufacturer.Name + " " + Name + " " + encryption + " " + store + " " +
+
+            return Manufacturer.Name + " " + Name + " " + encryption + " " + NeatCapacity + " " +
                 " " + Price + " kr.";
         }
     }

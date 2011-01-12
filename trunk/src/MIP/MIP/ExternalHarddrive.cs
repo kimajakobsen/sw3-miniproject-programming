@@ -87,16 +87,8 @@ namespace MIP
 
         override public string ToSearchResultString()
         { 
-            string store;
-            if(Storage >= 1024)
-            {
-                store = Storage/1024 + " TB";
-            }
-            else
-            {
-                store = Storage + " GB";
-            }
-            return Manufacturer.Name + " " + Name + " " + Rpm + " rpm " + store + " " +
+            
+            return Manufacturer.Name + " " + Name + " " + Rpm + " rpm " + NeatCapacity + " " +
                 Height + "/" + Width + "/" + Depth + " " + Price + " kr.";
         }
     }

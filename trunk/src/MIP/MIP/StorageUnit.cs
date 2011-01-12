@@ -24,6 +24,23 @@ namespace MIP
             this._storage = storage;
         }
 
+        public string NeatCapacity
+        {
+            get
+            {
+                string store;
+                if (Storage >= 1024)
+                {
+                    store = (decimal.Round((decimal)Storage / 1024,1)).ToString();
+                }
+                else
+                {
+                    store = Storage + " GB";
+                }
+
+                return store;
+            }
+        }
 
         public int Storage
         {
