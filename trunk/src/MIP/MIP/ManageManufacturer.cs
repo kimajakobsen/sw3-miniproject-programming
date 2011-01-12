@@ -52,7 +52,8 @@ namespace MIP
             Console.Clear();
             Console.WriteLine("Adding Manufacturer.\n");
             string name = Toolbox.GetString("Enter name:", //checks if the name is in use, askes again if it is. 
-                x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) == null);
+                x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) == null &&
+                x.Length >= 1);
             string url = Toolbox.GetString("Enter url (Must start with \"http://\"):", x => x.StartsWith("http://"));
 
             Manufacturer temp = new Manufacturer(
