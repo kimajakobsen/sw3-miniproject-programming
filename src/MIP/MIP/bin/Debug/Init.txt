@@ -5,12 +5,20 @@
 			navn:		price:	code:	Manu:	capaci:	rpm:	formfactor:
 [InternalHarddrives]	Hp hardisk 9200	2314	157	HP	1500	7200	5,25
 [InternalHarddrives]	Hp hardisk 8200	2100	156	HP	1500	5400	5,25
+[InternalHarddrives]	S-HD XOX	1400	103	Sony	1024	7200	3,5
 
 			navn:		price:	code:	Manu:	capaci:	rpm:	height:	width:	depth:	
 [ExternalHarddrives]	external hopla	0125	123	HP	20000	7200	5,12	12,3	8,00
-[ExternalHarddrives]	5600 ultra	25600	001	Sony	150000	7200	120	500	600
-[ExternalHarddrives]	5600 ultra	25600	001	Sony	150000	7200	120	500	600
+[ExternalHarddrives]	5600 ultra	25600	001	Sony	150000	15000	120	500	600
+[ExternalHarddrives]	1000 ultra	2560	002	Sony	10000	7200	10	15	20
+[ExternalHarddrives]	Mega HD 2000	15999	321	HP	25000	10000	5	3	8,00
+
 
 	navn:		price:	code:	Manu:		capaci:	secureUSB:	
 [Flash]	West XL 23	0125	151	Westerndigital	100	False
 [Flash]	Sony 24400	5125	163	Sony	3000	True
+[Flash]	Flasher!	1000	165	HP	800	True
+[Flash]	Micro USB	50	179	HP	2	False
+[Flash]	Micro USB-S	65	180	HP	2	True
+[Flash]	Mega USB	250	183	HP	32	False
+[Flash]	Mega USB-S	300	184	HP	32	True
