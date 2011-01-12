@@ -203,7 +203,7 @@ namespace MIP
         static void AddToCart()
         {
             int index = int.Parse(MenuBuilder.GetMenu.LastSelected);
-            int amount = GetInt("How many do you want to add to your cart?:", x => x >= 0);
+            int amount = Toolbox.GetInt("How many do you want to add to your cart?:", x => x >= 0);
             MIP.Cart.GetCart.AddToCart(amount, _previousStack.Peek()[index-1].ProductCode);
             SearchMain(_previousStack.Pop());
             return;
