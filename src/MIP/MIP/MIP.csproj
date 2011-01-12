@@ -50,6 +50,8 @@
     <Compile Include="Harddrive.cs" />
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="InternalHarddrive.cs" />
+    <Compile Include="ManageManufacturer.cs" />
+    <Compile Include="ManageProducts.cs" />
     <Compile Include="Manufacturer.cs" />
     <Compile Include="OrderLine.cs" />
     <Compile Include="Parser.cs" />
