@@ -65,6 +65,10 @@ namespace MIP
             ManageManufacturers();
         }
 
+        /// <summary>
+        /// When the remove manufacturer is called it shows a list of all the manufacturers
+        /// when a manufacturer is selected the PromptMenu is called and the selected manufacturer is saved in ToDelete
+        /// </summary>
         static public void RemoveManufacturer()
         {
             PromptMenuBack = new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer");
@@ -75,24 +79,30 @@ namespace MIP
             List<string> identifier = new List<string>();
             foreach (var item in searchResult)
             {
-                list.Add(new KeyValuePair<Action, string>(PrompteMenu, item.ToSearchResultString()));
+                list.Add(new KeyValuePair<Action, string>(PromptMenu, item.ToSearchResultString()));
                 identifier.Add(i + "");
                 i++;
             }
 
             if (list.Count > 0)
             {
+                //if there are one or more manufacturer in the system, then they are showed on a list
                 MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier);
             }
             else
             {
+                //If there are no manufactures the message "No products were found!" is displayed
                 MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier,
                     "\nNo products were found!\n");
             }
         }
 
-
-        static void PrompteMenu()
+        /// <summary>
+        /// This showes a Prompt menu where the user have to confirm that he want to delete the given manufacturer 
+        /// If the user answers YES then RemoveSpecificManufacturer is called
+        /// If the user answers NO then Rthe user is send back to the place where user came from (it is stored in PromptMenuBack)
+        /// </summary>
+        static void PromptMenu()
         {
             int index = int.Parse(MenuBuilder.GetMenu.LastSelected);
             ToDelete = Parser.ManufacturerList[index - 1];
@@ -110,16 +120,19 @@ namespace MIP
             return;
         }
 
-
+        /// <summary>
+        /// If there are producs made by the manufacturer who is being deleted, then the manufacturer is not deleted. 
+        /// Else is the manufacturere deleted
+        ///
+        /// </summary>
         static public void RemoveSpecificManufacturer()
         {
-
-            var temp = ToDelete;
-
+            var temp = ToDelete; // contains the manufacturer which is about to be deleted
             if (Parser.ProductList.FirstOrDefault(x => x.Manufacturer.Name == temp.Name) != null)
             {
                 //If there exist producs which are made by the current manufacturer
-                Console.WriteLine("\"" + temp.Name + "\" still have producs in the system, delete all producs before deleating the manufacturer. Press any key to continue.");
+                Console.WriteLine("\"" + temp.Name + "\" still have producs in the system, delete all producs before deleating the manufacturer." + 
+                    " Press any key to continue.");
                 Console.ReadKey();
                 ManageManufacturers();  
             }
