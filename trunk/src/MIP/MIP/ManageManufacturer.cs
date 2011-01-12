@@ -7,14 +7,14 @@ namespace MIP
 {
     class ManageManufacturer
     {
-        static public void ManageManufacturer()
+        static public void ManageManufacturers()
         {
             Console.Clear();
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(AddManufacturer, "Add a new Manufacturer"));
             list.Add(new KeyValuePair<Action, string>(RemoveManufacturer, "Remove an existing Manufacturer"));
 
-            MenuBuilder.GetMenu.MakeMenu(list, Program.MainMenu, new KeyValuePair<Action, string>(ManageManufacturer, "Manage Manufacturer"));
+            MenuBuilder.GetMenu.MakeMenu(list, Program.MainMenu, new KeyValuePair<Action, string>(ManageManufacturers, "Manage Manufacturer"));
             Program.MainMenu();
         }
 
@@ -22,6 +22,13 @@ namespace MIP
         {
             get;
             set;
+        }
+
+        static public Manufacturer ToDelete
+        {
+            get;
+            set;
+
         }
 
         static public void AddManufacturer()
@@ -59,11 +66,11 @@ namespace MIP
 
             if (list.Count > 0)
             {
-                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturer, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier);
+                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier);
             }
             else
             {
-                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturer, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier,
+                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier,
                     "\nNo products were found!\n");
             }
         }
@@ -71,6 +78,8 @@ namespace MIP
 
         static void PrompteMenu()
         {
+            int index = int.Parse(MenuBuilder.GetMenu.LastSelected);
+            ToDelete = Parser.ManufacturerList[index - 1];
             Console.Clear();
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(RemoveSpecificManufacturer, "Yes, delete"));
@@ -81,30 +90,30 @@ namespace MIP
             identifiers.Add("Y");
             identifiers.Add("N");
 
-            MenuBuilder.GetMenu.MakeCleanMenu(list, ManageManufacturer, new KeyValuePair<Action, string>(null, "Quit"), identifiers);
+            MenuBuilder.GetMenu.MakeCleanMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(null, "Quit"), identifiers);
             return;
         }
 
 
         static public void RemoveSpecificManufacturer()
         {
-            int index = int.Parse(MenuBuilder.GetMenu.LastSelected);
-            var temp = Parser.ProductList[index - 1];
+
+            var temp = ToDelete;
 
             if (Parser.ProductList.FirstOrDefault(x => x.Manufacturer.Name == temp.Name) != null)
             {
                 //If there exist producs which are made by the current manufacturer
                 Console.WriteLine(temp.Name + " still have producs in the system, delete all producs before deleating the manufacturer. Press any key to continue.");
                 Console.ReadKey();
-                ManageManufacturer();  
+                ManageManufacturers();  
             }
             else
             {
                 //If the system dose not contain any producs made by the current manufacturer
-                Parser.ProductList.Remove(temp);
+                Parser.ManufacturerList.Remove(temp);
                 Console.WriteLine("\"" + temp.ToSearchResultString() + "\" has been removed. Press any key to continue.");
                 Console.ReadKey();
-                ManageManufacturer();  
+                ManageManufacturers();  
             }
         }
     }

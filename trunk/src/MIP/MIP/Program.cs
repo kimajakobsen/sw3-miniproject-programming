@@ -41,7 +41,7 @@ namespace MIP
             list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
             list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
             list.Add(new KeyValuePair<Action, string>(ManageProducts.ManageProduct, "Manage products"));
-            list.Add(new KeyValuePair<Action, string>(ManageManufacturer.AddManufacturer, "Add manufacturer"));
+            list.Add(new KeyValuePair<Action, string>(ManageManufacturer.ManageManufacturers, "Manage manufacturer"));
             NoBackNext = MainMenu;
 
             MenuBuilder.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));

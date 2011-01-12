@@ -68,7 +68,7 @@ namespace MIP
             }
         }
 
-        override public string ToSearchResultString()
+        public string ToSearchResultString()
         {
             return Name + " " + "Url: " + Url;
         }
