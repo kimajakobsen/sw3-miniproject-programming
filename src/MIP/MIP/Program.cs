@@ -12,22 +12,52 @@ namespace MIP
 
         static void Main(string[] args)
         {
-            _previousStack = new Stack<List<Product>>();
-            MenuBuilder.GetMenu.Quit = Quit;
-            MenuBuilder.GetMenu.Main = MainMenu;
+            Initialize();
 
-            Parser.Parse();
-            MainMenu();
-            
-
+            return;
         }
 
+        /// <summary>
+        /// Responsible of handle unexpected errors.
+        /// </summary>
+        static void Initialize()
+        {
+            MenuBuilder.GetMenu.Quit = Quit;
+            MenuBuilder.GetMenu.Main = MainMenu;
+            Parser.Parse();
+
+            while (true)
+            {
+                try
+                {
+                    _previousStack = new Stack<List<Product>>();
+                    MainMenu();
+                }
+                catch
+                {
+                    //An unexpected error has occured.
+                    //The user is sent back to the main menu.
+                    Console.Clear();
+                    Console.WriteLine("An error occured! Press any key to go to Main Menu.");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                }
+            }
+        }
+
+        /// <summary>
+        /// The Action to be called if the user wants to go back from Quit
+        /// </summary>
         static public KeyValuePair<Action, string> QuitBack
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Action to be called if the user tries to go back, when there're
+        /// nowhere to go back to.
+        /// </summary>
         static public Action NoBackNext
         {
             get;
@@ -35,39 +65,39 @@ namespace MIP
         }
 
         /// <summary>
-        /// Responsible for handling the main menu
+        /// Responsible for handling the main menu containing Saerch, Cart, and managing of products and manufactures
         /// </summary>
         static public void MainMenu()
         {
-            try
-            {
-                Console.Clear();
-                List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
-                list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
-                list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
-                list.Add(new KeyValuePair<Action, string>(ManageProducts.ManageProduct, "Manage products"));
-                list.Add(new KeyValuePair<Action, string>(ManageManufacturer.ManageManufacturers, "Manage manufacturer"));
-                NoBackNext = MainMenu;
+            Console.Clear();
+            //A list containing matching actions and strings is made
+            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+            list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
+            list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
+            list.Add(new KeyValuePair<Action, string>(ManageProducts.ManageProduct, "Manage products"));
+            list.Add(new KeyValuePair<Action, string>(ManageManufacturer.ManageManufacturers, "Manage manufacturer"));
+            NoBackNext = MainMenu;
 
-                MenuBuilder.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
-            }
-            catch
-            {
-                Console.Clear();
-                Console.WriteLine("An occured! Press any key to go to Main Menu.");
-                Console.ReadKey(true);
-                Console.Clear();
-                MainMenu();
-            }
+            //The menu is build:
+            MenuBuilder.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"),
+                "Select a letter to enter another menu.\n");
         }
 
         #region Search
 
+        /// <summary>
+        /// 
+        /// </summary>
         static void InitializeSearch()
         {
             SearchMain(Search.Initiate());
         }
 
+        /// <summary>
+        /// The main search function.
+        /// Responsible for the setup og the search menu and the results.
+        /// </summary>
+        /// <param name="searchResult"></param>
         static void SearchMain(List<Product> searchResult)
         {
             _previousStack.Push(searchResult);
@@ -106,7 +136,7 @@ namespace MIP
                 list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Reset search"));
                 identifier.Add(c + "");
                 MenuBuilder.GetMenu.MakeMenu(list, SearchBack, new KeyValuePair<Action, string>(InitializeSearch, "Search"), identifier,
-                    "Below is a list of products.\n"+
+                    "Below is a list of products.\n" +
                     "Use the numbers to add a product to your cart and the large letters from 'A' to '" + c + "' " +
                     "to filter the list.\n");
             }
@@ -114,25 +144,19 @@ namespace MIP
             {
                 MenuBuilder.GetMenu.MakeMenu(list, SearchBack, new KeyValuePair<Action, string>(InitializeSearch, "Search"), identifier,
                     "\nNo products were found!\n");
+
             }
 
-            
+            return;
         }
 
+        /// <summary>
+        /// Allows search for a specific product code
+        /// </summary>
         static void SearchProductCode()
         {
             Console.Clear();
-            Console.WriteLine("Enter a product code to search for:");
-            Console.ForegroundColor = ConsoleColor.Green;
-            string input = Console.ReadLine();
-            Console.ForegroundColor = ConsoleColor.White;
-            int i;
-            while (!int.TryParse(input, out i))
-            {
-                Console.Clear();
-                Console.WriteLine("Invalid input \"{0}\". Please enter a new product code to search for:",input.Truncate(10));
-                input = Console.ReadLine();
-            }
+            int i = Toolbox.GetInt("Enter a product code to search for:");
 
             SearchMain(Search.SearchProductCode(_previousStack.Peek(),i));
             return;
@@ -170,6 +194,12 @@ namespace MIP
             }
             while (!double.TryParse(min, out minI) || !double.TryParse(max, out maxI));
 
+            if (minI > maxI)
+            {
+                double temp = minI;
+                minI = maxI;
+                maxI = temp;
+            }
             SearchMain(Search.SearchPriceRange(_previousStack.Peek(), minI,maxI));
             return;
         }
@@ -206,17 +236,23 @@ namespace MIP
             }
             while (!int.TryParse(min, out minI) || !int.TryParse(max, out maxI));
 
+            if (minI > maxI)
+            {
+                int temp = minI;
+                minI = maxI;
+                maxI = temp;
+            }
             SearchMain(Search.SearchStorageRange(_previousStack.Peek(), minI, maxI));
             return;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         static void SearchText()
         {
             Console.Clear();
-            Console.WriteLine("Enter a text to search for in name and manufacturer(case insensitive):");
-            Console.ForegroundColor = ConsoleColor.Green;
-            string input = Console.ReadLine();
-            Console.ForegroundColor = ConsoleColor.White;
+            string input = Toolbox.GetString("Enter a text to search for in name and manufacturer(case insensitive):");
 
             SearchMain(Search.SearchText(_previousStack.Peek(), input));
             return;
