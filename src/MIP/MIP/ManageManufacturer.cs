@@ -7,7 +7,7 @@ namespace MIP
 {
     class ManageManufacturer
     {
-        static void AddManufacturer()
+        static public void AddManufacturer()
         {
             Console.Clear();
             Console.WriteLine("Adding Manufacturer.\n");
