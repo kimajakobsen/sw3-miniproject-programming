@@ -114,7 +114,7 @@ namespace MIP
                 }
                 else
                 {
-                    throw new InvalidOperationException("Duplicate product key - cannot load init file.");
+                    throw new InvalidOperationException("Duplicate product key");
                 }
             }
         }
