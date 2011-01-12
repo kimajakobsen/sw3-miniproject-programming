@@ -225,7 +225,7 @@ namespace MIP
 
 #endregion
 
-        static void Cart2()
+        static void Cart()
         {
             Console.Clear();
             Cart myCart = MIP.Cart.GetCart;
@@ -236,7 +236,7 @@ namespace MIP
             list.Add(new KeyValuePair<Action, string>(RemoveFromCart, "Remove"));
             NoBackNext = MainMenu;
 
-            MenuBuilder.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart2, "Cart Menu"));
+            MenuBuilder.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart, "Cart Menu"));
         }
 
         static void RemoveFromCart()
@@ -300,7 +300,7 @@ namespace MIP
             Console.Clear();
             Console.WriteLine("Adding internal harddrive.\n");
             string name = GetString("Enter name:", x => x.Length >= 5);
-            double price = GetDouble("Enter price:");
+            double price = GetDouble("Enter price(eg. 1200,50):");
             int productCode = GetInt("Enter product code(must be unique):",x =>
                 Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
             string manu = GetString("Enter product manufacturer(eg. " +
@@ -329,7 +329,7 @@ namespace MIP
             Console.Clear();
             Console.WriteLine("Adding external harddrive.\n");
             string name = GetString("Enter name:", x => x.Length >= 5);
-            double price = GetDouble("Enter price:");
+            double price = GetDouble("Enter price(eg. 1200,50):");
             int productCode = GetInt("Enter product code(must be unique):", x =>
                 Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
             string manu = GetString("Enter product manufacturer(eg. " +
@@ -362,7 +362,7 @@ namespace MIP
             Console.Clear();
             Console.WriteLine("Adding flash storage unit.\n");
             string name = GetString("Enter name:", x => x.Length >= 5);
-            double price = GetDouble("Enter price:");
+            double price = GetDouble("Enter price(eg. 1200,50):");
             int productCode = GetInt("Enter product code(must be unique):", x =>
                 Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
             string manu = GetString("Enter product manufacturer(eg. " +
