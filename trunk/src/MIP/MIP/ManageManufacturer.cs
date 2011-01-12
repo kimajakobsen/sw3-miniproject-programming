@@ -7,6 +7,9 @@ namespace MIP
 {
     class ManageManufacturer
     {
+        /// <summary>
+        /// The menu manage menu
+        /// </summary>
         static public void ManageManufacturers()
         {
             Console.Clear();
@@ -18,12 +21,18 @@ namespace MIP
             Program.MainMenu();
         }
 
+        /// <summary>
+        /// this is a object save a defult return point, it is used in RemoveManufacturer()
+        /// </summary>
         static public KeyValuePair<Action, string> PromptMenuBack
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Contains the chosen manufacturer which the user wants to delete 
+        /// </summary>
         static public Manufacturer ToDelete
         {
             get;
@@ -31,9 +40,12 @@ namespace MIP
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         static public void AddManufacturer()
-        {
-            
+        {           
             Console.Clear();
             Console.WriteLine("Adding Manufacturer.\n");
             string name = Toolbox.GetString("Enter name:");
