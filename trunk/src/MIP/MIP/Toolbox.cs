@@ -8,13 +8,13 @@ namespace MIP
 {
     static class Toolbox
     {
-        static string GetString(string text)
+        static public string GetString(string text)
         {
             return GetString(text, new Predicate<string>(x => true));
         }
 
 
-        static string GetString(string text, Predicate<string> predicate)
+        static public string GetString(string text, Predicate<string> predicate)
         {
             string input;
             Console.WriteLine(text);
@@ -44,12 +44,12 @@ namespace MIP
             return input;
         }
 
-        static int GetInt(string text)
+        static public int GetInt(string text)
         {
             return GetInt(text, new Predicate<int>(x => true));
         }
 
-        static int GetInt(string text, Predicate<int> predicate)
+        static public int GetInt(string text, Predicate<int> predicate)
         {
             string input;
             int result;
@@ -80,12 +80,12 @@ namespace MIP
             return result;
         }
 
-        static double GetDouble(string text)
+        static public double GetDouble(string text)
         {
             return GetDouble(text, new Predicate<double>(x => true));
         }
 
-        static double GetDouble(string text, Predicate<double> predicate)
+        static public double GetDouble(string text, Predicate<double> predicate)
         {
             string input;
             double result;
@@ -116,12 +116,12 @@ namespace MIP
             return result;
         }
 
-        static bool GetBool(string text)
+        static public bool GetBool(string text)
         {
             return GetBool(text, new Predicate<bool>(x => true));
         }
 
-        static bool GetBool(string text, Predicate<bool> predicate)
+        static public bool GetBool(string text, Predicate<bool> predicate)
         {
             string input;
             bool result;
