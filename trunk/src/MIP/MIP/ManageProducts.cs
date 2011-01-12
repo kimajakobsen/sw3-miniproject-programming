@@ -7,6 +7,17 @@ namespace MIP
 {
     class ManageProducts
     {
+        static public void ManageProduct()
+        {
+            Console.Clear();
+            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+            list.Add(new KeyValuePair<Action, string>(AddProduct, "Add a new product"));
+            list.Add(new KeyValuePair<Action, string>(RemoveProduct, "Remove an existing product"));
+
+            MenuBuilder.GetMenu.MakeMenu(list, Program.MainMenu, new KeyValuePair<Action, string>(ManageProduct, "Manage Products"));
+            Program.MainMenu();
+        }
+
         static public void AddProduct()
         {
             Console.Clear();
@@ -15,8 +26,8 @@ namespace MIP
             list.Add(new KeyValuePair<Action, string>(AddExternalHarddrive, "Add external harddrive"));
             list.Add(new KeyValuePair<Action, string>(AddFlashStorage, "Add flash storage device"));
 
-            MenuBuilder.GetMenu.MakeMenu(list, Program.MainMenu, new KeyValuePair<Action, string>(AddProduct, "Add Product"));
-            Program.MainMenu();
+            MenuBuilder.GetMenu.MakeMenu(list, ManageProduct, new KeyValuePair<Action, string>(AddProduct, "Add Product"));
+            ManageProduct();
         }
 
         static void AddInternalHarddrive()
@@ -108,6 +119,40 @@ namespace MIP
             Console.ReadKey();
         }
 
+        static public void RemoveProduct()
+        {
+            var searchResult = Parser.ProductList;
+            Console.Clear();
+            int i = 1;
+            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+            List<string> identifier = new List<string>();
+            foreach (var item in searchResult)
+            {
+                list.Add(new KeyValuePair<Action, string>(RemoveSpecificProduct, item.ToSearchResultString()));
+                identifier.Add(i + "");
+                i++;
+            }
 
+            if (list.Count > 0)
+            {
+                MenuBuilder.GetMenu.MakeMenu(list, ManageProduct, new KeyValuePair<Action, string>(RemoveProduct, "Remove Product"), identifier);
+            }
+            else
+            {
+                MenuBuilder.GetMenu.MakeMenu(list, Program.MainMenu, new KeyValuePair<Action, string>(RemoveProduct, "Remove Product"), identifier,
+                    "\nNo products were found!\n");
+            }
+        }
+
+        static public void RemoveSpecificProduct()
+        {
+            int index = int.Parse(MenuBuilder.GetMenu.LastSelected);
+            var temp = Parser.ProductList[index - 1];
+            Parser.ProductList.Remove(temp);
+            Console.WriteLine("\"" + temp.ToSearchResultString() + "\" has been removed. Press any key to continue.");
+            Console.ReadKey();
+            Program.MainMenu();
+            return;
+        }
     }
 }
