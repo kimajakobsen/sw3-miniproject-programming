@@ -7,8 +7,26 @@ namespace MIP
 {
     class ManageManufacturer
     {
+        static public void ManageManufacturer()
+        {
+            Console.Clear();
+            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+            list.Add(new KeyValuePair<Action, string>(AddManufacturer, "Add a new Manufacturer"));
+            list.Add(new KeyValuePair<Action, string>(RemoveManufacturer, "Remove an existing Manufacturer"));
+
+            MenuBuilder.GetMenu.MakeMenu(list, Program.MainMenu, new KeyValuePair<Action, string>(ManageManufacturer, "Manage Manufacturer"));
+            Program.MainMenu();
+        }
+
+        static public KeyValuePair<Action, string> PromptMenuBack
+        {
+            get;
+            set;
+        }
+
         static public void AddManufacturer()
         {
+            
             Console.Clear();
             Console.WriteLine("Adding Manufacturer.\n");
             string name = Toolbox.GetString("Enter name:");
@@ -26,25 +44,68 @@ namespace MIP
 
         static public void RemoveManufacturer()
         {
+            PromptMenuBack = new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer");
+            var searchResult = Parser.ManufacturerList;
             Console.Clear();
-            Console.WriteLine("Remove Manufacturer.\n");
+            int i = 1;
+            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+            List<string> identifier = new List<string>();
+            foreach (var item in searchResult)
+            {
+                list.Add(new KeyValuePair<Action, string>(PrompteMenu, item.ToSearchResultString()));
+                identifier.Add(i + "");
+                i++;
+            }
 
-
-
-
-
-            string name = Toolbox.GetString("Enter name:");
-            string url = Toolbox.GetString("Enter url:", x => x.StartsWith("http://"));
-
-            Manufacturer temp = new Manufacturer(
-                name,
-                url);
-
-            Parser.ManufacturerList.Add(temp);
-            Console.WriteLine("Manufacturer with above specifications added. Press any key to continue.");
-            Console.ReadKey();
-            Program.MainMenu();
+            if (list.Count > 0)
+            {
+                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturer, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier);
+            }
+            else
+            {
+                MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturer, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier,
+                    "\nNo products were found!\n");
+            }
         }
 
+
+        static void PrompteMenu()
+        {
+            Console.Clear();
+            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+            list.Add(new KeyValuePair<Action, string>(RemoveSpecificManufacturer, "Yes, delete"));
+            PromptMenuBack = new KeyValuePair<Action, string>(PromptMenuBack.Key, "No, go back to \"" + PromptMenuBack.Value + "\"");
+            list.Add(PromptMenuBack);
+
+            List<string> identifiers = new List<string>();
+            identifiers.Add("Y");
+            identifiers.Add("N");
+
+            MenuBuilder.GetMenu.MakeCleanMenu(list, ManageManufacturer, new KeyValuePair<Action, string>(null, "Quit"), identifiers);
+            return;
+        }
+
+
+        static public void RemoveSpecificManufacturer()
+        {
+            int index = int.Parse(MenuBuilder.GetMenu.LastSelected);
+            var temp = Parser.ProductList[index - 1];
+
+            if (Parser.ProductList.FirstOrDefault(x => x.Manufacturer.Name == temp.Name) != null)
+            {
+                //If there exist producs which are made by the current manufacturer
+                Console.WriteLine(temp.Name + " still have producs in the system, delete all producs before deleating the manufacturer. Press any key to continue.");
+                Console.ReadKey();
+                ManageManufacturer();  
+            }
+            else
+            {
+                //If the system dose not contain any producs made by the current manufacturer
+                Parser.ProductList.Remove(temp);
+                Console.WriteLine("\"" + temp.ToSearchResultString() + "\" has been removed. Press any key to continue.");
+                Console.ReadKey();
+                ManageManufacturer();  
+            }
+        }
     }
 }
