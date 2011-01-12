@@ -188,7 +188,7 @@ namespace MIP
                     max = int.MaxValue + "";
                 }
                 Console.Clear();
-                Console.WriteLine("Invalid input \"{0}\". Please enter a new price range to search in:", input.Truncate(10));
+                Console.WriteLine("Invalid input \"{0}\". Please enter a new storage range(GB) to search in:", input.Truncate(10));
             }
             while (!int.TryParse(min, out minI) || !int.TryParse(max, out maxI));
 

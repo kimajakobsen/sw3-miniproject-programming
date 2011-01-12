@@ -104,7 +104,7 @@ namespace MIP
                 Parser.ManufacturerList.FirstOrDefault(x => true).Name + "):",
                 x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
             int store = Toolbox.GetInt("Enter storage capacity(GB):", x => x > 0);
-            bool secure = Toolbox.GetBool("Enter secure usb:");
+            bool secure = Toolbox.GetBool("Enter secure usb(true/false):");
 
             FlashStorage temp = new FlashStorage(
                 name,
@@ -135,11 +135,12 @@ namespace MIP
 
             if (list.Count > 0)
             {
-                MenuBuilder.GetMenu.MakeMenu(list, ManageProduct, new KeyValuePair<Action, string>(RemoveProduct, "Remove Product"), identifier);
+                MenuBuilder.GetMenu.MakeMenu(list, ManageProduct, new KeyValuePair<Action, string>(RemoveProduct, "Remove Product"), identifier,
+                    "Select the number of the product you wish to remove.\n");
             }
             else
             {
-                MenuBuilder.GetMenu.MakeMenu(list, Program.MainMenu, new KeyValuePair<Action, string>(RemoveProduct, "Remove Product"), identifier,
+                MenuBuilder.GetMenu.MakeMenu(list, ManageProduct, new KeyValuePair<Action, string>(RemoveProduct, "Remove Product"), identifier,
                     "\nNo products were found!\n");
             }
         }
@@ -151,7 +152,7 @@ namespace MIP
             Parser.ProductList.Remove(temp);
             Console.WriteLine("\"" + temp.ToSearchResultString() + "\" has been removed. Press any key to continue.");
             Console.ReadKey();
-            Program.MainMenu();
+            ManageProduct();
             return;
         }
     }
