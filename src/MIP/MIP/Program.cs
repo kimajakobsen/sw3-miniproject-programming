@@ -37,11 +37,13 @@ namespace MIP
                     _previousStack = new Stack<List<Product>>();
                     MainMenu();
                 }
-                catch
+                catch(Exception e)
                 {
                     //An unexpected error has occured.
                     //The user is sent back to the main menu.
                     Console.Clear();
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.StackTrace);
                     Console.WriteLine("An error occured! Press any key to go to Main Menu.");
                     Console.ReadKey(true);
                     Console.Clear();
@@ -179,6 +181,10 @@ namespace MIP
                 string input = Console.ReadLine();
                 Console.ForegroundColor = ConsoleColor.White;
                 input.Trim();
+                if (input == "*")
+                {
+                    input = "*-*";
+                }
                 input += " ";
                 int indexSplit = input.IndexOf('-');
                 min = input.Substring(0, indexSplit).Trim();
@@ -187,11 +193,10 @@ namespace MIP
                 if (min == "*" || min == "")
                 {
                     min = "0";
-                    continue;
                 }
                 if (max == "*" || max == "")
                 {
-                    max = int.MaxValue + "";
+                    max = double.MaxValue + "";
                 }
                 Console.Clear();
                 Console.WriteLine("Invalid input \"{0}\". Please enter a new price range to search in:", input.Truncate(10));
@@ -221,6 +226,10 @@ namespace MIP
                 string input = Console.ReadLine();
                 Console.ForegroundColor = ConsoleColor.White;
                 input.Trim();
+                if (input == "*")
+                {
+                    input = "*-*";
+                }
                 input += " ";
                 int indexSplit = input.IndexOf('-');
                 min = input.Substring(0, indexSplit).Trim();
@@ -229,7 +238,6 @@ namespace MIP
                 if (min == "*" || min == "")
                 {
                     min = "0";
-                    continue;
                 }
                 if (max == "*" || max == "")
                 {
