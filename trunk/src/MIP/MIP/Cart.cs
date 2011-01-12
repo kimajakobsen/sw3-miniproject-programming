@@ -5,7 +5,7 @@ using System.Text;
 using MIP.Helpers;
 
 namespace MIP
-{
+{   //Cart class administates what cart items
     class Cart
     {
 
