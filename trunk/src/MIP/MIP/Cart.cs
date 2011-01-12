@@ -136,23 +136,11 @@ namespace MIP
                         //Match found, and empty is set to false.
                         empty = false;
                         try
-                        {   //Rounding storage size GB / TB
-                            StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
-
+                        {
+                            //Rounding storage size GB / TB
                             //If storage is smaller then 1024 return stage in GB
-                            if (productUnit.Storage < 1024)
-                            {
-                                _capacity = productUnit.Storage.ToString() + " GB";
-                            }
-                                //Else round to TB
-                            else
-                            {
-                                // Storage divided by 1024 to convert into TB
-                                double cap = Convert.ToDouble(productUnit.Storage) / 1024;
-                                //Round Storage with 1 decimal and add TB at the end of it
-                                cap = Math.Round(cap, 1);
-                                _capacity = cap.ToString() + " TB";
-                            }
+                            StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
+                            _capacity = productUnit.NeatCapacity;
                         }
                         catch { }
                         //Prepare the number of product
@@ -267,23 +255,11 @@ namespace MIP
                         //Match found, and empty is set to false.
                         empty = false;
                         try
-                        {   //Rounding storage size GB / TB
-                            StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
-
+                        {   
+                            //Rounding storage size GB / TB
                             //If storage is smaller then 1024 return stage in GB
-                            if (productUnit.Storage < 1024)
-                            {
-                                _capacity = productUnit.Storage.ToString() + " GB";
-                            }
-                            //Else round to TB
-                            else
-                            {
-                                // Storage divided by 1024 to convert into TB
-                                double cap = Convert.ToDouble(productUnit.Storage) / 1024;
-                                //Round Storage with 1 decimal and add TB at the end of it
-                                cap = Math.Round(cap, 1);
-                                _capacity = cap.ToString() + " TB";
-                            }
+                            StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
+                            _capacity = productUnit.NeatCapacity;
                         }
                         catch { }
                         //Prepare the number of product
