@@ -230,14 +230,13 @@ namespace MIP
         {
             Console.Clear();
             Cart myCart = MIP.Cart.GetCart;
-            myCart.PrintCart();
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(myCart.CheckOut, "CheckOut"));
             list.Add(new KeyValuePair<Action, string>(myCart.Clear, "Clear cart"));
             list.Add(new KeyValuePair<Action, string>(RemoveFromCart, "Remove"));
             NoBackNext = MainMenu;
 
-            MenuBuilder.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart, "Cart Menu"));
+            MenuBuilder.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart, "Cart Menu"),myCart.CartToPrint());
         }
 
         static void RemoveFromCart()
@@ -334,7 +333,7 @@ namespace MIP
                 name,
                 price,
                 productCode,
-                Parser.ManufacturerList.FirstOrDefault(x => x.Name == manu),
+                Parser.ManufacturerList.FirstOrDefault(x => x.Name.ToUpper() == manu.ToUpper()),
                 store,
                 rpm,
                 form);
@@ -365,7 +364,7 @@ namespace MIP
                 name,
                 price,
                 productCode,
-                Parser.ManufacturerList.FirstOrDefault(x => x.Name == manu),
+                Parser.ManufacturerList.FirstOrDefault(x => x.Name.ToUpper() == manu.ToUpper()),
                 store,
                 rpm,
                 height,
@@ -395,7 +394,7 @@ namespace MIP
                 name,
                 price,
                 productCode,
-                Parser.ManufacturerList.FirstOrDefault(x => x.Name == manu),
+                Parser.ManufacturerList.FirstOrDefault(x => x.Name.ToUpper() == manu.ToUpper()),
                 store,
                 secure);
 

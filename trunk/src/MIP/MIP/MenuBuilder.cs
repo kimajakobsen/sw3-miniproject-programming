@@ -138,6 +138,13 @@ namespace MIP
             return;
         }
 
+        public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller, string prologue)
+        {
+            MakeMenu(funcText, back, caller, _identifier.GetRange(0, funcText.Count), prologue);
+
+            return;
+        }
+
         public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier, string prologue)
         {
