@@ -5,9 +5,16 @@ using System.Text;
 
 namespace MIP
 {
+    /// <summary>
+    /// A static class containing search functionality
+    /// </summary>
     static class Search
     {
         private static List<Product> currentResult;
+
+        /// <summary>
+        /// Depricated
+        /// </summary>
         private class ProductSorter : IComparer<Product>
         {
             public int Compare(Product a, Product b)
@@ -64,6 +71,15 @@ namespace MIP
             return currentResult;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchList"></param>
+        /// <param name="code"></param>
+        /// <returns>
+        /// Returns a list of <code>Products</code> containing the products with the <code>ProductCode</code>
+        /// specified in <code>code</code> (should only contain one element).
+        /// </returns>
         public static List<Product> SearchProductCode(List<Product> searchList, int code)
         {
             currentResult = searchList.Where(x => x.ProductCode == code).ToList();
@@ -75,6 +91,14 @@ namespace MIP
             return SearchProductCode(currentResult,code);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchList">The list to search in</param>
+        /// <param name="min">Minimum price</param>
+        /// <param name="max">Maximum price</param>
+        /// <returns>A list containing all <code>Products</code> with a <code>Price</code>
+        /// between <code>min</code> and <code>max</code></returns>
         public static List<Product> SearchPriceRange(List<Product> searchList, double min, double max)
         {
             currentResult = searchList.Where(x => x.Price >= min && x.Price <= max).ToList();
@@ -86,6 +110,14 @@ namespace MIP
             return SearchPriceRange(currentResult,min,max);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchList">The list to search in</param>
+        /// <param name="min">Minimum storage capacity</param>
+        /// <param name="max">Maximum storage capacity</param>
+        /// <returns>A list containing all <code>Products</code> with a <code>Storage</code>
+        /// between <code>min</code> and <code>max</code></returns>
         public static List<Product> SearchStorageRange(List<Product> searchList, int min, int max)
         {
             currentResult = searchList.Where(x => x is StorageUnit && (x as StorageUnit).Storage >= min && (x as StorageUnit).Storage <= max).ToList();
@@ -97,6 +129,13 @@ namespace MIP
             return SearchStorageRange(currentResult, min, max);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchList">The list to search in</param>
+        /// <param name="searchString">The string to match</param>
+        /// <returns>>A list containing all <code>Products</code> with a <code>Name</code>
+        /// or <code>Manufacturer.Name</code> containing <code>searchString</code></returns>
         public static List<Product> SearchText(List<Product> searchList, string searchString)
         {
             currentResult = searchList.Where(x => x.Name.ToUpper().Contains(searchString.ToUpper()) ||
