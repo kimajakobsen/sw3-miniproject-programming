@@ -68,7 +68,7 @@ This brief piece of text describes what our program does(and vaguely how it does
 Make sure to have the ``Init.txt'' file in the same directory as the executable ``MIP.exe'' in order to load products and manufactures.
 
 \subsection*{Running the Program}
-Our program manages manufactures, products and cart.
+Our program manages manufacturers, products and a cart.
 Each product must have a manufacturer.
 It is possible to add and delete both products and manufactures in our program.
 
@@ -76,7 +76,7 @@ Each menu is build the same way.
 Each line of a menu contains an ``identifier'', and a text string.
 The identifier is a string which the user can enter to execute the method belonging to the text string.
 
-Each menu gets a back-, quit, and main-command.
+Each menu gets a back-, quit-, and main-command.
 Back leads to the previous menu.
 Quit asks the user if he/she wishes to quit, and does what the user tells.
 The main-command returns to the main menu described below.
@@ -89,14 +89,15 @@ It is not possible to go back from the main menu.
 The search menu consists of two parts; a list of products and commands.
 The identifiers for the members of the list of products are numbers.
 Selecting a number adds the given product to the cart.
-The commands allows the user to filter the list, e.g. by applying a price range.
+The commands uses upper case letters and allows the user to filter the list, e.g. by applying a price range or search for a product code.
 
-It was not part of the assignment to an upper bound for storage capacity, we did however add such a filter, to make the filter by capacity resemble the filter by price.
+It was not part of the assignment to make an upper bound for storage capacity, we did however add such a filter, to make the filter by capacity resemble the filter by price.
 
 Notice that each search operation filters the list, i.e. the list is not reset before each operation.
 
 \subsubsection*{Cart Menu}
-According to the assignment, we should make sure only one cart exist, therefore the Cart class use the singleton pattern. The cart menu prints the content of the cart according to the specifications of our assignment.
+According to the assignment, we should make sure only one cart exist, therefore the Cart class use the singleton dessign pattern.
+The cart menu prints the content of the cart according to the specifications of our assignment.
 Further the user may checkout his/her items, clear the cart, or remove a specific number of items from the cart through this menu.
 
 \subsubsection*{Manage Products Menu}
@@ -105,13 +106,16 @@ The products added/removed only apply for the given run of the program, the chan
 
 To add a product it must comply with the specifications of the assignment, e.g. the price cannot be negative.
 
+A product can always be removed, even if it is part of the cart.
+It will however not show up in the cart after deletion.
+
 \subsubsection*{Manage Manufacturers Menu}
 From this menu the user can either add a new manufacturer or remove an existing manufacturer.
 The manufacturers added/removed only apply for the given run of the program, the changes are not saved to the ``Init.txt'' file.
 
 To add a manufacturer it must comply with the specifications of the assignment, e.g. the URL must start with ``http://''.
 
-It is not possible to remove a manufacturer which is associated to a product, since this would result in a product without a manufacturer.
+It is not possible to remove a manufacturer which is associated to one or more products, since this would result in a product without a manufacturer.
 
 \subsection*{Error Handling}
 We have used many try-catches throughout our program.
