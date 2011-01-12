@@ -59,7 +59,7 @@ namespace MIP
         {
             currentResult = Parser.ProductList;
 
-            currentResult.Sort(new ProductSorter());
+            //currentResult.Sort(new ProductSorter());
 
             return currentResult;
         }

@@ -48,7 +48,8 @@ namespace MIP
         {           
             Console.Clear();
             Console.WriteLine("Adding Manufacturer.\n");
-            string name = Toolbox.GetString("Enter name:");
+            string name = Toolbox.GetString("Enter name:",
+                x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) == null);
             string url = Toolbox.GetString("Enter url:", x => x.StartsWith("http://"));
 
             Manufacturer temp = new Manufacturer(
@@ -115,7 +116,7 @@ namespace MIP
             if (Parser.ProductList.FirstOrDefault(x => x.Manufacturer.Name == temp.Name) != null)
             {
                 //If there exist producs which are made by the current manufacturer
-                Console.WriteLine(temp.Name + " still have producs in the system, delete all producs before deleating the manufacturer. Press any key to continue.");
+                Console.WriteLine("\"" + temp.Name + "\" still have producs in the system, delete all producs before deleating the manufacturer. Press any key to continue.");
                 Console.ReadKey();
                 ManageManufacturers();  
             }

@@ -13,6 +13,7 @@ namespace MIP
     {
         private string _name;
         private string _url;
+        static private List<string> _names = new List<string>();
 
         /// <summary>
         /// Constructor of manufacturer
@@ -37,9 +38,21 @@ namespace MIP
                 //The new value may not be an empty string
                 if (value != null && value != "")
                 {
-                    //The name is valid and is inserted into
-                    //the private variable
-                    _name = value;
+                    if (_names.FirstOrDefault(x => x.ToUpper() == value.ToUpper()) == null)
+                    {
+                        //Previous name removed from list of names
+                        _names.Remove(_name);
+                        //The name is valid and is inserted into
+                        //the private variable
+                        _name = value;
+                        //New name added to list
+                        _names.Add(_name);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException(value + " cannot be assigned as name,"+
+                            "it is already assigned to another Manufacturer");
+                    }
                 }
 
                 return;

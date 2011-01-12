@@ -142,7 +142,7 @@ namespace MIP
             }
             if (_orderList.Count == 0)
             {
-                return "There is no items in your cart";
+                _show = "There are no items in your cart";
             } 
             else
             {
@@ -183,7 +183,7 @@ namespace MIP
                 _show += "Total" + underscore + strtotal;
                 if (empty == true)
                 {
-                    _show = "";
+                    _show = "There are no items in your cart";
                     return _show;
                 }else{
                     return _show;
@@ -245,7 +245,7 @@ namespace MIP
             }
             if (_orderList.Count == 0)
             {
-                Console.Write("There is no items in your cart");
+                Console.Write("There are no items in your cart");
             } 
             else
             {
