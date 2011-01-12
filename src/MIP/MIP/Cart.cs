@@ -162,12 +162,9 @@ namespace MIP
             //if the orderList count equals 0, there are no items in the cart
             if (_orderList.Count == 0)
             {
-<<<<<<< .mine
                 //Returns a msg to info user that there are no items in the cart
                 return "There is no items in your cart";
-=======
                 _show = "There are no items in your cart";
->>>>>>> .r104
             } 
             else
             {
@@ -189,7 +186,7 @@ namespace MIP
                     totalprice += 0;
                 }
                 //Converts delivery to a string with two decimals
-                String strdelivery = delivery.ToString("0.00") + " kr."
+                String strdelivery = delivery.ToString("0.00") + " kr.";
                 //Find how long the "_" should be, the "8" is for "delivery"
                 int strnumdelivery = 50 - (strdelivery.Length + 8);
                 string underscore = "";
@@ -216,76 +213,93 @@ namespace MIP
                 //If empty equals true, no items in the card matched ProductList productcodes
                 if (empty == true)
                 {
-<<<<<<< .mine
-                    //returns a string of nothing;
-                    return "";
-=======
                     _show = "There are no items in your cart";
                     return _show;
->>>>>>> .r104
                 }else{
                     //Empty equals false, and therefor it will return the cart print
                     return _show;
                 }
             }
         }
-        /*
+        
         public void PrintCart()
         {
-            string _show;
+            //Boolean to check if any items in orderList exists in ProductList
+            Boolean empty = true;
+            string _show = "";
             string _capacity = "";
-            _show = "";
-            decimal totalprice = 0;
+            double totalprice = 0;
+            //For loop to find product info by comparing orderList productcode and ProductList productcode
             for (int i = 0; i < _orderList.Count; i++)
             {
                 for (int j = 0; j < Parser.ProductList.Count; j++)
                 {
                     if (_orderList[i].Productcode == Parser.ProductList[j].ProductCode)
                     {
+                        //Match found, and empty is set to false.
+                        empty = false;
                         try
-                        {
+                        {   //Rounding storage size GB / TB
                             StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
 
+                            //If storage is smaller then 1024 return stage in GB
                             if (productUnit.Storage < 1024)
                             {
                                 _capacity = productUnit.Storage.ToString() + " GB";
                             }
+                            //Else round to TB
                             else
                             {
+                                // Storage divided by 1024 to convert into TB
                                 double cap = Convert.ToDouble(productUnit.Storage) / 1024;
+                                //Round Storage with 1 decimal and add TB at the end of it
                                 cap = Math.Round(cap, 1);
                                 _capacity = cap.ToString() + " TB";
                             }
                         }
                         catch { }
-
+                        //Prepare the number of product
                         String numberofproduct = _orderList[i].Number.ToString() + ". ";
-                        Double tempprice = Parser.ProductList[j].Price * _orderList[i].Number;
-                        decimal price = Convert.ToDecimal(tempprice);
+                        //price for the selected product * number of the product
+                        Double price = Parser.ProductList[j].Price * _orderList[i].Number;
+                        //Prepare the manufactor
                         String manufactor = Parser.ProductList[j].Manufacturer.Name + " ";
+                        //Prepare the name
                         String name = Parser.ProductList[j].Name + " ";
+                        //Combines number of product, manufactor, name and storage
                         String print = numberofproduct + manufactor + name + _capacity;
+                        //Adds the price to the total price
                         totalprice += price;
 
+                        //Calls truncate to add "..." if the string is over 35 characters
                         print = print.Truncate(35);
+                        //Converts price to string with two decimals
                         String strprice = price.ToString("0.00") + " kr.";
+                        //Length of price
                         int charnum = print.Length + strprice.Length;
+                        //Defines string length for the "_"
                         charnum = 50 - charnum;
                         string underscore = "";
+                        //Runs a for loop to craete the "_" string
                         for (int k = 0; k <= charnum; k++)
                         {
-                            underscore += "_";   
+                            underscore += "_";
                         }
-                        _show += print+underscore+strprice+"\n";
+                        //Combines all the stings
+                        _show += print + underscore + strprice + "\n";
                     }
                 }
             }
+            //if the orderList count equals 0, there are no items in the cart
             if (_orderList.Count == 0)
             {
-                Console.Write("There are no items in your cart");
-            } 
+                //Returns a msg to info user that there are no items in the cart
+                Console.WriteLine("There is no items in your cart");
+                _show = "There are no items in your cart";
+            }
             else
             {
+                //Find the price for delivery
                 decimal delivery;
                 if (totalprice < 250)
                 {
@@ -297,32 +311,47 @@ namespace MIP
                     delivery = 25;
                     totalprice += 25;
                 }
-                else 
+                else
                 {
                     delivery = 0;
                     totalprice += 0;
                 }
+                //Converts delivery to a string with two decimals
                 String strdelivery = delivery.ToString("0.00") + " kr.";
-                //string.Length + length of delivery (8)
+                //Find how long the "_" should be, the "8" is for "delivery"
                 int strnumdelivery = 50 - (strdelivery.Length + 8);
                 string underscore = "";
+                //For loop to create "_" string
                 for (int k = 0; k <= strnumdelivery; k++)
                 {
                     underscore += "_";
                 }
-                _show += "Delivery" + underscore + strdelivery+"\n";
+                //Add the delivery string to the rest of the cart print
+                _show += "Delivery" + underscore + strdelivery + "\n";
 
-                //string.length + length of "total" (5)
+                //Converts the total to a string with 2 decimals
                 String strtotal = totalprice.ToString("0.00") + " kr.";
+                //Find how long the "_" should be, the "5" is for "total"
                 int strnum = 50 - (strtotal.Length + 5);
                 underscore = "";
+                //Creating the "_" string
                 for (int k = 0; k <= strnum; k++)
                 {
                     underscore += "_";
                 }
+                //Adds total the the rest of cart print
                 _show += "Total" + underscore + strtotal;
-
-                Console.Write(_show);
+                //If empty equals true, no items in the card matched ProductList productcodes
+                if (empty == true)
+                {
+                    _show = "There are no items in your cart";
+                    Console.WriteLine(_show);
+                }
+                else
+                {
+                    //Empty equals false, and therefor it will return the cart print
+                    Console.WriteLine(_show);
+                }
             }
         }
         //Function to remove all items in cart
@@ -341,6 +370,5 @@ namespace MIP
 
 
     
-         */
     }
 }
