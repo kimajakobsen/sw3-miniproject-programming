@@ -122,22 +122,22 @@ namespace MIP
                         totalprice += price;
 
                         print = print.Truncate(35);
-                        String strprice = price.ToString() + " kr.";
+                        String strprice = price.ToString("0.00") + " kr.";
                         int charnum = print.Length + strprice.Length;
                         charnum = 50 - charnum;
                         string underscore = "";
                         for (int k = 0; k <= charnum; k++)
                         {
-                            underscore += "_";
+                            underscore += "_";   
                         }
-                        _show += print + underscore + strprice + "\n";
+                        _show += print+underscore+strprice+"\n";
                     }
                 }
             }
             if (_orderList.Count == 0)
             {
-                return "There are no items in your cart\n";
-            }
+                Console.Write("There is no items in your cart");
+            } 
             else
             {
                 decimal delivery;
@@ -151,12 +151,12 @@ namespace MIP
                     delivery = 25;
                     totalprice += 25;
                 }
-                else
+                else 
                 {
                     delivery = 0;
                     totalprice += 0;
                 }
-                String strdelivery = delivery.ToString() + " kr.";
+                String strdelivery = delivery.ToString("0.00") + " kr.";
                 //string.Length + length of delivery (8)
                 int strnumdelivery = 50 - (strdelivery.Length + 8);
                 string underscore = "";
@@ -164,10 +164,10 @@ namespace MIP
                 {
                     underscore += "_";
                 }
-                _show += "Delivery" + underscore + strdelivery + "\n";
+                _show += "Delivery" + underscore + strdelivery+"\n";
 
                 //string.length + length of "total" (5)
-                String strtotal = totalprice.ToString() + " kr.";
+                String strtotal = totalprice.ToString("0.00") + " kr.";
                 int strnum = 50 - (strtotal.Length + 5);
                 underscore = "";
                 for (int k = 0; k <= strnum; k++)
@@ -178,6 +178,7 @@ namespace MIP
 
                 return _show + "\n";
             }
+            return _show;
         }
 
         public void PrintCart()
