@@ -40,7 +40,7 @@ namespace MIP
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
             list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
-            list.Add(new KeyValuePair<Action, string>(ManageProducts.AddProduct, "Add product"));
+            list.Add(new KeyValuePair<Action, string>(ManageProducts.ManageProduct, "Manage products"));
             list.Add(new KeyValuePair<Action, string>(ManageManufacturer.AddManufacturer, "Add manufacturer"));
             NoBackNext = MainMenu;
 
