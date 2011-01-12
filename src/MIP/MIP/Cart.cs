@@ -29,6 +29,7 @@ namespace MIP
             }
         }
 
+        //Function to find the total price
         public String TotalP()
         {
             double price = 0;
@@ -36,7 +37,8 @@ namespace MIP
             for (int i = 0; i < _orderList.Count; i++)
             {
                 for(int j = 0; j < Parser.ProductList.Count; j++)
-                {
+                {   //if orderList productcode equals ProductList productcode it will 
+                    //add the price time number of products to the price. 
                     if (_orderList[i].Productcode == Parser.ProductList[j].ProductCode)
                     {
                         price += Parser.ProductList[j].Price*_orderList[i].Number;
@@ -46,7 +48,7 @@ namespace MIP
             strprice = price.ToString("0.00");
             return strprice;
         }
-
+        //Returns the totalprice
         public String TotalPrice
         {
             get
