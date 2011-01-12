@@ -73,12 +73,12 @@ namespace MIP
         static public void RemoveManufacturer()
         {
             PromptMenuBack = new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer");
-            var searchResult = Parser.ManufacturerList;
+            var tempManufacturerList = Parser.ManufacturerList;
             Console.Clear();
             int i = 1;
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             List<string> identifier = new List<string>();
-            foreach (var item in searchResult)
+            foreach (var item in tempManufacturerList)
             {
                 list.Add(new KeyValuePair<Action, string>(PromptMenu, item.DisplayAsString()));
                 identifier.Add(i + "");
@@ -87,7 +87,7 @@ namespace MIP
 
             if (list.Count > 0)
             {
-                //if there are one or more manufacturer in the system, then they are showed on a list
+                //if there are one or more manufacturer in the ManufacturerList, then they are showed on a list
                 MenuBuilder.GetMenu.MakeMenu(list, ManageManufacturers, new KeyValuePair<Action, string>(RemoveManufacturer, "Remove Manufacturer"), identifier);
             }
             else
