@@ -67,5 +67,12 @@ namespace MIP
                 return;
             }
         }
+
+        override public string ToSearchResultString()
+        {
+            return Name + " " + "Url: " + Url;
+        }
+
+
     }
 }
