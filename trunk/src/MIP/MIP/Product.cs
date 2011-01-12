@@ -104,12 +104,17 @@ namespace MIP
 
             set
             {
+
                 // the product code must be unique
-                if (!codeList.Contains(value)) 
+                if (!codeList.Contains(value))
                 {
                     codeList.Add(value);
                     _productcode = value;
 
+                }
+                else
+                {
+                    throw new InvalidOperationException("Duplicate product key - cannot load init file.");
                 }
             }
         }
