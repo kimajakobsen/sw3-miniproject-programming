@@ -142,7 +142,7 @@ namespace MIP
             }
             if (_orderList.Count == 0)
             {
-                Console.Write("There is no items in your cart");
+                return "There is no items in your cart";
             } 
             else
             {
@@ -286,36 +286,6 @@ namespace MIP
                 _show += "Total" + underscore + strtotal;
 
                 Console.Write(_show);
-            }
-        }
-
-        public String RemoveShow()
-        {
-            int _k = 1;
-            String _removeshow = "Item\tNumber\tName\n";
-            if (_orderList.Count == 0)
-            {
-                return "There are no items in the cart.";
-            } 
-            else
-            {
-                for (int i = 0; i < _orderList.Count; i++)
-                {
-                    for(int j = 0; j < Parser.ProductList.Count; j++)
-                    {
-                        if(_orderList[i].Productcode == Parser.ProductList[j].ProductCode)
-                        {
-                            _removeshow += _k.ToString() + "\t" + _orderList[i].Number + "\t";
-                            String temp = Parser.ProductList[j].Manufacturer+" "+Parser.ProductList[j].Name;
-                            if(_orderList.Count-1 == i)
-                            {
-                            _removeshow += temp.Truncate(25);
-                            } else {_removeshow += temp.Truncate(25) + "\n";}
-                        _k++;
-                        }
-                    }
-                }
-                return _removeshow;
             }
         }
 

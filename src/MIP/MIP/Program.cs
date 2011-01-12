@@ -243,7 +243,7 @@ namespace MIP
             Cart myCart = MIP.Cart.GetCart;
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(myCart.CheckOut, "CheckOut"));
-            list.Add(new KeyValuePair<Action, string>(myCart.Clear, "Clear cart"));
+            list.Add(new KeyValuePair<Action, string>(ClearCart, "Clear cart"));
             list.Add(new KeyValuePair<Action, string>(RemoveMenu, "Remove"));
             NoBackNext = MainMenu;
 
@@ -264,17 +264,22 @@ namespace MIP
                 {
                     if (item.Productcode == Parser.ProductList[j].ProductCode)
                     {
-                        itemName = Parser.ProductList[j].Manufacturer.Name+" ";
-                        itemName += Parser.ProductList[j].Name;
+                        itemName = Parser.ProductList[j].ToSearchResultString();
                     }
                 }
-                list.Add(new KeyValuePair<Action, string>(RemoveFromCart,itemName));
+                list.Add(new KeyValuePair<Action, string>(RemoveFromCart, itemName));
                 identifier.Add(i + "");
                 i++;
             }
             NoBackNext = MainMenu;
-
-            MenuBuilder.GetMenu.MakeMenu(list, MainMenu, new KeyValuePair<Action, string>(RemoveMenu, "Cart Menu"), myCart.CartToPrint());
+            if (myCart.GetOrderList().Count == 0)
+            {
+                MenuBuilder.GetMenu.MakeMenu(list, MainMenu, new KeyValuePair<Action, string>(RemoveMenu, "Cart Menu"), "There are no items in your cart\n");
+            }
+            else
+            {
+                MenuBuilder.GetMenu.MakeMenu(list, MainMenu, new KeyValuePair<Action, string>(RemoveMenu, "Cart Menu"), identifier);
+            }
         }
 
         static void RemoveFromCart()
@@ -282,19 +287,15 @@ namespace MIP
 
             int index = int.Parse(MenuBuilder.GetMenu.LastSelected);
             int amount = Toolbox.GetInt("How many do you want to remove from your cart?:", x => x >= 0);
-            MIP.Cart.GetCart.RemoveFromCart(amount, _previousStack.Peek()[index - 1].ProductCode);
+            MIP.Cart.GetCart.RemoveFromCart(amount, MIP.Cart.GetCart.GetOrderList()[index-1].Productcode);
+            Cart();
             return;
+        }
 
-            /*
-            Cart myCart = MIP.Cart.GetCart;
-            Console.Clear();
-            Console.WriteLine(myCart.RemoveShow());
-            Console.ForegroundColor = ConsoleColor.Green;
-            string input = Console.ReadLine();
-            Console.ForegroundColor = ConsoleColor.White;
-
-            SearchMain(Search.SearchText(_previousStack.Peek(), input));
-            return;*/
+        static void ClearCart()
+        {
+            MIP.Cart.GetCart.Clear();
+            Cart();
         }
 
         static public void NoBack()
