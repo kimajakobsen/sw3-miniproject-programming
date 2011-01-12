@@ -24,21 +24,23 @@ namespace MIP
         {
             Rpm = RPM;
         }
-            /// <summary>
-            /// This contains the round per minut (RPM)
-            /// </summary>
-            public int Rpm
+        /// <summary>
+        /// This contains the round per minut (RPM)
+        /// </summary>
+        public int Rpm
+        {
+            get
             {
-                get
-                {
-                    return (int)_rpm;
-                }
-                set
-                {
-                    //if the entered value is of the RPM standard, then the value is saved.
-                    if (Enum.IsDefined(typeof(ERPM), value))
-                        _rpm = (ERPM)value;
-                }
+                return (int)_rpm;
             }
+            set
+            {
+                //if the entered value is of the RPM standard, then the value is saved.
+                if (Enum.IsDefined(typeof(ERPM), value))
+                    _rpm = (ERPM)value;
+            }
+        }
+
+
     }  
 }
