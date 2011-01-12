@@ -5,7 +5,11 @@ using System.Text;
 using MIP.Helpers;
 
 namespace MIP
-{   //Cart class administates what cart items
+{
+    /// <summary>
+    /// Cart class administates what in the cart.
+    /// Since there is only allowed to be one cart, the singleton dessign pattern is used
+    /// </summary>
     class Cart
     {
 
