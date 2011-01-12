@@ -114,6 +114,10 @@ namespace MIP
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_line"></param>
         static private void ExternalHarddrivesParser(string _line)
         {
             int i = 0;
@@ -164,6 +168,11 @@ namespace MIP
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_line"></param>
         static private void FlashParser(string _line)
         {
             int i = 0;
@@ -171,7 +180,7 @@ namespace MIP
             string[] temp = new string[6];
             int startIndex = _line.IndexOf('\x0009', 0); //startIndex is set to the first occurrence of tab
 
-            while (i < 6) // internal harddisk takes 6 input, the counter startes from 0 thus 5
+            while (i < 6) // internal harddisk takes 6 input.
             {
                 try
                 {
@@ -186,7 +195,7 @@ namespace MIP
                 catch (ArgumentException)
                 {
 
-                    //if the last word is reached, then an exception is cast. It then takes the string 
+                    //when the last word of the line is reached, then an exception is cast. It then takes the string 
                     //from the current tab to the end of the line and saves in temp.
                     temp[i] = _line.Substring(_line.IndexOf('\x0009', startIndex) + 1);
                 }
