@@ -36,7 +36,7 @@ namespace MIP
                 _secureUSB = value;
             }
         }
-
+        //Return string with FlashStorage info
         override public string ToSearchResultString()
         {
             string encryption;
