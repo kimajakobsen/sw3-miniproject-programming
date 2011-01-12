@@ -42,24 +42,27 @@ namespace MIP
 
 
         /// <summary>
-        /// 
+        /// This askes for name and url of a new manefacturer, then adds it
+        /// to the manufacturerlist.
+        /// If the name is not unique, the user is asked to enter another name
+        /// If the url is invalid, the user is asked to enter another url
         /// </summary>
         static public void AddManufacturer()
         {           
             Console.Clear();
             Console.WriteLine("Adding Manufacturer.\n");
-            string name = Toolbox.GetString("Enter name:",
+            string name = Toolbox.GetString("Enter name:", //checks if the name is in use, askes again if it is. 
                 x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) == null);
-            string url = Toolbox.GetString("Enter url:", x => x.StartsWith("http://"));
+            string url = Toolbox.GetString("Enter url (Must start with \"http://\"):", x => x.StartsWith("http://"));
 
             Manufacturer temp = new Manufacturer(
                 name,
                 url);
 
-            Parser.ManufacturerList.Add(temp);
+            Parser.ManufacturerList.Add(temp); //adds to a list containing all manufacturers
             Console.WriteLine("Manufacturer with above specifications added. Press any key to continue.");
             Console.ReadKey();
-            Program.MainMenu();
+            ManageManufacturers();
         }
 
         static public void RemoveManufacturer()
