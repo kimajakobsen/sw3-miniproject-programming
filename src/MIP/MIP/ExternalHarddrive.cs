@@ -85,7 +85,11 @@ namespace MIP
             }
         }
 
-        
+        /// <summary>
+        /// When a ExternalHarddrive is printet in the console, this function is called.
+        /// This way all the External harddrives are allwas displayed in the same manner.
+        /// </summary>
+        /// <returns>Returns a string with all the properties of the external hardrive</returns>
         override public string ToSearchResultString()
         { 
             return Manufacturer.Name + " " + Name + " " + Rpm + " rpm " + NeatCapacity + " " +

@@ -55,9 +55,10 @@ namespace MIP
         }
 
         /// <summary>
-        /// 
+        /// When a InternalHarddrive is printet in the console, this function is called.
+        /// This way all the Internal harddrives are allwas displayed in the same manner.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns a string with all the properties</returns>
         override public string ToSearchResultString()
         {
             return Manufacturer.Name + " " + Name + " " + Rpm + " rpm " + NeatCapacity + " " +

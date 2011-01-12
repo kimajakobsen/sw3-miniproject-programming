@@ -35,12 +35,17 @@ namespace MIP
             {
                 _secureUSB = value;
             }
-        }
+        }        
         //Return string with FlashStorage info
+        /// <summary>
+        /// When a Flash drive needs to be printet in the console, this function is called.
+        /// This way all the Flash drive are allwas displayed in the same manner.
+        /// </summary>
+        /// <returns>Returns a string with all the properties of the flash drive</returns>
         override public string ToSearchResultString()
         {
             string encryption;
-            if (SecureUSB)
+            if (SecureUSB) //if it is true
             {
                 encryption = "is secured";
             }
