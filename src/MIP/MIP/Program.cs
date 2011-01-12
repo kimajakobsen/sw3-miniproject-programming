@@ -63,7 +63,7 @@ namespace MIP
             List<string> identifier = new List<string>();
             foreach (var item in searchResult)
             {
-                list.Add(new KeyValuePair<Action, string>(AddToCart, item.ToSearchResultString()));
+                list.Add(new KeyValuePair<Action, string>(AddToCart, item.ToSearchResultString().Truncate(60)));
                 identifier.Add(i + "");
                 i++;
             }
@@ -242,7 +242,7 @@ namespace MIP
             Console.Clear();
             Cart myCart = MIP.Cart.GetCart;
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
-            list.Add(new KeyValuePair<Action, string>(myCart.CheckOut, "CheckOut"));
+            list.Add(new KeyValuePair<Action, string>(CheckOut, "Checkout"));
             list.Add(new KeyValuePair<Action, string>(ClearCart, "Clear cart"));
             list.Add(new KeyValuePair<Action, string>(RemoveMenu, "Remove"));
             NoBackNext = MainMenu;
@@ -298,6 +298,25 @@ namespace MIP
             Cart();
         }
 
+        static void CheckOut()
+        {
+            Console.Clear();
+            if (MIP.Cart.GetCart.GetOrderList().Count == 0)
+            {
+                Console.WriteLine("No items to checkout. Press any key to continue.");
+                Console.ReadKey();
+                MainMenu();
+                return;
+            }
+            MIP.Cart.GetCart.Clear();
+            Console.WriteLine("The products will be sent to your address, please pay " + MIP.Cart.TotalPrice + " kr.");
+            
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey();
+            MainMenu();
+            return;
+        }
+
         static public void NoBack()
         {
             Console.Clear();
@@ -326,8 +345,6 @@ namespace MIP
         static void Kill()
         {
             Environment.Exit(0);
-        }
-
-        
+        }        
     }
 }

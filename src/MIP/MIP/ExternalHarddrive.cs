@@ -85,9 +85,9 @@ namespace MIP
             }
         }
 
+        
         override public string ToSearchResultString()
         { 
-            
             return Manufacturer.Name + " " + Name + " " + Rpm + " rpm " + NeatCapacity + " " +
                 Height + "/" + Width + "/" + Depth + " " + Price + " kr.";
         }
