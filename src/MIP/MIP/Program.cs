@@ -80,15 +80,21 @@ namespace MIP
                 list.Add(new KeyValuePair<Action, string>(SearchProductCode, "Search by product code"));
                 identifier.Add(c + "");
                 c++;
-                list.Add(new KeyValuePair<Action, string>(SearchPrice, "Search by price"));
+                list.Add(new KeyValuePair<Action, string>(SearchPrice, "Filter by price"));
                 identifier.Add(c + "");
                 c++;
-                list.Add(new KeyValuePair<Action, string>(SearchStorage, "Search by storage capacity"));
+                list.Add(new KeyValuePair<Action, string>(SearchStorage, "Filter by storage capacity"));
                 identifier.Add(c + "");
                 c++;
-                list.Add(new KeyValuePair<Action, string>(SearchText, "Search for product/manufacture name"));
+                list.Add(new KeyValuePair<Action, string>(SearchText, "Filter for product/manufacture name"));
                 identifier.Add(c + "");
-                MenuBuilder.GetMenu.MakeMenu(list, SearchBack, new KeyValuePair<Action, string>(InitializeSearch, "Search"), identifier);
+                c++;
+                list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Reset search"));
+                identifier.Add(c + "");
+                MenuBuilder.GetMenu.MakeMenu(list, SearchBack, new KeyValuePair<Action, string>(InitializeSearch, "Search"), identifier,
+                    "Below is a list of products.\n"+
+                    "Use the numbers to add a product to your cart and the large letters from 'A' to '" + c + "' " +
+                    "to filter the list.\n");
             }
             else
             {
@@ -121,7 +127,7 @@ namespace MIP
         static void SearchPrice()
         {
             Console.Clear();
-            Console.WriteLine("Enter a price range to search in(e.g. 1000-2000):");
+            Console.WriteLine("Enter a price range to search in(e.g. 1000-2000, use '*' as wildcard):");
             double maxI, minI;
             string min;
             string max;
@@ -131,6 +137,7 @@ namespace MIP
                 string input = Console.ReadLine();
                 Console.ForegroundColor = ConsoleColor.White;
                 input.Trim();
+                input += " ";
                 int indexSplit = input.IndexOf('-');
                 min = input.Substring(0, indexSplit).Trim();
                 max = input.Substring(indexSplit + 1).Trim();
@@ -156,7 +163,7 @@ namespace MIP
         static void SearchStorage()
         {
             Console.Clear();
-            Console.WriteLine("Enter a storage range(in GB) to search in(e.g. 512-2048):");
+            Console.WriteLine("Enter a storage range(in GB) to search in(e.g. 512-2048, use '*' as wildcard):");
             int maxI, minI;
             string min;
             string max;
@@ -166,6 +173,7 @@ namespace MIP
                 string input = Console.ReadLine();
                 Console.ForegroundColor = ConsoleColor.White;
                 input.Trim();
+                input += " ";
                 int indexSplit = input.IndexOf('-');
                 min = input.Substring(0, indexSplit).Trim();
                 max = input.Substring(indexSplit + 1).Trim();
@@ -191,7 +199,7 @@ namespace MIP
         static void SearchText()
         {
             Console.Clear();
-            Console.WriteLine("Enter a text to search for in name and manufacturer:");
+            Console.WriteLine("Enter a text to search for in name and manufacturer(case insensitive):");
             Console.ForegroundColor = ConsoleColor.Green;
             string input = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
@@ -226,6 +234,9 @@ namespace MIP
 
 #endregion
 
+        /// <summary>
+        /// Shows the content of the cart and allows the user perform checkout, clear cart, and remove
+        /// </summary>
         static void Cart()
         {
             Console.Clear();
@@ -236,7 +247,7 @@ namespace MIP
             list.Add(new KeyValuePair<Action, string>(RemoveFromCart, "Remove"));
             NoBackNext = MainMenu;
 
-            MenuBuilder.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart, "Cart Menu"),myCart.CartToPrint());
+            MenuBuilder.GetMenu.MakeMenu(list,MainMenu, new KeyValuePair<Action, string>(Cart, "Cart Menu"),myCart.CartToPrint() + "\n");
         }
 
         static void RemoveFromCart()
