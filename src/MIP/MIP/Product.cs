@@ -63,7 +63,7 @@ namespace MIP
             set
             {
                 // the price must not be null or a negative number
-                if (value != null && value >= 0) 
+                if (value >= 0) 
                     
                 {
                 _price = value;
