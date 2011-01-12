@@ -123,7 +123,7 @@ namespace MIP
                         totalprice += price;
 
                         print = print.Truncate(35);
-                        String strprice = price.ToString() + " kr.";
+                        String strprice = price.ToString("0.00") + " kr.";
                         int charnum = print.Length + strprice.Length;
                         charnum = 50 - charnum;
                         string underscore = "";
@@ -157,7 +157,7 @@ namespace MIP
                     delivery = 0;
                     totalprice += 0;
                 }
-                String strdelivery = delivery.ToString() + " kr.";
+                String strdelivery = delivery.ToString("0.00") + " kr.";
                 //string.Length + length of delivery (8)
                 int strnumdelivery = 50 - (strdelivery.Length + 8);
                 string underscore = "";
@@ -168,7 +168,7 @@ namespace MIP
                 _show += "Delivery" + underscore + strdelivery+"\n";
 
                 //string.length + length of "total" (5)
-                String strtotal = totalprice.ToString() + " kr.";
+                String strtotal = totalprice.ToString("0.00") + " kr.";
                 int strnum = 50 - (strtotal.Length + 5);
                 underscore = "";
                 for (int k = 0; k <= strnum; k++)
