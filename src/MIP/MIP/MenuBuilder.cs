@@ -6,6 +6,10 @@ using MIP.Helpers;
 
 namespace MIP
 {
+    /// <summary>
+    /// This class follows the singleton design pattern
+    /// It can make menus and direct the user to the action chosen in the menus
+    /// </summary>
     class MenuBuilder
     {
         private List<string> _identifier;
@@ -21,13 +25,6 @@ namespace MIP
         private string _mainText;
         private int _commandLength;
         private string _seperator;
-
-        private MenuBuilder(Action quit, Action back, Action main) : this()
-        {
-            _quit = quit;
-            _back = back;
-            _main = main;
-        }
 
         private MenuBuilder()
         {
@@ -58,6 +55,9 @@ namespace MIP
             private set;
         }
 
+        /// <summary>
+        /// This property allows outside users to access the single MenuBuilder object
+        /// </summary>
         static public MenuBuilder GetMenu
         {
             get
@@ -71,6 +71,9 @@ namespace MIP
             }
         }
 
+        /// <summary>
+        /// The action to be called when the user selects quit
+        /// </summary>
         public Action Quit
         {
             get
@@ -87,6 +90,9 @@ namespace MIP
             }
         }
 
+        /// <summary>
+        /// The action to be called when the user selects main menu
+        /// </summary>
         public Action Main
         {
             get
@@ -103,6 +109,9 @@ namespace MIP
             }
         }
 
+        /// <summary>
+        /// The action to be called when the user selects back
+        /// </summary>
         public Action Back
         {
             get
@@ -118,10 +127,12 @@ namespace MIP
 
         /// <summary>
         /// Writes out a menu which has the text specified in the list, and a delegate
-        /// called.
+        /// called. Quit, back, and back to main options are added.
         /// </summary>
-        /// <param name="funcText"></param>
-        /// <param name="back"></param>
+        /// <param name="funcText">List of Actions and strings. The strings are printed
+        /// and the Action is invoked when the given text is selected</param>
+        /// <param name="back">Action to return tu when back is selected</param>
+        /// <param name="caller">The the Action which calls MakeMenu as the key along with a name as the value</param>
         public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller)
         {
             MakeMenu(funcText, back, caller, _identifier.GetRange(0,funcText.Count));
@@ -129,6 +140,15 @@ namespace MIP
             return;
         }
 
+        /// <summary>
+        /// Writes out a menu which has the text specified in the list, and a delegate to be
+        /// called. Quit, back, and back to main options are added.
+        /// </summary>
+        /// <param name="funcText">List of Actions and strings. The strings are printed
+        /// and the Action is invoked when the given text is selected</param>
+        /// <param name="back">Action to return tu when back is selected</param>
+        /// <param name="caller">The the Action which calls MakeMenu as the key along with a name as the value</param>
+        /// <param name="identifier">List of identifiers which the user must choose between</param>
         public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier)
         {
@@ -137,13 +157,33 @@ namespace MIP
             return;
         }
 
-        public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller, string prologue)
+        /// <summary>
+        /// Writes out a menu which has the text specified in the list, and a delegate to be
+        /// called. Quit, back, and back to main options are added.
+        /// </summary>
+        /// <param name="funcText">List of Actions and strings. The strings are printed
+        /// and the Action is invoked when the given text is selected</param>
+        /// <param name="back">Action to return tu when back is selected</param>
+        /// <param name="caller">The the Action which calls MakeMenu as the key along with a name as the value</param>
+        /// <param name="prologue">Text to be written after the headline but before the actual menu</param>
+        public void MakeMenu(List<KeyValuePair<Action, string>> funcText,
+            Action back, KeyValuePair<Action, string> caller, string prologue)
         {
             MakeMenu(funcText, back, caller, _identifier.GetRange(0, funcText.Count), prologue);
 
             return;
         }
 
+        /// <summary>
+        /// Writes out a menu which has the text specified in the list, and a delegate to be
+        /// called. Quit, back, and back to main options are added.
+        /// </summary>
+        /// <param name="funcText">List of Actions and strings. The strings are printed
+        /// and the Action is invoked when the given text is selected</param>
+        /// <param name="back">Action to return tu when back is selected</param>
+        /// <param name="caller">The the Action which calls MakeMenu as the key along with a name as the value</param>
+        /// <param name="prologue">Text to be written after the headline but before the actual menu</param>
+        /// <param name="identifier">List of identifiers which the user must choose between</param>
         public void MakeMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier, string prologue)
         {
@@ -170,6 +210,14 @@ namespace MIP
             MakeCleanMenu(funcText, back, caller, identifier, prologue);
         }
 
+        /// <summary>
+        /// Writes out a menu which has the text specified in the list, and a delegate
+        /// called.
+        /// </summary>
+        /// <param name="funcText">List of Actions and strings. The strings are printed
+        /// and the Action is invoked when the given text is selected</param>
+        /// <param name="back">Action to return tu when back is selected</param>
+        /// <param name="caller">The the Action which calls MakeMenu as the key along with a name as the value</param>
         public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller)
         {
             MakeCleanMenu(funcText, back, caller, _identifier, "");
@@ -177,18 +225,47 @@ namespace MIP
             return;
         }
 
-        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller,string prologue)
+        /// <summary>
+        /// Writes out a menu which has the text specified in the list, and a delegate to be
+        /// called.
+        /// </summary>
+        /// <param name="funcText">List of Actions and strings. The strings are printed
+        /// and the Action is invoked when the given text is selected</param>
+        /// <param name="back">Action to return tu when back is selected</param>
+        /// <param name="caller">The the Action which calls MakeMenu as the key along with a name as the value</param>
+        /// <param name="prologue">Text to be written after the headline but before the actual menu</param>
+        public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back,
+            KeyValuePair<Action, string> caller,string prologue)
         {
             MakeCleanMenu(funcText, back, caller, _identifier,prologue);
 
             return;
         }
 
+        /// <summary>
+        /// Writes out a menu which has the text specified in the list, and a delegate to be
+        /// called.
+        /// </summary>
+        /// <param name="funcText">List of Actions and strings. The strings are printed
+        /// and the Action is invoked when the given text is selected</param>
+        /// <param name="back">Action to return tu when back is selected</param>
+        /// <param name="caller">The the Action which calls MakeMenu as the key along with a name as the value</param>
+        /// <param name="identifier">List of identifiers which the user must choose between</param>
         public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier)
         {
             MakeCleanMenu(funcText, back, caller, identifier, ConsoleColor.Green, "");
         }
+        /// <summary>
+        /// Writes out a menu which has the text specified in the list, and a delegate to be
+        /// called.
+        /// </summary>
+        /// <param name="funcText">List of Actions and strings. The strings are printed
+        /// and the Action is invoked when the given text is selected</param>
+        /// <param name="back">Action to return tu when back is selected</param>
+        /// <param name="caller">The the Action which calls MakeMenu as the key along with a name as the value</param>
+        /// <param name="prologue">Text to be written after the headline but before the actual menu</param>
+        /// <param name="identifier">List of identifiers which the user must choose between</param>
 
         public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier,string prologue)
@@ -196,6 +273,18 @@ namespace MIP
             MakeCleanMenu(funcText, back, caller, identifier, ConsoleColor.Green, prologue);
         }
 
+        /// <summary>
+        /// Writes out a menu which has the text specified in the list, and a delegate to be
+        /// called.
+        /// </summary>
+        /// <param name="funcText">List of Actions and strings. The strings are printed
+        /// and the Action is invoked when the given text is selected</param>
+        /// <param name="back">Action to return tu when back is selected</param>
+        /// <param name="caller">The the Action which calls MakeMenu as the key along with a name as the value</param>
+        /// <param name="prologue">Text to be written after the headline but before the actual menu</param>
+        /// <param name="identifier">List of identifiers which the user must choose between</param>
+        /// <param name="commandColor">Color of the identifiers and the command
+        /// which the user enters</param>
         public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back,
             KeyValuePair<Action, string> caller, List<string> identifier,
             ConsoleColor commandColor, string prologue)
@@ -219,7 +308,7 @@ namespace MIP
             }
 
             int maxLenght = 0;
-
+            //Find the maximum length amoung the strings to print in the menu lines
             foreach (var item in funcText)
             {
                 if (item.Value.Length > maxLenght)
@@ -229,7 +318,7 @@ namespace MIP
             }
 
             _commandLength = 0;
-
+            //Find the maximum length amoung the identifiers
             foreach (var item in identifier)
             {
                 if (item.Length > _commandLength)
@@ -247,6 +336,7 @@ namespace MIP
             Console.WriteLine();
             if (caller.Value != null && caller.Value != "")
             {
+                //Printing the head line with "=" before and after the text
                 int length = caller.Value.Length;
                 WriteSeveral("=", (headerSize - length) / 2 - 1);
                 Console.Write(" " + caller.Value + " ");
@@ -258,11 +348,13 @@ namespace MIP
             }
             else
             {
+                //Printing "=" as the header
                 WriteSeveral("=", headerSize);
             }
             Console.WriteLine();
             Console.WriteLine(prologue);
 
+            //Each iteration writes a single menu lien
             for (int i = 0; i < funcText.Count; i++)
             {
                 Console.ForegroundColor = commandColor;
@@ -270,6 +362,7 @@ namespace MIP
                 Console.ForegroundColor = ConsoleColor.White;
                 for (int j = identifier[i].Length; j < _commandLength; j++)
                 {
+                    //Indenting for the text after identifier
                     Console.Write(" ");
                 }
 
@@ -287,6 +380,8 @@ namespace MIP
                 LastSelected = input;
                 if (input == _quitCommand)
                 {
+                    //Quit command selected, the caller is to be returned to
+                    //whould the user decline exiting
                     Program.QuitBack = caller;
                 }
 
@@ -294,11 +389,13 @@ namespace MIP
                 {
                     if (input == identifier[i])
                     {
+                        //The identifier is found
                         funcText[i].Key();
                         return;
                     }
                 }
 
+                //Clean up the incorrect input
                 Console.SetCursorPosition(0, enterRow);
                 for (int i = 0; i < input.Length; i++)
                 {
@@ -310,6 +407,8 @@ namespace MIP
                     Console.Write(" ");
                 }
                 Console.SetCursorPosition(0, enterRow - 1);
+
+                //The user may enter again
                 Console.WriteLine("Incorrect identifier \"{0}\". Please try again:", input.Truncate(10));
                 Console.ForegroundColor = commandColor;
                 input = Console.ReadLine();
@@ -317,6 +416,11 @@ namespace MIP
             }
         }
 
+        /// <summary>
+        /// Prints <code>input</code> <code>count</code> times
+        /// </summary>
+        /// <param name="input">The string to print</param>
+        /// <param name="count">The number of times to print</param>
         private void WriteSeveral(string input, int count)
         {
             while (count > 0)
