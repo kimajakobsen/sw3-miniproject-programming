@@ -9,30 +9,26 @@ namespace MIP
     {
 
         private int _storage;
-        //Constructor that take 4 arguments, use storage argument
-        //and sent name, price, and productcode to Product constuctor
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="price"></param>
-        /// <param name="productcode"></param>
-        /// <param name="storage"></param>
+        //Constuctor for StorageUnit, uses storage.
         public StorageUnit(string name, double price, int productcode, Manufacturer manufacturer, int storage)
             :base(name, price, productcode, manufacturer)
         {
             this._storage = storage;
         }
 
+        //Formats the storage TB / GB
         public string NeatCapacity
         {
             get
             {
                 string store;
+                //If storage is equal or bigger then 1024 it should be formatted as TB
                 if (Storage >= 1024)
                 {
+                    //Devided by 1024 to get GB and then rounded to 1 decimal
                     store = (decimal.Round((decimal)Storage / 1024,1)).ToString() + " TB";
                 }
+                //Else it should be formatted as GB
                 else
                 {
                     store = Storage + " GB";
