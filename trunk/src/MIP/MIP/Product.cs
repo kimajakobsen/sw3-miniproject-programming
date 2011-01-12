@@ -119,6 +119,10 @@ namespace MIP
             }
         }
 
+        /// <summary>
+        /// Method for making a string to be listed in search
+        /// </summary>
+        /// <returns></returns>
         abstract public string ToSearchResultString();
     }
 }

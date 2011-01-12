@@ -5,6 +5,9 @@ using System.Text;
 
 namespace MIP
 {
+    /// <summary>
+    /// Can be 250, 350, or 525
+    /// </summary>
     enum EFormFactor
     {
         two = 250,

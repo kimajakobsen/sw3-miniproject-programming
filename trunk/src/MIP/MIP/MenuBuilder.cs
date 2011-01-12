@@ -50,7 +50,6 @@ namespace MIP
                 _identifier.Add(c+"");
             }
 
-            _commandLength = 1;
         }
 
         public string LastSelected
@@ -166,8 +165,9 @@ namespace MIP
             funcText.Add(new KeyValuePair<Action, string>(_main, _mainText));
             identifier.Add(_quitCommand);
             funcText.Add(new KeyValuePair<Action, string>(_quit, _quitText));
+            _commandLength = 1;
 
-            MakeCleanMenu(funcText, back, caller, identifier,prologue);
+            MakeCleanMenu(funcText, back, caller, identifier, prologue);
         }
 
         public void MakeCleanMenu(List<KeyValuePair<Action, string>> funcText, Action back, KeyValuePair<Action, string> caller)
@@ -225,6 +225,16 @@ namespace MIP
                 if (item.Value.Length > maxLenght)
                 {
                     maxLenght = item.Value.Length;
+                }
+            }
+
+            _commandLength = 0;
+
+            foreach (var item in identifier)
+            {
+                if (item.Length > _commandLength)
+                {
+                    _commandLength = item.Length;
                 }
             }
 
