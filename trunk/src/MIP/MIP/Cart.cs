@@ -29,6 +29,32 @@ namespace MIP
             }
         }
 
+        public String TotalP()
+        {
+            double price = 0;
+            String strprice = "";
+            for (int i = 0; i < _orderList.Count; i++)
+            {
+                for(int j = 0; i < Parser.ProductList.Count; j++)
+                {
+                    if (_orderList[i].Productcode == Parser.ProductList[j].ProductCode)
+                    {
+                        price += Parser.ProductList[j].Price;
+                    }
+                }
+            }
+            strprice = price.ToString("0.00");
+            return strprice;
+        }
+
+        public String TotalPrice
+        {
+            get
+            {
+                return TotalP();
+            }
+        }
+
         //Function that returns the orderList
         public List<OrderLine> GetOrderList()
         {
