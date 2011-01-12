@@ -34,14 +34,14 @@ namespace MIP
             set;
         }
 
-        static void MainMenu()
+        static public void MainMenu()
         {
             Console.Clear();
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
             list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
-            list.Add(new KeyValuePair<Action, string>(AddProduct, "Add product"));
-            list.Add(new KeyValuePair<Action, string>(AddManufacturer, "Add manufacturer"));
+            list.Add(new KeyValuePair<Action, string>(ManageProducts.AddProduct, "Add product"));
+            list.Add(new KeyValuePair<Action, string>(ManageManufacturer.AddManufacturer, "Add manufacturer"));
             NoBackNext = MainMenu;
 
             MenuBuilder.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
@@ -280,115 +280,6 @@ namespace MIP
         {
             Environment.Exit(0);
         }
-
-        #region Add Product
-
-        
-
-
-
-        static void AddProduct()
-        {
-            Console.Clear();
-            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
-            list.Add(new KeyValuePair<Action, string>(AddInternalHarddrive, "Add internal harddrive"));
-            list.Add(new KeyValuePair<Action, string>(AddExternalHarddrive, "Add external harddrive"));
-            list.Add(new KeyValuePair<Action, string>(AddFlashStorage, "Add flash storage device"));
-
-            MenuBuilder.GetMenu.MakeMenu(list, MainMenu, new KeyValuePair<Action, string>(AddProduct, "Add Product"));
-            MainMenu();
-        }
-
-        static void AddInternalHarddrive()
-        {
-            Console.Clear();
-            Console.WriteLine("Adding internal harddrive.\n");
-            string name = GetString("Enter name:", x => x.Length >= 5);
-            double price = GetDouble("Enter price(eg. 1200,50):");
-            int productCode = GetInt("Enter product code(must be unique):",x =>
-                Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
-            string manu = GetString("Enter product manufacturer(eg. " +
-                Parser.ManufacturerList.FirstOrDefault(x => true).Name + "):",
-                x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
-            int store = GetInt("Enter storage capacity(GB):", x => x > 0);
-            int rpm = GetInt("Enter rpm(eg. 4200):", x => Enum.IsDefined(typeof(ERPM), x));
-            double form = GetDouble("Enter form factor(eg. 2,5):", x => Enum.IsDefined(typeof(EFormFactor), (int)(x * 100)));
-
-            InternalHarddrive temp = new InternalHarddrive(
-                name,
-                price,
-                productCode,
-                Parser.ManufacturerList.FirstOrDefault(x => x.Name.ToUpper() == manu.ToUpper()),
-                store,
-                rpm,
-                form);
-
-            Parser.ProductList.Add(temp);
-            Console.WriteLine("Internal harddrive with above specifications added. Press any key to continue.");
-            Console.ReadKey();
-        }
-
-        static void AddExternalHarddrive()
-        {
-            Console.Clear();
-            Console.WriteLine("Adding external harddrive.\n");
-            string name = GetString("Enter name:", x => x.Length >= 5);
-            double price = GetDouble("Enter price(eg. 1200,50):");
-            int productCode = GetInt("Enter product code(must be unique):", x =>
-                Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
-            string manu = GetString("Enter product manufacturer(eg. " +
-                Parser.ManufacturerList.FirstOrDefault(x => true).Name + "):",
-                x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
-            int store = GetInt("Enter storage capacity(GB):", x => x > 0);
-            int rpm = GetInt("Enter rpm(eg. 4200):", x => Enum.IsDefined(typeof(ERPM), x));
-            double height = GetDouble("Enter height:");
-            double width = GetDouble("Enter width:");
-            double depth = GetDouble("Enter depth:");
-
-            ExternalHarddrive temp = new ExternalHarddrive(
-                name,
-                price,
-                productCode,
-                Parser.ManufacturerList.FirstOrDefault(x => x.Name.ToUpper() == manu.ToUpper()),
-                store,
-                rpm,
-                height,
-                width,
-                depth);
-
-            Parser.ProductList.Add(temp);
-            Console.WriteLine("External harddrive with above specifications added. Press any key to continue.");
-            Console.ReadKey();
-        }
-
-        static void AddFlashStorage()
-        {
-            Console.Clear();
-            Console.WriteLine("Adding flash storage unit.\n");
-            string name = GetString("Enter name:", x => x.Length >= 5);
-            double price = GetDouble("Enter price(eg. 1200,50):");
-            int productCode = GetInt("Enter product code(must be unique):", x =>
-                Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
-            string manu = GetString("Enter product manufacturer(eg. " +
-                Parser.ManufacturerList.FirstOrDefault(x => true).Name + "):",
-                x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
-            int store = GetInt("Enter storage capacity(GB):", x => x > 0);
-            bool secure = GetBool("Enter secure usb:");
-
-            FlashStorage temp = new FlashStorage(
-                name,
-                price,
-                productCode,
-                Parser.ManufacturerList.FirstOrDefault(x => x.Name.ToUpper() == manu.ToUpper()),
-                store,
-                secure);
-
-            Parser.ProductList.Add(temp);
-            Console.WriteLine("Flash storage unit with above specifications added. Press any key to continue.");
-            Console.ReadKey();
-        }
-
-        #endregion
 
         
     }
