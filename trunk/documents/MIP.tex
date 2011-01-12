@@ -68,7 +68,7 @@ This brief piece of text describes what our program does(and vaguely how it does
 Make sure to have the ``Init.txt'' file in the same directory as the executable ``MIP.exe'' in order to load products and manufactures.
 
 \subsection*{Running the Program}
-Our program manages manufactures and products.
+Our program manages manufactures, products and cart.
 Each product must have a manufacturer.
 It is possible to add and delete both products and manufactures in our program.
 
@@ -83,7 +83,7 @@ The main-command returns to the main menu described below.
 
 \subsubsection*{Main Menu}
 The main menu is the root of the program so to speak, it leads to search, cart, and management of products and manufactures.
-It is not possible to go back from the menu menu
+It is not possible to go back from the main menu.
 
 \subsubsection*{Search Menu}
 The search menu consists of two parts; a list of products and commands.
@@ -96,7 +96,7 @@ It was not part of the assignment to an upper bound for storage capacity, we did
 Notice that each search operation filters the list, i.e. the list is not reset before each operation.
 
 \subsubsection*{Cart Menu}
-The cart menu prints the content of the cart according to the specifications of our assignment.
+According to the assignment, we should make sure only one cart exist, therefore the Cart class use the singleton pattern. The cart menu prints the content of the cart according to the specifications of our assignment.
 Further the user may checkout his/her items, clear the cart, or remove a specific number of items from the cart through this menu.
 
 \subsubsection*{Manage Products Menu}
@@ -119,5 +119,7 @@ Our catch statements takes only specific exceptions in order to avoid catching a
 In our Initialize method there is a try-catch around MainMenu, which catches every exception and prints the stack trace and then runs the MainMenu again, to avoid the program crashing for the user.
 It could perhaps been made in a way such that the user is alarmed with the error where it occurs instead of returning to the MainMenu.
 
+\subsection*{Sources}
+We used http://msdn.microsoft.com/en-us/library/ to lookup classes and functions we were unsure about.
 
 \end{document}
