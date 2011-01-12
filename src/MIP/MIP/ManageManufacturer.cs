@@ -80,7 +80,7 @@ namespace MIP
             List<string> identifier = new List<string>();
             foreach (var item in searchResult)
             {
-                list.Add(new KeyValuePair<Action, string>(PromptMenu, item.ToSearchResultString()));
+                list.Add(new KeyValuePair<Action, string>(PromptMenu, item.DisplayAsString()));
                 identifier.Add(i + "");
                 i++;
             }
@@ -141,7 +141,7 @@ namespace MIP
             {
                 //If the system dose not contain any producs made by the current manufacturer
                 Parser.ManufacturerList.Remove(temp);
-                Console.WriteLine("\"" + temp.ToSearchResultString() + "\" has been removed. Press any key to continue.");
+                Console.WriteLine("\"" + temp.DisplayAsString() + "\" has been removed. Press any key to continue.");
                 Console.ReadKey();
                 ManageManufacturers();  
             }

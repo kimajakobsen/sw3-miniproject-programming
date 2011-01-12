@@ -6,8 +6,8 @@ using System.Text;
 namespace MIP
 {
     /// <summary>
-    /// The manufacturer class holds a manufacturer of products
-    /// It contains a Name and a Url
+    /// The manufacturer class contains the manufacturer
+    /// the manufacturer have two properties Name and Url
     /// </summary>
     class Manufacturer
     {
@@ -26,6 +26,10 @@ namespace MIP
             Url = url;
         }
 
+        /// <summary>
+        /// The name of the manufacturer
+        /// The name must be unique, not empty and not be null
+        /// </summary>
         public string Name
         {
             get
@@ -59,6 +63,10 @@ namespace MIP
             }
         }
 
+        /// <summary>
+        /// The url of the manufacturer
+        /// The name must start with http://, contain atleast 7 charecters and not be null
+        /// </summary>
         public string Url
         {
             get
@@ -81,7 +89,12 @@ namespace MIP
             }
         }
 
-        public string ToSearchResultString()
+        /// <summary>
+        /// When the manufactor need to be printet in the console, this function is called.
+        /// This way the manufactures are allwas displayed in the same manner.
+        /// </summary>
+        /// <returns>A string with the name and url of the manufacturer</returns>
+        public string DisplayAsString()
         {
             return Name + " " + "Url: " + Url;
         }
