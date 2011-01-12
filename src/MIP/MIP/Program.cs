@@ -34,17 +34,31 @@ namespace MIP
             set;
         }
 
+        /// <summary>
+        /// Responsible for handling the main menu
+        /// </summary>
         static public void MainMenu()
         {
-            Console.Clear();
-            List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
-            list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
-            list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
-            list.Add(new KeyValuePair<Action, string>(ManageProducts.ManageProduct, "Manage products"));
-            list.Add(new KeyValuePair<Action, string>(ManageManufacturer.ManageManufacturers, "Manage manufacturer"));
-            NoBackNext = MainMenu;
+            try
+            {
+                Console.Clear();
+                List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
+                list.Add(new KeyValuePair<Action, string>(InitializeSearch, "Search"));
+                list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
+                list.Add(new KeyValuePair<Action, string>(ManageProducts.ManageProduct, "Manage products"));
+                list.Add(new KeyValuePair<Action, string>(ManageManufacturer.ManageManufacturers, "Manage manufacturer"));
+                NoBackNext = MainMenu;
 
-            MenuBuilder.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
+                MenuBuilder.GetMenu.MakeMenu(list, NoBack, new KeyValuePair<Action, string>(MainMenu, "Main Menu"));
+            }
+            catch
+            {
+                Console.Clear();
+                Console.WriteLine("An occured! Press any key to go to Main Menu.");
+                Console.ReadKey(true);
+                Console.Clear();
+                MainMenu();
+            }
         }
 
         #region Search
@@ -295,7 +309,9 @@ namespace MIP
         static void ClearCart()
         {
             MIP.Cart.GetCart.Clear();
-            Cart();
+            Console.WriteLine("Cart cleared. Press any key to continue.");
+            Console.ReadKey();
+            MainMenu();
         }
 
         static void CheckOut()
@@ -309,7 +325,7 @@ namespace MIP
                 return;
             }
             MIP.Cart.GetCart.Clear();
-            Console.WriteLine("The products will be sent to your address, please pay " + MIP.Cart.TotalPrice + " kr.");
+            Console.WriteLine("The products will be sent to your address, please pay " + MIP.Cart.GetCart.TotalPrice + " kr.");
             
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
