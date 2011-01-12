@@ -31,7 +31,7 @@ namespace MIP
                 string store;
                 if (Storage >= 1024)
                 {
-                    store = (decimal.Round((decimal)Storage / 1024,1)).ToString();
+                    store = (decimal.Round((decimal)Storage / 1024,1)).ToString() + " TB";
                 }
                 else
                 {

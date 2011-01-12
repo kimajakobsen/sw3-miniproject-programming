@@ -342,7 +342,7 @@ namespace MIP
             Console.Clear();
             List<KeyValuePair<Action, string>> list = new List<KeyValuePair<Action, string>>();
             list.Add(new KeyValuePair<Action, string>(AddInternalHarddrive, "Add internal harddrive"));
-            list.Add(new KeyValuePair<Action, string>(AddExternalHarddrive, "Add internal harddrive"));
+            list.Add(new KeyValuePair<Action, string>(AddExternalHarddrive, "Add external harddrive"));
             list.Add(new KeyValuePair<Action, string>(AddFlashStorage, "Add flash storage device"));
 
             MenuBuilder.GetMenu.MakeMenu(list, MainMenu, new KeyValuePair<Action, string>(AddProduct, "Add Product"));
@@ -351,15 +351,18 @@ namespace MIP
 
         static void AddInternalHarddrive()
         {
+            Console.Clear();
+            Console.WriteLine("Adding internal harddrive.\n");
             string name = GetString("Enter name:", x => x.Length >= 5);
             double price = GetDouble("Enter price:");
-            int productCode = GetInt("Enter product code:",x =>
+            int productCode = GetInt("Enter product code(must be unique):",x =>
                 Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
-            string manu = GetString("Enter product manufacturer:", x =>
-                Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
-            int store = GetInt("Enter storage capacity:", x => x > 0);
-            int rpm = GetInt("Enter rpm:", x => Enum.IsDefined(typeof(ERPM), x));
-            double form = GetDouble("Enter form factor:", x => Enum.IsDefined(typeof(EFormFactor), x));
+            string manu = GetString("Enter product manufacturer(eg. " +
+                Parser.ManufacturerList.FirstOrDefault(x => true).Name + "):",
+                x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
+            int store = GetInt("Enter storage capacity(GB):", x => x > 0);
+            int rpm = GetInt("Enter rpm(eg. 4200):", x => Enum.IsDefined(typeof(ERPM), x));
+            double form = GetDouble("Enter form factor(eg. 2,5):", x => Enum.IsDefined(typeof(EFormFactor), (int)(x * 100)));
 
             InternalHarddrive temp = new InternalHarddrive(
                 name,
@@ -371,18 +374,23 @@ namespace MIP
                 form);
 
             Parser.ProductList.Add(temp);
+            Console.WriteLine("Internal harddrive with above specifications added. Press any key to continue.");
+            Console.ReadKey();
         }
 
         static void AddExternalHarddrive()
         {
+            Console.Clear();
+            Console.WriteLine("Adding external harddrive.\n");
             string name = GetString("Enter name:", x => x.Length >= 5);
             double price = GetDouble("Enter price:");
-            int productCode = GetInt("Enter product code:", x =>
+            int productCode = GetInt("Enter product code(must be unique):", x =>
                 Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
-            string manu = GetString("Enter product manufacturer:", x =>
-                Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
-            int store = GetInt("Enter storage capacity:", x => x > 0);
-            int rpm = GetInt("Enter rpm:", x => Enum.IsDefined(typeof(ERPM), x));
+            string manu = GetString("Enter product manufacturer(eg. " +
+                Parser.ManufacturerList.FirstOrDefault(x => true).Name + "):",
+                x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
+            int store = GetInt("Enter storage capacity(GB):", x => x > 0);
+            int rpm = GetInt("Enter rpm(eg. 4200):", x => Enum.IsDefined(typeof(ERPM), x));
             double height = GetDouble("Enter height:");
             double width = GetDouble("Enter width:");
             double depth = GetDouble("Enter depth:");
@@ -399,18 +407,22 @@ namespace MIP
                 depth);
 
             Parser.ProductList.Add(temp);
+            Console.WriteLine("External harddrive with above specifications added. Press any key to continue.");
+            Console.ReadKey();
         }
 
         static void AddFlashStorage()
         {
+            Console.Clear();
+            Console.WriteLine("Adding flash storage unit.\n");
             string name = GetString("Enter name:", x => x.Length >= 5);
             double price = GetDouble("Enter price:");
-            int productCode = GetInt("Enter product code:", x =>
+            int productCode = GetInt("Enter product code(must be unique):", x =>
                 Parser.ProductList.FirstOrDefault(y => y.ProductCode == x) == null);
-            string manu = GetString("Enter product manufacturer:", x =>
-                Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
-            int store = GetInt("Enter storage capacity:", x => x > 0);
-            int rpm = GetInt("Enter rpm:", x => Enum.IsDefined(typeof(ERPM), x));
+            string manu = GetString("Enter product manufacturer(eg. " +
+                Parser.ManufacturerList.FirstOrDefault(x => true).Name + "):",
+                x => Parser.ManufacturerList.FirstOrDefault(y => y.Name.ToUpper() == x.ToUpper()) != null);
+            int store = GetInt("Enter storage capacity(GB):", x => x > 0);
             bool secure = GetBool("Enter secure usb:");
 
             FlashStorage temp = new FlashStorage(
@@ -422,6 +434,8 @@ namespace MIP
                 secure);
 
             Parser.ProductList.Add(temp);
+            Console.WriteLine("Flash storage unit with above specifications added. Press any key to continue.");
+            Console.ReadKey();
         }
 
         #endregion
@@ -476,7 +490,7 @@ namespace MIP
             Console.ForegroundColor = ConsoleColor.Green;
             input = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
-            while (!int.TryParse(input, out result) && !predicate(result))
+            while (!int.TryParse(input, out result) || !predicate(result))
             {
                 Console.SetCursorPosition(0, enterRow);
                 for (int i = 0; i < input.Length; i++)
@@ -512,7 +526,7 @@ namespace MIP
             Console.ForegroundColor = ConsoleColor.Green;
             input = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
-            while (!double.TryParse(input, out result) && !predicate(result))
+            while (!double.TryParse(input, out result) || !predicate(result))
             {
                 Console.SetCursorPosition(0, enterRow);
                 for (int i = 0; i < input.Length; i++)
@@ -548,7 +562,7 @@ namespace MIP
             Console.ForegroundColor = ConsoleColor.Green;
             input = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
-            while (!bool.TryParse(input, out result) && !predicate(result))
+            while (!bool.TryParse(input, out result) | !predicate(result))
             {
                 Console.SetCursorPosition(0, enterRow);
                 for (int i = 0; i < input.Length; i++)
