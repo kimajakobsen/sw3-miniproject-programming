@@ -53,7 +53,7 @@ namespace MIP
                 return;
             }
         }
-
+        //This function create a string with Internal Harddrive info
         /// <summary>
         /// When a InternalHarddrive is printet in the console, this function is called.
         /// This way all the Internal harddrives are allwas displayed in the same manner.
