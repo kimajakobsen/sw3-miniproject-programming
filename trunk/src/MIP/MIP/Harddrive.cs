@@ -37,7 +37,13 @@ namespace MIP
             {
                 //if the entered value is of the RPM standard, then the value is saved.
                 if (Enum.IsDefined(typeof(ERPM), value))
+                {
                     _rpm = (ERPM)value;
+                }
+                else
+                {
+                    throw new InvalidOperationException("Unable to assign " + value + " to a RPM value");
+                }
             }
         }
 

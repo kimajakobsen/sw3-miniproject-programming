@@ -40,10 +40,14 @@ namespace MIP
 
             set
             {
-               
-                if (Enum.IsDefined(typeof(EFormFactor), value))
+
+                if (Enum.IsDefined(typeof(EFormFactor), (int)(value * 100)))
                 {
-                    _formFactor = (EFormFactor)(value*100);
+                    _formFactor = (EFormFactor)(value * 100);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Unable to assign " + value + " to a form factor value");
                 }
 
                 return;
