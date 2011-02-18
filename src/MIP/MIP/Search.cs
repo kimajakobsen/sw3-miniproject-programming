@@ -129,6 +129,25 @@ namespace MIP
             return SearchStorageRange(currentResult, min, max);
         }
 
+
+        /// <summary>
+        /// Function to search for screen for a minimum size or mazimum size. * can be used as wildcard
+        /// </summary>
+        /// <param name="searchList">The list to search in</param>
+        /// <param name="min">minmum size or wildcard</param>
+        /// <param name="max">maximum size or wildcard</param>
+        /// <returns>A list containing all the products with a size between min and max</returns>
+        public static List<Product> SearchSizeRange(List<Product> searchList, int min, int max)
+        {
+            currentResult = searchList.Where(x => x is Screen && (x as Screen).Size >= min && (x as Screen).Size <= max).ToList();
+            return currentResult;
+        }
+
+        public static List<Product> SearchSizeRange(int min, int max)
+        {
+            return SearchSizeRange(currentResult, min, max);
+        }
+
         /// <summary>
         /// 
         /// </summary>

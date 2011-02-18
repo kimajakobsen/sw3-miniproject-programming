@@ -124,5 +124,7 @@ namespace MIP
         /// </summary>
         /// <returns></returns>
         abstract public string ToSearchResultString();
+        //The ToString function
+        abstract public string ToPrint();
     }
 }

@@ -57,5 +57,10 @@ namespace MIP
             return Manufacturer.Name + " " + Name + " " + encryption + " " + NeatCapacity + " " +
                 " " + Price + " kr.";
         }
+        //The ToString function
+        override public string ToPrint()
+        {
+            return Manufacturer.Name + " " + Name + " " + NeatCapacity;
+        }
     }
 }

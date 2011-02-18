@@ -15,9 +15,40 @@ namespace MIP
         /// </summary>
         static void Main(string[] args)
         {
+            //Calling AddScreen add the new input
+            AddScreen();
             Initialize();
+            Console.WriteLine("What?");
+            
+            
 
             return;
+        }
+
+        static void AddScreen()
+        {
+            //Adding HDMI DVI CGA to the input list
+            Input.setInput("HDMI");
+            Input.setInput("DVI");
+            Input.setInput("VGA");
+
+            //Declaring two new manufacturer
+            Manufacturer samsung = new Manufacturer("Samsung","http://samsung.dk");
+            Manufacturer fujitsu = new Manufacturer("Fujitsu", "http://fujitsu.dk");
+            //Testing all 4 constructores
+            //name price productcode size color resolution, manufacturer
+            Screen screen1 = new Screen("SuperView",2000,6661,22,1700000,"1680*1050",samsung);
+            //name price productcode size color resolution, manufacturer, input1
+            Screen screen2 = new Screen("FutureTv",2500,6662,32,1700000,"1680*1050",fujitsu,"HDMI");
+            //name price productcode size color resolution, manufacturer, input1, input2
+            Screen screen3 = new Screen("ProLite", 3000, 6663, 42, 1700000, "1680*1050", samsung,"HDMI","DVI");
+            //name price productcode size color resolution, manufacturer, input1, input2, input3
+            Screen screen4 = new Screen("BamView", 3500, 6664, 120, 1700000, "1680*1050", fujitsu,"HDMI","DVI","VGA");
+            //Adding the 4 new elements to the productlist
+            MIP.Parser.ProductList.Add(screen1);
+            MIP.Parser.ProductList.Add(screen2);
+            MIP.Parser.ProductList.Add(screen3);
+            MIP.Parser.ProductList.Add(screen4);
         }
 
         /// <summary>
@@ -82,6 +113,7 @@ namespace MIP
             list.Add(new KeyValuePair<Action, string>(Cart, "Cart"));
             list.Add(new KeyValuePair<Action, string>(ManageProducts.ManageProduct, "Manage products"));
             list.Add(new KeyValuePair<Action, string>(ManageManufacturer.ManageManufacturers, "Manage manufacturer"));
+            list.Add(new KeyValuePair<Action, string>(ToStringOpgaven, "Test af ToString opgaven"));
             NoBackNext = MainMenu;
 
             //The menu is build:
@@ -136,6 +168,9 @@ namespace MIP
                 list.Add(new KeyValuePair<Action, string>(SearchStorage, "Filter by storage capacity"));
                 identifier.Add(c + "");
                 c++;
+                list.Add(new KeyValuePair<Action, string>(SearchSize, "Filter by screen size"));
+                identifier.Add(c + "");
+                c++;
                 list.Add(new KeyValuePair<Action, string>(SearchText, "Filter for product/manufacture name"));
                 identifier.Add(c + "");
                 c++;
@@ -166,6 +201,20 @@ namespace MIP
 
             SearchMain(Search.SearchProductCode(_previousStack.Peek(),i));
             return;
+        }
+        //This is the ToString fuction
+        static void ToStringOpgaven()
+        {
+            //Clear the console
+            Console.Clear();
+            //The print of all product elements
+            foreach(Product p in Parser.ProductList)
+            {
+                Console.WriteLine(p.ToPrint());
+            }
+            //Continue
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey();
         }
 
         static void SearchPrice()
@@ -255,6 +304,51 @@ namespace MIP
                 maxI = temp;
             }
             SearchMain(Search.SearchStorageRange(_previousStack.Peek(), minI, maxI));
+            return;
+        }
+        //Function for searching by Size, with a menu
+        static void SearchSize()
+        {
+            Console.Clear();
+            Console.WriteLine("Enter a size range(in GB) to search in(e.g. 512-2048, use '*' as wildcard):");
+            int maxI, minI;
+            string min;
+            string max;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                string input = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.White;
+                input.Trim();
+                if (input == "*")
+                {
+                    input = "*-*";
+                }
+                input += " ";
+                int indexSplit = input.IndexOf('-');
+                min = input.Substring(0, indexSplit).Trim();
+                max = input.Substring(indexSplit + 1).Trim();
+
+                if (min == "*" || min == "")
+                {
+                    min = "0";
+                }
+                if (max == "*" || max == "")
+                {
+                    max = int.MaxValue + "";
+                }
+                Console.Clear();
+                Console.WriteLine("Invalid input \"{0}\". Please enter a new size range(integer) to search in:", input.Truncate(10));
+            }
+            while (!int.TryParse(min, out minI) || !int.TryParse(max, out maxI));
+
+            if (minI > maxI)
+            {
+                int temp = minI;
+                minI = maxI;
+                maxI = temp;
+            }
+            SearchMain(Search.SearchSizeRange(_previousStack.Peek(), minI, maxI));
             return;
         }
 
