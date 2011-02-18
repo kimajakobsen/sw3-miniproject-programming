@@ -49,6 +49,7 @@
     <Compile Include="EFormFactor.cs" />
     <Compile Include="Harddrive.cs" />
     <Compile Include="Helpers\Strings.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="InternalHarddrive.cs" />
     <Compile Include="ManageManufacturer.cs" />
     <Compile Include="ManageProducts.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ERPM.cs" />
+    <Compile Include="Screen.cs" />
     <Compile Include="Search.cs" />
     <Compile Include="StorageUnit.cs" />
     <Compile Include="Toolbox.cs" />

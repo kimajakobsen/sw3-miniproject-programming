@@ -139,14 +139,20 @@ namespace MIP
                     {
                         //Match found, and empty is set to false.
                         empty = false;
-                        try
+                        //Check if it is a harddisk or screen
+                        if (Parser.ProductList[j] is StorageUnit)
                         {
                             //Rounding storage size GB / TB
                             //If storage is smaller then 1024 return stage in GB
                             StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
                             _capacity = productUnit.NeatCapacity;
                         }
-                        catch { }
+                        else if (Parser.ProductList[j] is Screen)
+                        {
+                            Screen productUnit = Parser.ProductList[j] as Screen;
+                            _capacity = productUnit.Size.ToString()+"\"";
+                        }
+
                         //Prepare the number of product
                         String numberofproduct = _orderList[i].Number.ToString() + ". ";
                         //price for the selected product * number of the product
@@ -258,14 +264,20 @@ namespace MIP
                     {
                         //Match found, and empty is set to false.
                         empty = false;
-                        try
-                        {   
-                            //Rounding storage size GB / TB
-                            //If storage is smaller then 1024 return stage in GB
-                            StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
-                            _capacity = productUnit.NeatCapacity;
-                        }
-                        catch { }
+                            //Check if its a harddisk or screen
+                            if (Parser.ProductList[j] is StorageUnit)
+                            {
+                                //Rounding storage size GB / TB
+                                //If storage is smaller then 1024 return stage in GB
+                                StorageUnit productUnit = Parser.ProductList[j] as StorageUnit;
+                                _capacity = productUnit.NeatCapacity;
+                            }
+                            else if (Parser.ProductList[j] is Screen)
+                            {
+                                Screen productUnit = Parser.ProductList[j] as Screen;
+                                _capacity = productUnit.Size.ToString() + "\"";
+                            }
+
                         //Prepare the number of product
                         String numberofproduct = _orderList[i].Number.ToString() + ". ";
                         //price for the selected product * number of the product
